@@ -11,7 +11,14 @@ app.get('/api',
   }
 )
 
-//set up routes 
+//set up routes to serve static files
+/* 
+app.get('/', (req, res) => {
+  return res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '../client/index.html'));
+});
+ */
 
 
 //catch all route handler
