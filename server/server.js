@@ -3,12 +3,12 @@ const app = express();
 //this is how you pull in the env file
 require('dotenv').config();
 
-const db = require('./db');
+// const db = require('./db');
 const userRoutes = require('./routes/users');
 
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch((err) => console.log('ERROR', err));
+// db.authenticate()
+//   .then(() => console.log('Database connected...'))
+//   .catch((err) => console.log('ERROR', err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
