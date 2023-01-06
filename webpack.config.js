@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.s?css/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
       },
       {
         test: /\.(jpg|png)$/,
@@ -45,7 +45,7 @@ module.exports = {
     host:'localhost',
     historyApiFallback: true,
     proxy: {
-      '/api': {
+      '/**': {
         target: 'http://localhost:3005',
       },
     },
