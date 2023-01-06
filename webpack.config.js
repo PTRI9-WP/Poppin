@@ -36,17 +36,19 @@ module.exports = {
     ],
   },
 
-
-
   devServer: {
-    port:8080,
-    hot:true,
-    host:'localhost',
+    port: 8080,
+    hot: true,
+    host: 'localhost',
     historyApiFallback: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3005'
-      }, 
-    }
+      // /** is any characters after the intial root route
+      '/**': {
+        target: 'http://localhost:3005',
+      },
+      // '/users': {
+      //   target: 'http://localhost:3005',
+      // },
+    },
   },
 };
