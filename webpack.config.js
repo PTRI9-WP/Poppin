@@ -8,9 +8,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
-    publicPath: './client/public', //when bundled and deployed --> serves bundled js file
   },
-
+    plugins: [
+      new HTMLWebpackPlugin({
+        template: './client/public/index.html',
+      }),
+    ],
   module: {
     rules: [
       {
@@ -36,17 +39,15 @@ module.exports = {
     ],
   },
 
-
-
   devServer: {
-    port:8080,
-    hot:true,
+    port: 8080,
+    hot: true,
     host:'localhost',
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3005'
-      }, 
-    }
+        target: 'http://localhost:3005',
+      },
+    },
   },
 };
