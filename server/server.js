@@ -1,25 +1,25 @@
 const express = require('express');
 const app = express();
-app.use(express.json())
+//this is how you pull in the env file
 require('dotenv').config();
-app.use(express.urlencoded({extended: true}));
 
+const db = require('./db');
+const userRoutes = require('./routes/users');
 
-app.get('/api',
-  (_, res) => {
-    res.status(200).send('hello world')
-  }
-)
+db.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch((err) => console.log('ERROR', err));
 
-//set up routes to serve static files
-/* 
-app.get('/', (req, res) => {
-  return res
-    .status(200)
-    .sendFile(path.resolve(__dirname, '../client/index.html'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/users', userRoutes);
+
+app.get('/api', (_, res) => {
+  res.status(200).send('hello world');
 });
- */
 
+//set up routes
 
 //catch all route handler
 app.use((_, res) => res.status(404).send('page not found'));
@@ -32,6 +32,6 @@ app.use((err, _, res, __) => {
   });
 });
 
-app.listen(3005, ()=> {
-  console.log('server connected on 3005')
-})
+app.listen(3005, () => {
+  console.log('server connected on 3005');
+});
