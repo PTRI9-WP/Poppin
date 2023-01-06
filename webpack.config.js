@@ -8,9 +8,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
-    publicPath: './client/public', //when bundled and deployed --> serves bundled js file
   },
-
+    plugins: [
+      new HTMLWebpackPlugin({
+        template: './client/public/index.html',
+      }),
+    ],
   module: {
     rules: [
       {
@@ -25,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.s?css/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
       },
       {
         test: /\.(jpg|png)$/,

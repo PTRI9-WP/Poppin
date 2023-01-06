@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav {
+    @apply bg-black text-[#00df9a] w-auto font-medium px-6 py-3;
+  }
+  .menu{
+    @apply flex justify-between items-center ml-96
+  }
+}
