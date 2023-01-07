@@ -2,11 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: white;
+}
+
 @layer components {
   .nav {
-    @apply bg-black text-[#00df9a] w-auto font-medium px-6 py-3;
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
   }
-  .menu{
-    @apply flex justify-between items-center ml-96
+
+  .logoName {
+    @apply flex flex-row;
+  }
+
+  .navLogo {
+    @apply w-24 mr-8;
+  }
+
+  .title {
+    @apply text-white text-7xl font-serif italic;
+  }
+
+  .menu {
+    @apply flex gap-x-9 items-center text-white font-bold;
+  }
+
+  .barPic {
+    @apply fixed w-[100%] mb-96;
+  }
+
+  /* .header {
+    @apply absolute;
+  } */
+
+  .info {
+    @apply fixed bg-pink bottom-0 w-[100%];
+  }
+  .promo {
+    @apply flex flex-row text-dark justify-around;
+  }
+
+    .promo li{
+    @apply w-[30%];
+  }
+    .promo h2{
+    @apply mt-4 font-bold text-4xl text-center text-dark;
+  }
+
+      .promo p{
+    @apply mt-5 text-xl text-center text-dark italic ;
   }
 }
