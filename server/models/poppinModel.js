@@ -1,1 +1,0 @@
-const PG_URI = "postgres://hbiayicv:jSLj_Udb0dqqLxkSh7twrAaiFq89gQOj@jelani.db.elephantsql.com/hbiayicv";
