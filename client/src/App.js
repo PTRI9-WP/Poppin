@@ -15,7 +15,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<RegisterModal />} />
+          <Route path='/' element={<LandingPage />} />
           <Route path='/home' element={<LandingPage />} />
           <Route path='/Checkin' element={<Checkin />} />
         </Routes>

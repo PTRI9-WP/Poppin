@@ -11,6 +11,10 @@ body {
     @apply flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
   }
 
+  .navLanding {
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+  }
+
   .logoName {
     @apply flex flex-row;
   }
@@ -49,16 +53,38 @@ body {
     @apply mt-5 text-xl text-center text-dark italic;
   }
 
-  .locationForm{
+  .locationForm {
     @apply flex flex-row my-12 justify-around max-w-[60%];
   }
 
-  .login {
-    @apply w-[50%]
+  .registerModal,
+  .loginModal {
+    @apply absolute left-0 right-0 top-14 mx-auto h-96 max-w-sm bg-white p-10 mt-44 rounded-lg;
+  }
+  /* Original Modal below, before trying to create the new one above */
+  /* .registerModal, .loginModal {
+    @apply w-[50%] h-96 mx-auto mt-32;
+  } */
+
+  .regForm,
+  .logForm {
+    @apply flex flex-col justify-evenly items-center h-[100%];
+  }
+
+  .modalTitle {
+    @apply text-dark text-4xl font-serif italic text-center;
   }
 
   .stdButton {
-    @apply bg-green p-3;
+    @apply bg-green p-3 w-fit rounded-lg text-white;
+  }
+
+  .inputBox {
+    @apply form-input px-4 py-3 rounded-full;
+  }
+
+  .close-icon{
+    @apply float-right
   }
 
 }
