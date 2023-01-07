@@ -6,7 +6,9 @@ const { Sequelize } = require('sequelize');
 module.exports = new Sequelize(process.env.URI, {
   host: 'localhost',
   dialect: 'postgres',
-
+  define: {
+    timestamps: false,
+  },
   pool: {
     max: 5,
     min: 0,

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 // import Card from '../components/Card';
 import CardContainer from '../components/CardContainer';
 
+import Map from '../components/Maps';
 const Dashboard = () => {
 
 const handleSubmit = (e) => {
@@ -24,6 +25,7 @@ const handleCurrentLoc = (e) => {
       <main className='flex flex-col max-w-[60%] mx-auto'>
         {' '}
         {/*  max width 1100px margin 0 auto */}
+      <Map></Map>
         {/* User Location form section */}
         <div className='locationForm'>
           <h3>Select a location:</h3>
