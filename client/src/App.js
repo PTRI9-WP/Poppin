@@ -4,13 +4,19 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Checkin from './pages/Checkin';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
+
+//temporarily imported just for rendering
+import LoginModal from './components/LoginModal';
+import RegisterModal from './components/RegisterModal';
+
+
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/home' element={<Dashboard />} />
+          <Route path='/' element={<RegisterModal />} />
+          <Route path='/home' element={<LandingPage />} />
           <Route path='/Checkin' element={<Checkin />} />
         </Routes>
       </BrowserRouter>

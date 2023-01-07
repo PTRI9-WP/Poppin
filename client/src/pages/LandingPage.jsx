@@ -8,9 +8,9 @@ const LandingPage = () => {
     <>
       <div className='top'>
         <img src={bar} alt='bar' className='barPic' />
-        <Header className='header' />
+        <Header className='fixed' />
       </div>
-      {/* <Link to='/home'> temp link to dashboard </Link> */}
+      
       <div className='info'>
         <ul className='promo'>
           <li>

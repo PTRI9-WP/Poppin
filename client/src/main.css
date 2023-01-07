@@ -8,7 +8,7 @@ body {
 
 @layer components {
   .nav {
-    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+    @apply flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
   }
 
   .logoName {
@@ -28,12 +28,8 @@ body {
   }
 
   .barPic {
-    @apply fixed w-[100%] mb-96;
+    @apply fixed w-screen mb-96;
   }
-
-  /* .header {
-    @apply absolute;
-  } */
 
   .info {
     @apply fixed bg-pink bottom-0 w-[100%];
@@ -42,14 +38,27 @@ body {
     @apply flex flex-row text-dark justify-around;
   }
 
-    .promo li{
+  .promo li {
     @apply w-[30%];
   }
-    .promo h2{
+  .promo h2 {
     @apply mt-4 font-bold text-4xl text-center text-dark;
   }
 
-      .promo p{
-    @apply mt-5 text-xl text-center text-dark italic ;
+  .promo p {
+    @apply mt-5 text-xl text-center text-dark italic;
   }
+
+  .locationForm{
+    @apply flex flex-row my-12 justify-around max-w-[60%];
+  }
+
+  .login {
+    @apply w-[50%]
+  }
+
+  .stdButton {
+    @apply bg-green p-3;
+  }
+
 }

@@ -548,7 +548,6 @@ video {
 }
 
 .nav {
-  position: fixed;
   z-index: 10;
   display: flex;
   width: 100%;
@@ -591,12 +590,8 @@ video {
 .barPic {
   position: fixed;
   margin-bottom: 24rem;
-  width: 100%;
+  width: 100vw;
 }
-
-/* .header {
-    @apply absolute;
-  } */
 
 .info {
   position: fixed;
@@ -638,12 +633,70 @@ video {
   color: rgb(42 40 41 / var(--tw-text-opacity));
 }
 
+.locationForm {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  max-width: 60%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.login {
+  width: 50%;
+}
+
+.stdButton {
+  --tw-bg-opacity: 1;
+  background-color: rgb(142 147 121 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+}
+
 .visible {
   visibility: visible;
 }
 
-.border {
-  border-width: 1px;
+.fixed {
+  position: fixed;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-14 {
+  margin-bottom: 3.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.max-w-\[60\%\] {
+  max-width: 60%;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-sky-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(14 165 233 / var(--tw-border-opacity));
+}
+
+.py-52 {
+  padding-top: 13rem;
+  padding-bottom: 13rem;
 }
 
 body {
