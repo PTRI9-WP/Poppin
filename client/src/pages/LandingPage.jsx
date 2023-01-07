@@ -1,21 +1,36 @@
-import React from 'react'
-import Header from '../components/Header'
+import React, {useState} from 'react'
+import Header from '../components/HeaderLanding'
 import { Link } from 'react-router-dom'
 import bar from '../assets/images/bar.jpg';
+import LoginModal from '../components/LoginModal';
+import RegisterModal from '../components/RegisterModal';
 
 const LandingPage = () => {
+  const [ showLogin, setShowLogin ] = useState(false);
+  const [ showReg, setShowReg ] = useState(false);
+
+
   return (
     <>
       <div className='top'>
         <img src={bar} alt='bar' className='barPic' />
-        <Header className='header' />
+        <Header
+          className='fixed'
+          setShowLogin={setShowLogin}
+          setShowReg={setShowReg}
+        />
       </div>
-      {/* <Link to='/home'> temp link to dashboard </Link> */}
+      
+      {showLogin ? <LoginModal setShowLogin={setShowLogin} /> : null}
+      {showReg ? <RegisterModal setShowReg={setShowReg} /> : null}
+
       <div className='info'>
         <ul className='promo'>
           <li>
             <h2>Hate Crowds?</h2>
-            <p className='b'>Find a great deal while being in a more intimate setting.</p>
+            <p className='b'>
+              Find a great deal while being in a more intimate setting.
+            </p>
           </li>
           <li>
             <h2>Love Crowds?</h2>
