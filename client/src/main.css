@@ -2,11 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: white;
+}
+
 @layer components {
   .nav {
-    @apply bg-black text-[#00df9a] w-auto font-medium px-6 py-3;
+    @apply relative flex items-center justify-between p-9 bg-black bg-opacity-50;
   }
-  .menu{
-    @apply flex justify-between items-center ml-96
+
+  .logoName {
+    @apply flex flex-row;
   }
+
+  .navLogo {
+    @apply w-24 mr-8;
+  }
+
+  .title {
+    @apply text-white text-7xl font-serif italic;
+  }
+
+  .menu {
+    @apply flex gap-x-9 items-center text-white font-bold;
+  }
+
+  .barPic {
+    @apply absolute z-0 w-auto;
+  }
+
+  .header {
+    @apply absolute mt-10;
+  }
+
+  .info {
+    @apply relative mt-1;
+  }
+  .promo {
+    @apply flex flex-row text-white;
+  }
+
 }
