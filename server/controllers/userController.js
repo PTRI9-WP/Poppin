@@ -4,16 +4,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const User = require('../models/UserModel');
 const User = require('../models/UserModel');
+// const Refreshkey = require('../models/RefreshkeyModel');
 
 const userController = {
-  checkIfUserExists: async (req, res, next) => {},
-
   registerUser: async (req, res, next) => {
     const { username, password, email, location } = req.body;
     try {
       if (!username || !password || !email || !location) {
         res.status(400);
-        throw new Error('please add all required fields');
+        throw new Error('Please add all required fields');
       }
 
       const userExists = await User.findOne({ where: { email } });
@@ -32,50 +31,73 @@ const userController = {
         location,
       });
 
+      //TESTING ALL THAT COMES FROM USER
+      // res.status(200).json(newUser);
+
       res.status(200).json({
-        _id: newUser.primaryKey,
+        _id: newUser.id,
+        username,
         email,
         location,
-        token: jwt.sign({ newUser }, process.env.ACCESS_TOKEN_SECRET, {
+        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: '60d',
         }),
       });
     } catch (err) {
-      console.log('in the catch statement');
-      console.log('error --->', err);
+      console.log(err);
       return next(err);
     }
   },
 
   loginUser: async (req, res, next) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-      res.status(400);
-      throw new Error('please enter all required fields');
-    }
-
-    const userExists = await User.findOne({ where: { email } }); //<--might be an extra set of {}
-
-    if (!userExists) {
-      res.status(500);
-      throw new Error('user does not exist');
-    }
 
     try {
+      if (!email || !password) {
+        res.status(400);
+        throw new Error('please enter all required fields');
+      }
+
+      const userExists = await User.findOne({ where: { email } });
+
+      if (!userExists) {
+        res.status(500);
+        throw new Error('user does not exist');
+      }
+
       if (await bcrypt.compare(password, userExists.password)) {
-        res.status(200).json({
-          _id: userExists.primaryKey,
-          email,
-          token: jwt.sign({ userExists }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '60d',
+        const tokens = {
+          token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '20m',
           }),
+          refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
+        };
+
+        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+        // 2. write a function to store the email and the token <-- Completed
+
+        //added tokens to cookies so it will remain on the user
+        res.cookie = tokens;
+        //MAKE SURE TO GRAB TOKENS.TOKEN
+        res.status(200).json({
+          _id: userExists.id,
+          email,
+          username: userExists.username,
+          location: userExists.location,
+          tokens,
         });
+
+        //added next to pas tokens
+        next();
       } else {
         res.status(400);
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-      console.log(err);
+      // const statusCode = res.statusCode ? res.statusCode : 500;
+      // res.status(statusCode).json({
+      //   message: err.message ? err.message : 'An unknown error occured',
+      // });
       return next(err);
     }
   },
@@ -85,40 +107,61 @@ const userController = {
       const users = await User.findAll();
       res.status(200).json(users);
     } catch (err) {
-      console.log(err);
+      const statusCode = res.statusCode ? res.statusCode : 500;
+      res.status(statusCode).json({
+        message: err.message ? err.message : 'An unknown error occured',
+      });
     }
   },
+
+  // checkAccessToken: async (req, res, next) => {
+  //   try {
+  //     if (res.cookie) {
+  //       if (
+  //         !jwr.verify(res.cookie.accessToken, process.env.ACCESS_TOKEN_SECRET)
+  //       ) {
+  //         const checkForRefreshToken = await Refreshkey.findOne({
+  //           where: { email },
+  //         });
+
+  //         if (checkForRefreshToken) {
+  //           const tokens = {
+  //             accessToken: jwt.sign(
+  //               { email },
+  //               process.env.ACCESS_TOKEN_SECRET,
+  //               {
+  //                 expiresIn: '20m',
+  //               }
+  //             ),
+  //             refreshToken: jwt.sign(
+  //               { email },
+  //               process.env.REFRESH_TOKEN_SECRET
+  //             ),
+  //           };
+
+  //           const deleteUser = Refreshkey.findOne({ where: { email } });
+  //           deleteUser.destroy;
+
+  //           Refreshkey.create({
+  //             email,
+  //             refreshtoken: tokens.refreshToken,
+  //           });
+
+  //           // send the user back as json an accesstoken and refreshtoken
+  //           res.cookie = tokens;
+  //           return next();
+  //         }
+  //       }
+  //     }
+  //   } catch (err) {
+  //     const statusCode = res.statusCode ? res.statusCode : 500;
+  //     res.status(statusCode).json({
+  //       message: err.message
+  //         ? err.message
+  //         : 'Error in the checkAccessToken Function in UserController',
+  //     });
+  //   }
+  // },
 };
 
 module.exports = userController;
-
-//REGISTER USER FUNCTION
-
-//AUTHENTICATE USER LOGIN
-
-// *** MIDDLEWARE AUTHENTICATE TOKEN
-
-// const authenticateToken = async (req, res, next) => {
-//   const authHeader = req.headers['authorization'];
-//   const token = authHeader && authHeader.split(' ')[1];  // <-- undefined or actual token
-
-//   if(!token) return res.sendStatus(401).json({message: 'Not authorized'});
-
-//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-//     if(err) return res.sendStatus(403) //<-- we see you have a token but its not valid so you no longer have access
-//     const user = await user.findOne({where: {{email}});
-//     req.user = {
-//       _id = user.primaryKey,
-//       email,
-//       username,
-
-//     }
-//     return next()
-//   })
-
-// }
-// };
-
-// PUT INTO ENV FILE
-
-// PUT INTO ENV FILE
