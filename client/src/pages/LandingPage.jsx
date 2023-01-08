@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import bar from '../assets/images/bar.jpg';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
+import Map from '../components/Maps';
 
 const LandingPage = () => {
   const [ showLogin, setShowLogin ] = useState(false);
@@ -12,6 +13,7 @@ const LandingPage = () => {
 
   return (
     <>
+      <Map></Map>
       <div className='top'>
         <img src={bar} alt='bar' className='barPic' />
         <Header
