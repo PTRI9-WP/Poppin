@@ -16,7 +16,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     return await authService.login(user);
   } catch (err) {
     //axios response || backend response || error from this function
-    const message = err.response?.data.message || err.message || err.toString();
+    const message = err.response?.data.message ?? err.toString();
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -25,6 +25,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('user');
 });
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
