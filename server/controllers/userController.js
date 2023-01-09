@@ -88,7 +88,7 @@ const userController = {
           tokens,
         });
 
-        //added next to pass tokens
+        //added next to pas tokens
         next();
       } else {
         res.status(400);
