@@ -29,10 +29,14 @@ function Map() {
   };
   const onPlacesChanged = () => {
     const places = searchBox.getPlaces();
-    console.log('location', places[0].geometry.location);
+    console.log('location', places[0].geometry);
     console.log('lat', places[0].geometry.location.lat());
     console.log('long', places[0].geometry.location.lng())
-    
+
+    const bounds = new google.maps.LatLngBounds();
+    console.log(bounds)
+    bounds.union(places[0].geometry.viewport);
+    map.fitBounds(bounds);
   };
 
   const onSBLoad = ref => {
@@ -62,7 +66,7 @@ function Map() {
       >
         <input 
         type="text"
-        placeholder="Customized your placeholder"
+        placeholder="123 Main St`"
         style={{
         boxSizing: `border-box`,
         border: `1px solid transparent`,
