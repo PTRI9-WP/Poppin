@@ -5,6 +5,7 @@ const db = require('./db');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
+const businessRoutes = require('./routes/businesses');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +14,8 @@ db.authenticate()
   .catch((err) => console.log('ERROR', err));
 
 app.use('/users', userRoutes);
+
+app.use('/businesses', businessRoutes);
 
 // //catch all route handler
 // app.use((_, res) => res.status(404).send('page not found'));
