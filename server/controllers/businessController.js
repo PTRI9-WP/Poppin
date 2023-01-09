@@ -23,7 +23,7 @@ const businessController = {
         !businessname ||
         !password ||
         !email ||
-        poppinscore ||
+        !poppinscore ||
         !maxcapacity ||
         !currentcapacity ||
         !location
