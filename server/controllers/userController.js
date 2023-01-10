@@ -7,12 +7,11 @@ const User = require('../models/UserModel');
 
 const Refreshkey = require('../models/RefreshkeyModel');
 
-
 const userController = {
   registerUser: async (req, res, next) => {
-    const { username, password, email, location } = req.body;
+    const { username, password, email } = req.body;
     try {
-      if (!username || !password || !email || !location) {
+      if (!username || !password || !email) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -30,7 +29,7 @@ const userController = {
         username,
         password: hashedPassword,
         email,
-        location,
+        location: 'New York',
       });
 
       //TESTING ALL THAT COMES FROM USER
@@ -42,14 +41,12 @@ const userController = {
         email,
         location,
         token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '60d',
+          expiresIn: '20m',
         }),
       });
     } catch (err) {
-
       console.log(err);
       return next(err);
-
     }
   },
 
@@ -61,7 +58,6 @@ const userController = {
         res.status(400);
         throw new Error('please enter all required fields');
       }
-
 
       const userExists = await User.findOne({ where: { email } });
 
@@ -78,7 +74,6 @@ const userController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-
         Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
 
         // 2. write a function to store the email and the token <-- Completed
@@ -87,7 +82,6 @@ const userController = {
         res.cookie = tokens;
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
-
           _id: userExists.id,
 
           email,
@@ -103,9 +97,7 @@ const userController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-
       return next(err);
-
     }
   },
 
@@ -118,7 +110,6 @@ const userController = {
       res.status(statusCode).json({
         message: err.message ? err.message : 'An unknown error occured',
       });
-
     }
   },
 
@@ -168,7 +159,6 @@ const userController = {
           ? err.message
           : 'Error in the checkAccessToken Function in UserController',
       });
-
     }
   },
 

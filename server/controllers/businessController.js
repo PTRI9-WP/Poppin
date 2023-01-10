@@ -7,27 +7,9 @@ const Refreshkey = require('../models/RefreshkeyModel');
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
-    const {
-      username,
-      businessname,
-      password,
-      email,
-      poppinscore,
-      maxcapacity,
-      currentcapacity,
-      location,
-    } = req.body;
+    const { username, businessname, password, email, location } = req.body;
     try {
-      if (
-        !username ||
-        !businessname ||
-        !password ||
-        !email ||
-        !poppinscore ||
-        !maxcapacity ||
-        !currentcapacity ||
-        !location
-      ) {
+      if (!username || !businessname || !password || !email || !location) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -45,27 +27,29 @@ const businessController = {
         username,
         businessname,
         password: hashedPassword,
-        poppinscore,
-        maxcapacity,
-        currentcapacity,
+        poppinscore: 20,
+        maxcapacity: 100,
+        currentcapacity: 0,
         email,
         location,
       });
+
+      const tokens = {
+        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: '20m',
+        }),
+      };
 
       res.status(200).json({
         _id: newBusiness.id,
         username,
         email,
         location,
-        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '60d',
-        }),
+        tokens,
       });
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+      console.log(err);
+      return next(err);
     }
   },
 
@@ -114,10 +98,57 @@ const businessController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+      console.log(err);
+      return next(err);
+    }
+  },
+
+  updateBusiness: async (req, res, next) => {
+    const { poppinscore, currentcapacity, maxcapacity } = req.body;
+
+    //percentage of current capacity to max capacity
+    //if current capacity = 0 - 20% make poppin score = 20
+    //if current capacity = 21 - 40% make poppin score = 40
+    //if current capacity = 41 - 60% make poppin score = 60
+    //if current capacity = 61 - 80% make poppin score = 80
+    //if current capacity = 81 - 100% make poppin score = 100
+
+    const poppinPercentage = (currentcapacity / maxcapacity) * 100;
+    let updatedPoppinScore;
+    switch (poppinPercentage) {
+      case poppinPercentage <= 20:
+        updatedPoppinScore = 20;
+        break;
+
+      case poppinPercentage <= 40:
+        updatedPoppinScore = 40;
+        break;
+
+      case poppinPercentage <= 60:
+        updatedPoppinScore = 60;
+        break;
+
+      case poppinPercentage <= 80:
+        updatedPoppinScore = 80;
+        break;
+
+      case poppinPercentage <= 100:
+        updatedPoppinScore = 100;
+        break;
+    }
+
+    try {
+      const business = await Business.findOne({ id: req.params.id });
+      if (!business) {
+        res.status(400);
+        throw new Error('business not found');
+      }
+      await business.set({ poppinscore: updatedPoppinScore, currentcapacity });
+      await business.save();
+      res.status(200).json({ id: req.params.id });
+    } catch (err) {
+      console.log(err, 'error in updateBusiness');
+      return next(err);
     }
   },
 
@@ -126,10 +157,8 @@ const businessController = {
       const businesses = await Business.findAll();
       res.status(200).json(businesses);
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+      console.log(err, 'error in getAllBusinessess');
+      return next(err);
     }
   },
 
