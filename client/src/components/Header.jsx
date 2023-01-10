@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import corkWhite from '../assets/images/corkWhite.png';
 import { Link } from 'react-router-dom';
+import {FaTwitter, FaFacebook, FaInstagram} from 'react-icons/fa';
 
 const Header = ({ setShowLogin, setShowReg }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -51,6 +52,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
+            <div className='iconRow'>
+              <FaTwitter className='socIcon' />
+              <FaFacebook className='socIcon' />
+              <FaInstagram className='socIcon' />
+            </div>
           </>
         ) : (
           <>
@@ -61,6 +67,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleReg}>Register</button>
             </li>
+            <div className='iconRow'>
+              <FaTwitter className='socIcon' />
+              <FaFacebook className='socIcon' />
+              <FaInstagram className='socIcon' />
+            </div>
           </>
         )}
       </ul>

@@ -713,6 +713,10 @@ select {
   }
 }
 
+/* .top{
+    @apply relative;
+  } */
+
 .nav {
   position: fixed;
   z-index: 10;
@@ -726,6 +730,8 @@ select {
   padding-right: 1.25rem;
   padding-top: 1.25rem;
   padding-bottom: 1rem;
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 /* .navLanding {
@@ -740,6 +746,19 @@ select {
 .navLogo {
   margin-right: 2rem;
   width: 6rem;
+}
+
+.iconRow {
+  display: flex;
+  width: 5rem;
+  justify-content: center;
+  justify-content: space-between;
+  padding-top: 4rem;
+}
+
+.socIcon {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .title {
@@ -762,17 +781,21 @@ select {
 }
 
 .barPic {
-  position: fixed;
-  margin-bottom: 24rem;
-  width: 100vw;
+  height: 50%;
 }
 
 .info {
-  position: absolute;
-  bottom: 0px;
   width: 100%;
   --tw-bg-opacity: 1;
   background-color: rgb(241 201 186 / var(--tw-bg-opacity));
+  padding: 2.5rem;
+}
+
+.infoCards {
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
+  padding: 2.5rem;
 }
 
 .promo {
@@ -790,8 +813,8 @@ select {
 .promo h2 {
   margin-top: 1rem;
   text-align: center;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(45 59 70 / var(--tw-text-opacity));
@@ -864,6 +887,8 @@ select {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .checkinButton {
@@ -875,6 +900,8 @@ select {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .attButton {
@@ -886,6 +913,8 @@ select {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .inputBox {
@@ -947,6 +976,8 @@ select {
   padding-right: 1rem;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .close-icon {
@@ -967,7 +998,9 @@ select {
   border-width: 2px;
   border-style: solid;
   --tw-border-opacity: 1;
-  border-color: rgb(45 59 70 / var(--tw-border-opacity));
+  border-color: rgb(237 227 224 / var(--tw-border-opacity));
+  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .checkinDetail {
@@ -983,6 +1016,8 @@ select {
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(237 227 224 / var(--tw-bg-opacity));
+  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 /* .dashCard {
@@ -998,6 +1033,8 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(237 227 224 / var(--tw-bg-opacity));
   padding: 1.25rem;
+  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .visible {
@@ -1028,15 +1065,6 @@ select {
   width: 100%;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
-.bg-\[\#ede3e0\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
-}
-
 body {
-  background-color: #f1c9ba
+  background-color: #f1c9ba;
 }

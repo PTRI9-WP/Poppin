@@ -23,18 +23,18 @@ const LandingPage = () => {
 
       <div className='info'>
         <ul className='promo'>
-          <li className='bg-[#ede3e0] rounded-lg'>
+          <li className='infoCards'>
             <h2>Hate Crowds?</h2>
             <p>Find a great deal while being in a more intimate setting.</p>
           </li>
-          <li className='bg-[#ede3e0] rounded-lg'>
+          <li className='infoCards'>
             <h2>Love Crowds?</h2>
             <p>
               With Poppin's proprietary crowd monitoring technology we'll help
               you find the livest venue in town!
             </p>
           </li>
-          <li className='bg-[#ede3e0] rounded-lg'>
+          <li className='infoCards'>
             <h2>More People!</h2>
             <p>
               Poppin will help people see your incetives and markeing efforts to
