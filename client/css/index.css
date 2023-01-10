@@ -714,17 +714,6 @@ select {
 }
 
 .nav {
-  z-index: 10;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.5;
-  padding: 2.25rem;
-}
-
-.navLanding {
   position: fixed;
   z-index: 10;
   display: flex;
@@ -735,6 +724,10 @@ select {
   --tw-bg-opacity: 0.5;
   padding: 2.25rem;
 }
+
+/* .navLanding {
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+  } */
 
 .logoName {
   display: flex;
@@ -772,7 +765,7 @@ select {
 }
 
 .info {
-  position: fixed;
+  position: absolute;
   bottom: 0px;
   width: 100%;
   --tw-bg-opacity: 1;
@@ -815,13 +808,14 @@ select {
   margin-top: 3rem;
   margin-bottom: 3rem;
   display: flex;
-  max-width: 60%;
+  width: 100%;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .registerModal,
-  .loginModal {
+  .loginModal,
+  .checkIn_OutModal {
   position: absolute;
   left: 0px;
   right: 0px;
@@ -837,14 +831,9 @@ select {
   padding: 2.5rem;
 }
 
-/* Original Modal below, before trying to create the new one above */
-
-/* .registerModal, .loginModal {
-    @apply w-[50%] h-96 mx-auto mt-32;
-  } */
-
 .regForm,
-  .logForm {
+  .logForm,
+  .codeForm {
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -868,6 +857,26 @@ select {
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(142 147 121 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.checkinButton {
+  width: 15%;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(142 147 121 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.attButton {
+  width: 15%;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
   padding: 0.75rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -938,53 +947,62 @@ select {
   float: right;
 }
 
+.dashboardMain {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  max-width: 60%;
+  flex-direction: column;
+  padding-top: 11rem;
+}
+
+.map {
+  width: 100%;
+  border-width: 2px;
+  border-style: solid;
+}
+
 .visible {
   visibility: visible;
 }
 
-.fixed {
-  position: fixed;
+.my-9 {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
+.ml-4 {
+  margin-left: 1rem;
 }
 
-.mb-14 {
-  margin-bottom: 3.5rem;
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .flex {
   display: flex;
 }
 
-.max-w-\[60\%\] {
-  max-width: 60%;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
 .justify-between {
   justify-content: space-between;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .border-2 {
   border-width: 2px;
 }
 
-.border-sky-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(14 165 233 / var(--tw-border-opacity));
+.border-solid {
+  border-style: solid;
 }
 
-.py-52 {
-  padding-top: 13rem;
-  padding-bottom: 13rem;
+.p-5 {
+  padding: 1.25rem;
 }
 
 body {
-  background-color: white;
+  background-color: #b19b8c;
 }

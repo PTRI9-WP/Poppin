@@ -12,39 +12,43 @@ const handleSubmit = (e) => {
   console.log('zip code submitted');
 };
 
-const handleCurrentLoc = (e) => {
-  e.preventDefault();
-  console.log('current location requested');
-};
+
+// removed current location button since it's not imperative for an MVP
+// const handleCurrentLoc = (e) => {
+//   e.preventDefault();
+//   console.log('current location requested');
+// };
 
   return (
     <>
-      <Header>
-        <Link to='/'> temp link to landing page </Link>
-      </Header>
-      <main className='flex flex-col max-w-[60%] mx-auto'>
+      <Header />
+      <main className='dashboardMain'>
         {' '}
         {/*  max width 1100px margin 0 auto */}
-      <Map></Map>
         {/* User Location form section */}
         <div className='locationForm'>
-          <h3>Select a location:</h3>
+          <h3 className='modalTitle'>Select a location:</h3>
+          {/* removed current location button since it's not imperative for an
+          MVP
           <form onSubmit={handleCurrentLoc}>
             <button className='stdButton' type='submit'>
-              Current Location
+              Current
             </button>
           </form>
-
-          <h3>OR</h3>
+          <h3>OR</h3> */}
           <form onSubmit={handleSubmit}>
-            <input type='text' placeholder='Zip Code' />
+            <input type='text' placeholder='Zip Code' className='ml-4 mr-4' />
             <button className='stdButton' type='submit'>
               Submit
             </button>
           </form>
         </div>
         {/* End User Form Section */}
-        <div className='border-2 border-sky-500 py-52 mb-14'>map go here</div>
+        {/* Map section */}
+        <div className='map'>
+          <Map />
+        </div>
+        {/* End Map section */}
         {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
         <CardContainer />
       </main>

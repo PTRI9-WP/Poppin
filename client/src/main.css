@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 body {
-  background-color: white;
+  background-color: #b19b8c;
 }
 
 @layer components {
   .nav {
-    @apply flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
-  }
-
-  .navLanding {
     @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
   }
+
+  /* .navLanding {
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+  } */
 
   .logoName {
     @apply flex flex-row;
@@ -36,7 +36,7 @@ body {
   }
 
   .info {
-    @apply fixed bg-pink bottom-0 w-[100%];
+    @apply absolute bg-pink bottom-0 w-[100%];
   }
   .promo {
     @apply flex flex-row text-dark justify-around;
@@ -54,20 +54,18 @@ body {
   }
 
   .locationForm {
-    @apply flex flex-row my-12 justify-around max-w-[60%];
+    @apply flex flex-row my-12 justify-center w-[100%];
   }
 
   .registerModal,
-  .loginModal {
+  .loginModal,
+  .checkIn_OutModal {
     @apply absolute left-0 right-0 top-14 mx-auto h-96 max-w-sm bg-white p-10 mt-44 rounded-lg;
   }
-  /* Original Modal below, before trying to create the new one above */
-  /* .registerModal, .loginModal {
-    @apply w-[50%] h-96 mx-auto mt-32;
-  } */
 
   .regForm,
-  .logForm {
+  .logForm,
+  .codeForm {
     @apply flex flex-col justify-evenly items-center h-[100%];
   }
 
@@ -79,12 +77,28 @@ body {
     @apply bg-green p-3 w-fit rounded-lg text-white;
   }
 
+   .checkinButton {
+    @apply bg-green p-3 w-[15%] rounded-lg text-white;
+  }
+
+   .attButton {
+    @apply bg-red-600 p-3 w-[15%] rounded-lg text-white;
+  }
+
   .inputBox {
     @apply form-input px-4 py-3 rounded-full;
   }
 
   .close-icon{
     @apply float-right
+  }
+
+  .dashboardMain {
+    @apply flex flex-col max-w-[60%] mx-auto pt-44;
+  }
+
+  .map{
+    @apply w-[100%] border-solid border-2;
   }
 
 }

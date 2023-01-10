@@ -28,12 +28,6 @@ const Business = db.define('business', {
   location: {
     type: Sequelize.STRING,
   },
-  created: {
-    type: Sequelize.DATE,
-  },
-  updated: {
-    type: Sequelize.DATE,
-  },
 });
 
 module.exports = Business;

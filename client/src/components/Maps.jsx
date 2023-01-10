@@ -11,8 +11,8 @@ function Map() {
 
   //This is required otheriwse, map won't render
   const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '100%',
+    height: '400px',
   };
   
   //Determines the center of the map

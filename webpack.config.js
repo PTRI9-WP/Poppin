@@ -58,15 +58,15 @@ module.exports = {
     hot: true,
     host: 'localhost',
     historyApiFallback: true,
-    proxy: {
-      // /** is any characters after the intial root route
-      '/**': {
-        target: 'http://localhost:3005',
-        secure: false,
-      },
-      // '/users': {
-      //   target: 'http://localhost:3005',
-      // },
-    },
+    // proxy: {
+    //   // /** is any characters after the intial root route
+    //   '/**': {
+    //     target: 'http://localhost:3005',
+    //     secure: false,
+    //   },
+    //   // '/users': {
+    //   //   target: 'http://localhost:3005',
+    //   // },
+    // },
   },
 };

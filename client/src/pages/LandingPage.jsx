@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Header from '../components/HeaderLanding'
+import Header from '../components/Header'
 import { Link } from 'react-router-dom'
 import bar from '../assets/images/bar.jpg';
 import LoginModal from '../components/LoginModal';
@@ -13,14 +13,14 @@ const LandingPage = () => {
   return (
     <>
       <div className='top'>
-        <img src={bar} alt='bar' className='barPic' />
         <Header
-          className='fixed'
           setShowLogin={setShowLogin}
           setShowReg={setShowReg}
         />
+        <img src={bar} alt='bar' className='barPic' />
       </div>
-      
+      {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
+
       {showLogin ? <LoginModal setShowLogin={setShowLogin} /> : null}
       {showReg ? <RegisterModal setShowReg={setShowReg} /> : null}
 
@@ -28,7 +28,7 @@ const LandingPage = () => {
         <ul className='promo'>
           <li>
             <h2>Hate Crowds?</h2>
-            <p className='b'>
+            <p>
               Find a great deal while being in a more intimate setting.
             </p>
           </li>
