@@ -62,14 +62,17 @@ const businessController = {
         throw new Error('please enter all required fields');
       }
 
-      const businessExists = await business.findOne({ where: { email } });
+      const businessExists = await Business.findOne({ where: { email } });
 
       if (!businessExists) {
         res.status(500);
-        throw new Error('business does not exist');
+        throw new Error('Email and Password combination is invalid');
       }
 
+      console.log('EMAIL WAS FOUND!');
+
       if (await bcrypt.compare(password, businessExists.password)) {
+        console.log('password worked!');
         const tokens = {
           token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '20m',
@@ -77,7 +80,7 @@ const businessController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-        Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
         // 2. write a function to store the email and the token <-- Completed
 
         //added tokens to cookies so it will remain on the user
@@ -152,10 +155,21 @@ const businessController = {
     }
   },
 
-  getAllBusinessess: async (_, res) => {
+  getAllBusinesses: async (_, res, next) => {
     try {
-      const businesses = await Business.findAll();
-      res.status(200).json(businesses);
+      const businesses = await Business.findAll({
+        attributes: [
+          'businessname',
+          'poppinscore',
+          'maxcapacity',
+          'currentcapacity',
+          'location',
+        ],
+      });
+
+      res.status(200).json({
+        businesses,
+      });
     } catch (err) {
       console.log(err, 'error in getAllBusinessess');
       return next(err);

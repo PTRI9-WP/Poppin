@@ -3,7 +3,7 @@ const router = express.Router();
 
 const businessController = require('../controllers/businessController');
 
-router.get('/', businessController.getAllBusinessess);
+router.get('/', businessController.getAllBusinesses);
 router.post('/login', businessController.loginBusiness);
 router.post('/', businessController.registerBusiness);
 
