@@ -19,7 +19,7 @@ app.use('/users', userRoutes);
 app.use((_, res) => res.status(404).send('page not found'));
 
 //global error handler
-app.use((err, req, res) => {
+app.use((err, _, res, __) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
   return res.status(statusCode).json({
     message: err.message ? err.message : 'An unknown error occured',
