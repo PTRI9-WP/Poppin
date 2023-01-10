@@ -5,9 +5,8 @@ import Checkin from './pages/Checkin';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 
-//temporarily imported just for rendering
-import LoginModal from './components/LoginModal';
-import RegisterModal from './components/RegisterModal';
+//TEMP
+//import CheckIn_OutModal from './components/CheckIn_OutModal'
 
 const App = () => {
   return (
@@ -16,7 +15,9 @@ const App = () => {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/home' element={<Dashboard />} />
-          <Route path='/Checkin' element={<Checkin />} />
+
+          <Route path='/checkin' element={<Checkin />} />
+
         </Routes>
       </BrowserRouter>
     </>
