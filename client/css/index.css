@@ -720,9 +720,12 @@ select {
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.5;
-  padding: 2.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(45 59 70 / var(--tw-bg-opacity));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1rem;
 }
 
 /* .navLanding {
@@ -769,7 +772,7 @@ select {
   bottom: 0px;
   width: 100%;
   --tw-bg-opacity: 1;
-  background-color: rgb(177 155 140 / var(--tw-bg-opacity));
+  background-color: rgb(241 201 186 / var(--tw-bg-opacity));
 }
 
 .promo {
@@ -777,7 +780,7 @@ select {
   flex-direction: row;
   justify-content: space-around;
   --tw-text-opacity: 1;
-  color: rgb(42 40 41 / var(--tw-text-opacity));
+  color: rgb(45 59 70 / var(--tw-text-opacity));
 }
 
 .promo li {
@@ -791,7 +794,7 @@ select {
   line-height: 2.5rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(42 40 41 / var(--tw-text-opacity));
+  color: rgb(45 59 70 / var(--tw-text-opacity));
 }
 
 .promo p {
@@ -801,7 +804,7 @@ select {
   line-height: 1.75rem;
   font-style: italic;
   --tw-text-opacity: 1;
-  color: rgb(42 40 41 / var(--tw-text-opacity));
+  color: rgb(45 59 70 / var(--tw-text-opacity));
 }
 
 .locationForm {
@@ -848,7 +851,7 @@ select {
   line-height: 2.5rem;
   font-style: italic;
   --tw-text-opacity: 1;
-  color: rgb(42 40 41 / var(--tw-text-opacity));
+  color: rgb(45 59 70 / var(--tw-text-opacity));
 }
 
 .stdButton {
@@ -856,8 +859,9 @@ select {
   width: fit-content;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(142 147 121 / var(--tw-bg-opacity));
+  background-color: rgb(89 140 131 / var(--tw-bg-opacity));
   padding: 0.75rem;
+  font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -866,8 +870,9 @@ select {
   width: 15%;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(142 147 121 / var(--tw-bg-opacity));
+  background-color: rgb(89 140 131 / var(--tw-bg-opacity));
   padding: 0.75rem;
+  font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -876,8 +881,9 @@ select {
   width: 15%;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(194 113 84 / var(--tw-bg-opacity));
   padding: 0.75rem;
+  font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -960,6 +966,8 @@ select {
   width: 100%;
   border-width: 2px;
   border-style: solid;
+  --tw-border-opacity: 1;
+  border-color: rgb(45 59 70 / var(--tw-border-opacity));
 }
 
 .checkinDetail {
@@ -972,6 +980,24 @@ select {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
+}
+
+/* .dashCard {
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#e7bbae];
+  } */
+
+.dashCard {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
+  padding: 1.25rem;
 }
 
 .visible {
@@ -982,17 +1008,8 @@ select {
   position: absolute;
 }
 
-.top-48 {
-  top: 12rem;
-}
-
-.float-left {
-  float: left;
-}
-
-.my-9 {
-  margin-top: 2.25rem;
-  margin-bottom: 2.25rem;
+.mt-72 {
+  margin-top: 18rem;
 }
 
 .ml-4 {
@@ -1003,18 +1020,6 @@ select {
   margin-right: 1rem;
 }
 
-.mt-48 {
-  margin-top: 12rem;
-}
-
-.mt-72 {
-  margin-top: 18rem;
-}
-
-.flex {
-  display: flex;
-}
-
 .h-96 {
   height: 24rem;
 }
@@ -1023,26 +1028,15 @@ select {
   width: 100%;
 }
 
-.justify-between {
-  justify-content: space-between;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
 
-.border-2 {
-  border-width: 2px;
-}
-
-.border-solid {
-  border-style: solid;
-}
-
-.p-5 {
-  padding: 1.25rem;
+.bg-\[\#ede3e0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
 }
 
 body {
-  background-color: #b19b8c;
+  background-color: #f1c9ba
 }

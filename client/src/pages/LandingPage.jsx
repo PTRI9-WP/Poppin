@@ -13,10 +13,7 @@ const LandingPage = () => {
   return (
     <>
       <div className='top'>
-        <Header
-          setShowLogin={setShowLogin}
-          setShowReg={setShowReg}
-        />
+        <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
         <img src={bar} alt='bar' className='barPic' />
       </div>
       {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
@@ -26,20 +23,18 @@ const LandingPage = () => {
 
       <div className='info'>
         <ul className='promo'>
-          <li>
+          <li className='bg-[#ede3e0] rounded-lg'>
             <h2>Hate Crowds?</h2>
-            <p>
-              Find a great deal while being in a more intimate setting.
-            </p>
+            <p>Find a great deal while being in a more intimate setting.</p>
           </li>
-          <li>
+          <li className='bg-[#ede3e0] rounded-lg'>
             <h2>Love Crowds?</h2>
             <p>
               With Poppin's proprietary crowd monitoring technology we'll help
               you find the livest venue in town!
             </p>
           </li>
-          <li>
+          <li className='bg-[#ede3e0] rounded-lg'>
             <h2>More People!</h2>
             <p>
               Poppin will help people see your incetives and markeing efforts to

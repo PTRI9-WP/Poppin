@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 body {
-  background-color: #b19b8c;
+  background-color: #f1c9ba
 }
 
 @layer components {
   .nav {
-    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+    @apply fixed flex items-center justify-between pl-5 pr-5 pt-5 pb-4 bg-dark z-10 w-[100%];
   }
 
   /* .navLanding {
@@ -36,7 +36,7 @@ body {
   }
 
   .info {
-    @apply absolute bg-pink bottom-0 w-[100%];
+    @apply absolute bg-peach bottom-0 w-[100%];
   }
   .promo {
     @apply flex flex-row text-dark justify-around;
@@ -74,15 +74,15 @@ body {
   }
 
   .stdButton {
-    @apply bg-green p-3 w-fit rounded-lg text-white;
+    @apply bg-green p-3 w-fit rounded-lg text-white font-bold;
   }
 
    .checkinButton {
-    @apply bg-green p-3 w-[15%] rounded-lg text-white;
+    @apply bg-green p-3 w-[15%] rounded-lg text-white font-bold;
   }
 
    .attButton {
-    @apply bg-red-600 p-3 w-[15%] rounded-lg text-white;
+    @apply bg-[#c27154] p-3 w-[15%] rounded-lg text-white font-bold;
   }
 
   .inputBox {
@@ -98,10 +98,19 @@ body {
   }
 
   .map{
-    @apply w-[100%] border-solid border-2;
+    @apply w-[100%] border-solid border-2 border-dark;
   }
 
   .checkinDetail{
-    @apply flex flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%];
+    @apply flex flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%] bg-[#ede3e0] rounded-lg;
   }
+
+  /* .dashCard {
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#e7bbae];
+  } */
+
+  .dashCard {
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0];
+  }
+
 }

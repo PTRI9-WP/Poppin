@@ -12,7 +12,7 @@ const Card = () => {
   return (
     <>
       {/* <div className = 'cardContainer'></div> */}
-      <div className='flex justify-between my-9 border-solid border-2 p-5 rounded-lg'>
+      <div className='dashCard'>
         <div className='info1'>
           <img src='#' alt='img' />
           <div>place name here </div>
