@@ -1,13 +1,15 @@
 import React from 'react'
-import { MarkerF, GoogleMap, useJsApiLoader, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
-import { useRef, useState } from 'react';
+import { MarkerF, GoogleMap, useJsApiLoader, StandaloneSearchBox } from '@react-google-maps/api';
+import { useState } from 'react';
 
 //Component for Google Map
 function Map() {
 
+  //intialize state for map and searchbox
+  //state is mainly to reference map and searchbox components so we can use methods under the hood
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
-
+  
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
@@ -23,33 +25,33 @@ function Map() {
   };
   
   //Determines the center of the map
+  //This should the user's current location on load
   const center = {
     lat: -3.745,
     lng: -38.523
   };
+
+  //Move the map to the query location provided in the searchbox
   const onPlacesChanged = () => {
     const places = searchBox.getPlaces();
-    console.log('location', places[0].geometry);
-    console.log('lat', places[0].geometry.location.lat());
-    console.log('long', places[0].geometry.location.lng())
-
     const bounds = new google.maps.LatLngBounds();
-    console.log(bounds)
+
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
   };
 
+  //set the reference object to the searchbox state upon the searchbox component rendering
   const onSBLoad = ref => {
     setSearchBox(ref);
   };
 
+  //set the reference object to the map state upon the GoogleMap component rendering
   const onMapLoad = ref => {
     setMap(ref);
   };
 
   return isLoaded ? (
     // mapContainerStyle needs to be specified and not style to render the map
-
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
@@ -73,7 +75,7 @@ function Map() {
         width: `240px`,
         height: `32px`,
         padding: `0 12px`,
-        borderRadius: `3px`,
+        borderRadius: `8px`,
         boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
         fontSize: `14px`,
         outline: `none`,
