@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import authService from './authService';
 const user = JSON.parse(localStorage.getItem('user'));
+
 
 const initialState = {
   //set user to either user or null here
   user: user ? user : null,
   isError: false,
   isSuccess: false,
-  isLoading: false,
+
   message: '',
 };
 
@@ -15,6 +17,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
     return await authService.login(user);
   } catch (err) {
+  
     //axios response || backend response || error from this function
     const message = err.response?.data.message ?? err.toString();
     return thunkAPI.rejectWithValue(message);
@@ -31,6 +34,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
+
       state.isError = false;
       state.isLoading = false;
       state.isSuccess = false;
@@ -58,6 +62,7 @@ export const authSlice = createSlice({
         state.user = null;
       });
   },
+
 });
 
 export const { reset } = authSlice.actions;

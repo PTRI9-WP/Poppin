@@ -2,42 +2,58 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const User = require('../models/UserModel');
-const User = require('../models/UserModel');
-
+const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 
-
-const userController = {
-  registerUser: async (req, res, next) => {
-    const { username, password, email, location } = req.body;
+const businessController = {
+  registerBusiness: async (req, res, next) => {
+    const {
+      username,
+      businessname,
+      password,
+      email,
+      poppinscore,
+      maxcapacity,
+      currentcapacity,
+      location,
+    } = req.body;
     try {
-      if (!username || !password || !email || !location) {
+      if (
+        !username ||
+        !businessname ||
+        !password ||
+        !email ||
+        !poppinscore ||
+        !maxcapacity ||
+        !currentcapacity ||
+        !location
+      ) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
 
-      const userExists = await User.findOne({ where: { email } });
+      const businessExists = await Business.findOne({ where: { email } });
 
-      if (userExists) {
+      if (businessExists) {
         res.status(400);
-        throw new Error('user already exists');
+        throw new Error('business already exists');
       }
 
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
-      const newUser = await User.create({
+      const newBusiness = await Business.create({
         username,
+        businessname,
         password: hashedPassword,
+        poppinscore,
+        maxcapacity,
+        currentcapacity,
         email,
         location,
       });
 
-      //TESTING ALL THAT COMES FROM USER
-      // res.status(200).json(newUser);
-
       res.status(200).json({
-        _id: newUser.id,
+        _id: newBusiness.id,
         username,
         email,
         location,
@@ -46,14 +62,14 @@ const userController = {
         }),
       });
     } catch (err) {
-
-      console.log(err);
-      return next(err);
-
+      const statusCode = res.statusCode ? res.statusCode : 500;
+      res.status(statusCode).json({
+        message: err.message ? err.message : 'An unknown error occured',
+      });
     }
   },
 
-  loginUser: async (req, res, next) => {
+  loginBusiness: async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
@@ -62,15 +78,14 @@ const userController = {
         throw new Error('please enter all required fields');
       }
 
+      const businessExists = await business.findOne({ where: { email } });
 
-      const userExists = await User.findOne({ where: { email } });
-
-      if (!userExists) {
+      if (!businessExists) {
         res.status(500);
-        throw new Error('user does not exist');
+        throw new Error('business does not exist');
       }
 
-      if (await bcrypt.compare(password, userExists.password)) {
+      if (await bcrypt.compare(password, businessExists.password)) {
         const tokens = {
           token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '20m',
@@ -78,21 +93,17 @@ const userController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-
         Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
-
         // 2. write a function to store the email and the token <-- Completed
 
         //added tokens to cookies so it will remain on the user
         res.cookie = tokens;
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
-
-          _id: userExists.id,
-
           email,
-          username: userExists.username,
-          location: userExists.location,
+          username: businessExists.username,
+          businessname: businessExists.businessname,
+          location: businessExists.location,
           tokens,
         });
 
@@ -103,22 +114,22 @@ const userController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-
-      return next(err);
-
+      const statusCode = res.statusCode ? res.statusCode : 500;
+      res.status(statusCode).json({
+        message: err.message ? err.message : 'An unknown error occured',
+      });
     }
   },
 
-  getAllUsers: async (_, res) => {
+  getAllBusinessess: async (_, res) => {
     try {
-      const users = await User.findAll();
-      res.status(200).json(users);
+      const businesses = await Business.findAll();
+      res.status(200).json(businesses);
     } catch (err) {
       const statusCode = res.statusCode ? res.statusCode : 500;
       res.status(statusCode).json({
         message: err.message ? err.message : 'An unknown error occured',
       });
-
     }
   },
 
@@ -147,15 +158,15 @@ const userController = {
               ),
             };
 
-            const deleteUser = Refreshkey.findOne({ where: { email } });
-            deleteUser.destroy;
+            const deleteBusiness = Refreshkey.findOne({ where: { email } });
+            deleteBusiness.destroy;
 
             Refreshkey.create({
               email,
               refreshtoken: tokens.refreshToken,
             });
 
-            // send the user back as json an accesstoken and refreshtoken
+            // send the business back as json an accesstoken and refreshtoken
             res.cookie = tokens;
             return next();
           }
@@ -166,60 +177,10 @@ const userController = {
       res.status(statusCode).json({
         message: err.message
           ? err.message
-          : 'Error in the checkAccessToken Function in UserController',
+          : 'Error in the checkAccessToken Function in businessController',
       });
-
     }
   },
-
-  // checkAccessToken: async (req, res, next) => {
-  //   try {
-  //     if (res.cookie) {
-  //       if (
-  //         !jwr.verify(res.cookie.accessToken, process.env.ACCESS_TOKEN_SECRET)
-  //       ) {
-  //         const checkForRefreshToken = await Refreshkey.findOne({
-  //           where: { email },
-  //         });
-
-  //         if (checkForRefreshToken) {
-  //           const tokens = {
-  //             accessToken: jwt.sign(
-  //               { email },
-  //               process.env.ACCESS_TOKEN_SECRET,
-  //               {
-  //                 expiresIn: '20m',
-  //               }
-  //             ),
-  //             refreshToken: jwt.sign(
-  //               { email },
-  //               process.env.REFRESH_TOKEN_SECRET
-  //             ),
-  //           };
-
-  //           const deleteUser = Refreshkey.findOne({ where: { email } });
-  //           deleteUser.destroy;
-
-  //           Refreshkey.create({
-  //             email,
-  //             refreshtoken: tokens.refreshToken,
-  //           });
-
-  //           // send the user back as json an accesstoken and refreshtoken
-  //           res.cookie = tokens;
-  //           return next();
-  //         }
-  //       }
-  //     }
-  //   } catch (err) {
-  //     const statusCode = res.statusCode ? res.statusCode : 500;
-  //     res.status(statusCode).json({
-  //       message: err.message
-  //         ? err.message
-  //         : 'Error in the checkAccessToken Function in UserController',
-  //     });
-  //   }
-  // },
 };
 
-module.exports = userController;
+module.exports = businessController;
