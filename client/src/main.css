@@ -101,4 +101,7 @@ body {
     @apply w-[100%] border-solid border-2;
   }
 
+  .checkinDetail{
+    @apply flex flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%];
+  }
 }

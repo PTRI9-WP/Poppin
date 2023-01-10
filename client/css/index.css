@@ -962,8 +962,32 @@ select {
   border-style: solid;
 }
 
+.checkinDetail {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15rem;
+  display: flex;
+  height: 100%;
+  width: 60%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .visible {
   visibility: visible;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.top-48 {
+  top: 12rem;
+}
+
+.float-left {
+  float: left;
 }
 
 .my-9 {
@@ -979,8 +1003,24 @@ select {
   margin-right: 1rem;
 }
 
+.mt-48 {
+  margin-top: 12rem;
+}
+
+.mt-72 {
+  margin-top: 18rem;
+}
+
 .flex {
   display: flex;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.w-\[100\%\] {
+  width: 100%;
 }
 
 .justify-between {

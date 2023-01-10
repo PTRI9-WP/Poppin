@@ -3,7 +3,7 @@ import corkWhite from '../assets/images/corkWhite.png';
 import { Link } from 'react-router-dom';
 
 const Header = ({ setShowLogin, setShowReg }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogin = () => {
     console.log('login clicked');
@@ -28,6 +28,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
     window.location.href = '/checkin';
   };
 
+    const handleHome = () => {
+      console.log('nav to the checkin page');
+      window.location.href = '/home';
+    };
+
   return (
     <nav className='nav'>
       <div className='logoName'>
@@ -37,6 +42,9 @@ const Header = ({ setShowLogin, setShowReg }) => {
       <ul className='menu'>
         {isLoggedIn ? (
           <>
+            <li>
+              <button onClick={handleHome}>Home</button>
+            </li>
             <li>
               <button onClick={handleCheckin}>Checkins</button>
             </li>
