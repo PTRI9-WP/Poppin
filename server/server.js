@@ -21,8 +21,9 @@ app.use('/businesses', businessRoutes);
 // app.use((_, res) => res.status(404).send('page not found'));
 
 //global error handler
-app.use((err, _, res) => {
-  console.log('GLOBAL ERROR HANDLER CALLED');
+
+app.use((err, _, res, __) => {
+
   const statusCode = res.statusCode ? res.statusCode : 500;
   res.status(statusCode).json({
     message: err.message ? err.message : 'An unknown error occured',

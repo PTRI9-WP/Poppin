@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const User = require('../models/UserModel');
 const User = require('../models/UserModel');
+
 const Refreshkey = require('../models/RefreshkeyModel');
+
 
 const userController = {
   registerUser: async (req, res, next) => {
@@ -44,10 +46,10 @@ const userController = {
         }),
       });
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+
+      console.log(err);
+      return next(err);
+
     }
   },
 
@@ -59,6 +61,7 @@ const userController = {
         res.status(400);
         throw new Error('please enter all required fields');
       }
+
 
       const userExists = await User.findOne({ where: { email } });
 
@@ -75,13 +78,18 @@ const userController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
+
         Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+
         // 2. write a function to store the email and the token <-- Completed
 
         //added tokens to cookies so it will remain on the user
         res.cookie = tokens;
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
+
+          _id: userExists.id,
+
           email,
           username: userExists.username,
           location: userExists.location,
@@ -95,10 +103,9 @@ const userController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+
+      return next(err);
+
     }
   },
 
@@ -111,6 +118,7 @@ const userController = {
       res.status(statusCode).json({
         message: err.message ? err.message : 'An unknown error occured',
       });
+
     }
   },
 
@@ -160,8 +168,58 @@ const userController = {
           ? err.message
           : 'Error in the checkAccessToken Function in UserController',
       });
+
     }
   },
+
+  // checkAccessToken: async (req, res, next) => {
+  //   try {
+  //     if (res.cookie) {
+  //       if (
+  //         !jwr.verify(res.cookie.accessToken, process.env.ACCESS_TOKEN_SECRET)
+  //       ) {
+  //         const checkForRefreshToken = await Refreshkey.findOne({
+  //           where: { email },
+  //         });
+
+  //         if (checkForRefreshToken) {
+  //           const tokens = {
+  //             accessToken: jwt.sign(
+  //               { email },
+  //               process.env.ACCESS_TOKEN_SECRET,
+  //               {
+  //                 expiresIn: '20m',
+  //               }
+  //             ),
+  //             refreshToken: jwt.sign(
+  //               { email },
+  //               process.env.REFRESH_TOKEN_SECRET
+  //             ),
+  //           };
+
+  //           const deleteUser = Refreshkey.findOne({ where: { email } });
+  //           deleteUser.destroy;
+
+  //           Refreshkey.create({
+  //             email,
+  //             refreshtoken: tokens.refreshToken,
+  //           });
+
+  //           // send the user back as json an accesstoken and refreshtoken
+  //           res.cookie = tokens;
+  //           return next();
+  //         }
+  //       }
+  //     }
+  //   } catch (err) {
+  //     const statusCode = res.statusCode ? res.statusCode : 500;
+  //     res.status(statusCode).json({
+  //       message: err.message
+  //         ? err.message
+  //         : 'Error in the checkAccessToken Function in UserController',
+  //     });
+  //   }
+  // },
 };
 
 module.exports = userController;

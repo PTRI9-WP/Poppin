@@ -9,14 +9,13 @@ import LandingPage from './pages/LandingPage';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegisterModal';
 
-
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/home' element={<LandingPage />} />
+          <Route path='/home' element={<Dashboard />} />
           <Route path='/Checkin' element={<Checkin />} />
         </Routes>
       </BrowserRouter>
