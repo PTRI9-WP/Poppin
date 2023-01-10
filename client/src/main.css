@@ -44,7 +44,7 @@ body {
   }
 
   .barPic {
-    @apply h-[50%];
+    @apply h-[50%] min-w-[100%];
   }
 
   .info {
@@ -52,7 +52,7 @@ body {
   }
 
   .infoCards {
-    @apply bg-[#ede3e0] rounded-lg p-10;
+    @apply flex flex-col items-center bg-[#ede3e0] rounded-lg p-10;
   }
 
   .promo {
@@ -115,7 +115,7 @@ body {
   }
 
   .map {
-    @apply w-[100%] border-solid border-2 border-[#ede3e0] drop-shadow-lg;
+    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg;
   }
 
   .checkinDetail {
@@ -129,4 +129,13 @@ body {
   .dashCard {
     @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg;
   }
+
+  .corkScore{
+    @apply flex;
+  }
+
+  .ppl{
+    @apply flex text-center
+  }
+
 }

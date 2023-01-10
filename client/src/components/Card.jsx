@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import { GiChampagneCork } from 'react-icons/gi';
 
 const Card = () => {
    
@@ -23,7 +24,13 @@ const Card = () => {
         </div>
         <div className='info3'>
           <div>Poppin Score</div>
-          <div>stars go here</div>
+          <div className='corkScore'>
+            <GiChampagneCork />
+            <GiChampagneCork />
+            <GiChampagneCork />
+            <GiChampagneCork />
+            <GiChampagneCork />
+          </div>
           <div>incentive goes here</div>
         </div>
         {checkin ? (

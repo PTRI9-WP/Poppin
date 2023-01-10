@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import corkWhite from '../assets/images/corkWhite.png';
 import { Link } from 'react-router-dom';
-import {FaTwitter, FaFacebook, FaInstagram} from 'react-icons/fa';
+import {
+  FaTwitter,
+  FaFacebook,
+  FaInstagram
+} from 'react-icons/fa';
+
 
 const Header = ({ setShowLogin, setShowReg }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -44,6 +49,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
         {isLoggedIn ? (
           <>
             <li>
+            
               <button onClick={handleHome}>Home</button>
             </li>
             <li>

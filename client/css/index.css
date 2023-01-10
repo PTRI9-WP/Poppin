@@ -782,6 +782,7 @@ select {
 
 .barPic {
   height: 50%;
+  min-width: 100%;
 }
 
 .info {
@@ -792,6 +793,9 @@ select {
 }
 
 .infoCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(237 227 224 / var(--tw-bg-opacity));
@@ -995,7 +999,7 @@ select {
 
 .map {
   width: 100%;
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   --tw-border-opacity: 1;
   border-color: rgb(237 227 224 / var(--tw-border-opacity));
@@ -1035,6 +1039,15 @@ select {
   padding: 1.25rem;
   --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.corkScore {
+  display: flex;
+}
+
+.ppl {
+  display: flex;
+  text-align: center;
 }
 
 .visible {
