@@ -8,7 +8,15 @@ const Refreshkey = require('../models/RefreshkeyModel');
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
-    const { username, businessname, password, email, location } = req.body;
+    const {
+      username,
+      businessname,
+      password,
+      email,
+      location,
+      latitude,
+      longitude,
+    } = req.body;
     try {
       if (!username || !businessname || !password || !email || !location) {
         res.status(400);
@@ -33,6 +41,8 @@ const businessController = {
         currentcapacity: 0,
         email,
         location,
+        latitude,
+        longitude,
       });
 
       const tokens = {
@@ -47,6 +57,8 @@ const businessController = {
         email,
         location,
         tokens,
+        latitude,
+        longitude,
       });
     } catch (err) {
       console.log(err);
@@ -171,6 +183,8 @@ const businessController = {
           'maxcapacity',
           'currentcapacity',
           'location',
+          'latitude',
+          'longitude',
         ],
       });
 
