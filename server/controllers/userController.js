@@ -36,7 +36,7 @@ const userController = {
       // res.status(200).json(newUser);
 
       res.status(200).json({
-        _id: newUser.id,
+        id: newUser.id,
         username,
         email,
         location,
@@ -82,7 +82,7 @@ const userController = {
         res.cookie = tokens;
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
-          _id: userExists.id,
+          id: userExists.id,
 
           email,
           username: userExists.username,
@@ -153,12 +153,8 @@ const userController = {
         }
       }
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message
-          ? err.message
-          : 'Error in the checkAccessToken Function in UserController',
-      });
+      console.log(err);
+      return next(err);
     }
   },
 
