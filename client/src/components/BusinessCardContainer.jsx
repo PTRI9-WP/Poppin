@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import Card from './Card';
+import BusinessCard from './BusinessCard';
 import {
   getAllBusinesses,
   reset,
   resetSelectedBusiness,
 } from '../features/businesses/businessSlice';
 import { useDispatch, useSelector } from 'react-redux';
-const CardContainer = () => {
+const BusinessCardContainer = () => {
   const dispatch = useDispatch();
   const { businesses } = useSelector((state) => state.businesses);
 
@@ -27,15 +27,14 @@ const CardContainer = () => {
     <>
       <ul>
         {/* conditionally render cards here */}
-        {businesses.map((business) => (
+        {businesses.map((businessCard) => (
           <div>
-            <Card key={business._id} card={business} />
+            <BusinessCard key={businessCard.id} businessCard={businessCard} />
           </div>
         ))}
-        <Card />
       </ul>
     </>
   );
 };
 
-export default CardContainer;
+export default BusinessCardContainer;

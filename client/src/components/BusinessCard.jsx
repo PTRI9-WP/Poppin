@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Card = ({ card }) => {
+const BusinessCard = ({ businessCard }) => {
   const dispatch = useDispatch();
   const [checkin, setCheckin] = useState(false);
 
@@ -17,7 +17,7 @@ const Card = ({ card }) => {
       <div className='dashCard'>
         <div className='info1'>
           <img src='#' alt='img' />
-          <div>{card?.businessname} </div>
+          <div>{businessCard?.businessname}</div>
         </div>
         <div className='info2'>
           <div>Adress here</div>
@@ -48,4 +48,4 @@ const Card = ({ card }) => {
   );
 };
 
-export default Card;
+export default BusinessCard;

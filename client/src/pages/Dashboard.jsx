@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 // import Card from '../components/Card';
-import CardContainer from '../components/CardContainer';
+import CardContainer from '../components/BusinessCardContainer';
 import {
   MarkerF,
   GoogleMap,
@@ -117,11 +117,6 @@ const Dashboard = () => {
         {/* End Map section */}
         {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
         <CardContainer />
-        {/* <div>
-          {businesses.map((el, i) => (
-            <div key={i}> {el?.location}</div>
-          ))}
-        </div> */}
       </main>
     </>
   ) : (
