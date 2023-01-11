@@ -1,6 +1,4 @@
 //CONNECT  SERVER
-//process.env.URI this is how you bring it out
-
 const { Sequelize } = require('sequelize');
 // console.log(process.env.URI, 'URI STRING');
 

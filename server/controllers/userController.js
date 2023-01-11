@@ -74,7 +74,7 @@ const userController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-        Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
 
         // 2. write a function to store the email and the token <-- Completed
 
