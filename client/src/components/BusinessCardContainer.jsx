@@ -11,14 +11,15 @@ const BusinessCardContainer = () => {
   const { businesses } = useSelector((state) => state.businesses);
 
   useEffect(() => {
+    //fetching all businesses from backend
     dispatch(getAllBusinesses());
 
     return () => {
       dispatch(reset());
     };
-  }, [dispatch]);
+  }, [dispatch]); //If you remove the dispatch from the dependency array, the useEffect hook will run on every render of BusinessCardContainer, bad for performance
 
-  //unselects the selected business when component mounts. So after we finish updating the business and go back to the dashboard, the business is no longer selected
+  //unselects the selected business when component mounts. So after we go to another page and come back to the dashboard, the business is no longer selected
   useEffect(() => {
     dispatch(resetSelectedBusiness());
   }, []);
@@ -26,7 +27,7 @@ const BusinessCardContainer = () => {
   return (
     <>
       <ul>
-        {/* conditionally render cards here */}
+        {/* mapping through array of businesses and passing it through prop to be used in BusinessCard*/}
         {businesses.map((businessCard) => (
           <BusinessCard key={businessCard.id} businessCard={businessCard} />
         ))}

@@ -17,6 +17,7 @@ const BusinessCard = ({ businessCard }) => {
       <div className='dashCard'>
         <div className='info1'>
           <img src='#' alt='img' />
+          {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
           <div>{businessCard?.businessname}</div>
         </div>
         <div className='info2'>
