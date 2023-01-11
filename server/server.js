@@ -1,31 +1,29 @@
 const express = require('express');
-const app = express();
+const db = require('./db');
+
 //this is how you pull in the env file
 require('dotenv').config();
 
-// const db = require('./db');
 const userRoutes = require('./routes/users');
-
-// db.authenticate()
-//   .then(() => console.log('Database connected...'))
-//   .catch((err) => console.log('ERROR', err));
-
+const businessRoutes = require('./routes/businesses');
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+db.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch((err) => console.log('ERROR', err));
 
 app.use('/users', userRoutes);
 
-app.get('/api', (_, res) => {
-  res.status(200).send('hello world');
-});
+app.use('/businesses', businessRoutes);
 
-//set up routes
-
-//catch all route handler
-app.use((_, res) => res.status(404).send('page not found'));
+// //catch all route handler
+// app.use((_, res) => res.status(404).send('page not found'));
 
 //global error handler
+
 app.use((err, _, res, __) => {
+
   const statusCode = res.statusCode ? res.statusCode : 500;
   res.status(statusCode).json({
     message: err.message ? err.message : 'An unknown error occured',

@@ -2,11 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #b19b8c;
+}
+
 @layer components {
   .nav {
-    @apply bg-black text-[#00df9a] w-auto font-medium px-6 py-3;
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
   }
-  .menu{
-    @apply flex justify-between items-center ml-96
+
+  /* .navLanding {
+    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+  } */
+
+  .logoName {
+    @apply flex flex-row;
   }
+
+  .navLogo {
+    @apply w-24 mr-8;
+  }
+
+  .title {
+    @apply text-white text-7xl font-serif italic;
+  }
+
+  .menu {
+    @apply flex gap-x-9 items-center text-white font-bold;
+  }
+
+  .barPic {
+    @apply fixed w-screen mb-96;
+  }
+
+  .info {
+    @apply absolute bg-pink bottom-0 w-[100%];
+  }
+  .promo {
+    @apply flex flex-row text-dark justify-around;
+  }
+
+  .promo li {
+    @apply w-[30%];
+  }
+  .promo h2 {
+    @apply mt-4 font-bold text-4xl text-center text-dark;
+  }
+
+  .promo p {
+    @apply mt-5 text-xl text-center text-dark italic;
+  }
+
+  .locationForm {
+    @apply flex flex-row my-12 justify-center w-[100%];
+  }
+
+  .registerModal,
+  .loginModal,
+  .checkIn_OutModal {
+    @apply absolute left-0 right-0 top-14 mx-auto h-96 max-w-sm bg-white p-10 mt-44 rounded-lg;
+  }
+
+  .regForm,
+  .logForm,
+  .codeForm {
+    @apply flex flex-col justify-evenly items-center h-[100%];
+  }
+
+  .modalTitle {
+    @apply text-dark text-4xl font-serif italic text-center;
+  }
+
+  .stdButton {
+    @apply bg-green p-3 w-fit rounded-lg text-white;
+  }
+
+   .checkinButton {
+    @apply bg-green p-3 w-[15%] rounded-lg text-white;
+  }
+
+   .attButton {
+    @apply bg-red-600 p-3 w-[15%] rounded-lg text-white;
+  }
+
+  .inputBox {
+    @apply form-input px-4 py-3 rounded-full;
+  }
+
+  .close-icon{
+    @apply float-right
+  }
+
+  .dashboardMain {
+    @apply flex flex-col max-w-[60%] mx-auto pt-44;
+  }
+
+  .map{
+    @apply w-[100%] border-solid border-2;
+  }
+
 }
