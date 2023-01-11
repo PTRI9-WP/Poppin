@@ -28,9 +28,7 @@ const BusinessCardContainer = () => {
       <ul>
         {/* conditionally render cards here */}
         {businesses.map((businessCard) => (
-          <div>
-            <BusinessCard key={businessCard.id} businessCard={businessCard} />
-          </div>
+          <BusinessCard key={businessCard.id} businessCard={businessCard} />
         ))}
       </ul>
     </>

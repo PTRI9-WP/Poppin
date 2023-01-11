@@ -1,7 +1,7 @@
-//BUSINESS SLICE / STATE GOES HERE
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import businessService from './businessService';
+import axios from 'axios';
+const businessURL = '/businesses/';
 
 const initialState = {
   //store array of visible businesses here ??  like businesses: []  ??
@@ -19,7 +19,10 @@ export const getAllBusinesses = createAsyncThunk(
   'business/getAll',
   async (_, thunkAPI) => {
     try {
-      return await businessService.getAllBusinesses();
+      const response = await axios.get(businessURL);
+      if (response.data) {
+        return response.data.businesses;
+      }
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return thunkAPI.rejectWithValue(message);

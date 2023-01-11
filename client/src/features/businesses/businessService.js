@@ -1,15 +1,17 @@
-//BUSINESS REQUESTS TO SERVER GOES HERE
-import axios from 'axios';
-const URL = '/businesses/';
+//DEPRECATED
 
-const getAllBusinesses = async () => {
-  const response = await axios.get(URL);
+// //BUSINESS REQUESTS TO SERVER GOES HERE
+// import axios from 'axios';
+// const URL = '/businesses/';
 
-  return response.data.businesses;
-};
+// const getAllBusinesses = async () => {
+//   const response = await axios.get(URL);
 
-const businessService = {
-  getAllBusinesses,
-};
+//   return response.data.businesses;
+// };
 
-export default businessService;
+// const businessService = {
+//   getAllBusinesses,
+// };
+
+// export default businessService;

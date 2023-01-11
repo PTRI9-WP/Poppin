@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-// import Card from '../components/Card';
 import CardContainer from '../components/BusinessCardContainer';
 import {
   MarkerF,
@@ -9,9 +8,6 @@ import {
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllBusinesses, reset } from '../features/businesses/businessSlice';
 
 const Dashboard = () => {
   //intialize state for map and searchbox
