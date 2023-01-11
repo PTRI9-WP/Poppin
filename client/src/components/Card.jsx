@@ -25,11 +25,11 @@ const Card = () => {
         <div className='info3'>
           <div>Poppin Score</div>
           <div className='corkScore'>
-            <GiChampagneCork />
-            <GiChampagneCork />
-            <GiChampagneCork />
-            <GiChampagneCork />
-            <GiChampagneCork />
+            <GiChampagneCork color='#2d3b46' />
+            <GiChampagneCork color='#2d3b46' />
+            <GiChampagneCork color='#2d3b46' />
+            <GiChampagneCork color='#f1c9ba' />
+            <GiChampagneCork color='#f1c9ba' />
           </div>
           <div>incentive goes here</div>
         </div>

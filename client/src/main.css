@@ -138,4 +138,8 @@ body {
     @apply flex text-center
   }
 
+  .overlay {
+    @apply blur-sm;
+  }
+
 }

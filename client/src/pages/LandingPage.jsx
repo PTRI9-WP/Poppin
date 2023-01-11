@@ -13,7 +13,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className='overlay'>
+      <div className={showLogin || showReg ? 'overlay' : null}>
         <div className='top'>
           <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
           <img src={bar} alt='bar' className='barPic' />
@@ -24,17 +24,17 @@ const LandingPage = () => {
           <ul className='promo'>
             <li className='infoCards'>
               <div className='ppl'>
-                <IoAccessibility />
-                <IoAccessibility />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
               </div>
               <h2>Hate Crowds?</h2>
               <p>Find a great deal while being in a more intimate setting.</p>
             </li>
             <li className='infoCards'>
               <div className='ppl'>
-                <IoAccessibility />
-                <IoAccessibility />
-                <IoAccessibility />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
               </div>
 
               <h2>Love Crowds?</h2>
@@ -45,11 +45,11 @@ const LandingPage = () => {
             </li>
             <li className='infoCards'>
               <div className='ppl'>
-                <IoAccessibility />
-                <IoAccessibility />
-                <IoAccessibility />
-                <IoAccessibility />
-                <IoAccessibility />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
+                <IoAccessibility size={30} />
               </div>
               <h2>More People!</h2>
               <p>

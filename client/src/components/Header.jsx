@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import corkWhite from '../assets/images/corkWhite.png';
+import corkShotWhite from '../assets/images/corkShotWhite.png';
 import { Link } from 'react-router-dom';
 import {
   FaTwitter,
@@ -9,7 +10,7 @@ import {
 
 
 const Header = ({ setShowLogin, setShowReg }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
     console.log('login clicked');
@@ -42,14 +43,13 @@ const Header = ({ setShowLogin, setShowReg }) => {
   return (
     <nav className='nav'>
       <div className='logoName'>
-        <img src={corkWhite} alt='corks' className='navLogo' />
+        <img src={corkShotWhite} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
       </div>
       <ul className='menu'>
         {isLoggedIn ? (
           <>
             <li>
-            
               <button onClick={handleHome}>Home</button>
             </li>
             <li>
