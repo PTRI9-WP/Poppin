@@ -107,7 +107,8 @@ const Dashboard = () => {
             onLoad={onMapLoad}
           >
             <MarkerF 
-            position={location} />
+            position={location}
+             />
 
           </GoogleMap>
         </div>
