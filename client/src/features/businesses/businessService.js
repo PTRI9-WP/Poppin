@@ -2,12 +2,14 @@
 import axios from 'axios';
 const URL = '/businesses';
 
-export const businessService = {
-  getAllBusinesses: async (businesses) => {
-    const response = await axios.get(URL, businesses);
-
-    if (response.data) {
-      return response.data;
-    }
-  },
+const getAllBusinesses = async () => {
+  const response = await axios.get(URL);
+  console.log(response, 'RESPONSE FROM AXIOS');
+  return response.data.businesses;
 };
+
+const businessService = {
+  getAllBusinesses,
+};
+
+export default businessService;

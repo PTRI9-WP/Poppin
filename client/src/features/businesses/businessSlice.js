@@ -1,7 +1,7 @@
 //BUSINESS SLICE / STATE GOES HERE
 
-import { createSlice } from '@reduxjs/toolkit';
-import { businessService } from './businessService';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import businessService from './businessService';
 
 const initialState = {
   //store array of visible businesses here ??  like businesses: []  ??
@@ -17,9 +17,9 @@ const initialState = {
 
 export const getAllBusinesses = createAsyncThunk(
   'business/get',
-  async (businesses, thunk) => {
+  async (_, thunk) => {
     try {
-      return await businessService.getAllBusinesses(businesses);
+      return await businessService.getAllBusinesses();
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return thunk.rejectWithValue(message);
@@ -54,7 +54,7 @@ export const businessSlice = createSlice({
       .addCase(getAllBusinesses.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.businesses = action.payload;
+        state.businesses.push(action.payload);
       })
       .addCase(getAllBusinesses.rejected, (state, action) => {
         state.isLoading = false;
