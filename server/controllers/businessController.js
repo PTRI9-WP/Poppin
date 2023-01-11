@@ -1,5 +1,6 @@
 //*** BCRYPT AND JWT CONSTANTS: AUTHENTICATION
 
+const { current } = require('@reduxjs/toolkit');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
@@ -107,48 +108,53 @@ const businessController = {
   },
 
   updateBusiness: async (req, res, next) => {
-    const { poppinscore, currentcapacity, maxcapacity } = req.body;
-
-    //percentage of current capacity to max capacity
-    //if current capacity = 0 - 20% make poppin score = 20
-    //if current capacity = 21 - 40% make poppin score = 40
-    //if current capacity = 41 - 60% make poppin score = 60
-    //if current capacity = 61 - 80% make poppin score = 80
-    //if current capacity = 81 - 100% make poppin score = 100
+    const { currentcapacity, maxcapacity } = req.body;
 
     const poppinPercentage = (currentcapacity / maxcapacity) * 100;
-    let updatedPoppinScore;
-    switch (poppinPercentage) {
-      case poppinPercentage <= 20:
-        updatedPoppinScore = 20;
-        break;
+    function testPoppinScore(poppinPercentage) {
+      let updatedPoppinScore;
+      switch (true) {
+        case poppinPercentage <= 20:
+          updatedPoppinScore = 20;
+          break;
 
-      case poppinPercentage <= 40:
-        updatedPoppinScore = 40;
-        break;
+        case poppinPercentage <= 40:
+          updatedPoppinScore = 40;
+          break;
 
-      case poppinPercentage <= 60:
-        updatedPoppinScore = 60;
-        break;
+        case poppinPercentage <= 60:
+          updatedPoppinScore = 60;
+          break;
 
-      case poppinPercentage <= 80:
-        updatedPoppinScore = 80;
-        break;
+        case poppinPercentage <= 80:
+          updatedPoppinScore = 80;
+          break;
 
-      case poppinPercentage <= 100:
-        updatedPoppinScore = 100;
-        break;
+        case poppinPercentage <= 100:
+          updatedPoppinScore = 100;
+          break;
+      }
+      return updatedPoppinScore;
     }
-
+    let newPoppinScore = testPoppinScore(poppinPercentage);
     try {
       const business = await Business.findOne({ id: req.params.id });
       if (!business) {
         res.status(400);
         throw new Error('business not found');
       }
-      await business.set({ poppinscore: updatedPoppinScore, currentcapacity });
+
+      if (currentcapacity > maxcapacity) {
+        throw new Error(' Business is fully booked');
+      }
+
+      await business.set({
+        poppinscore: newPoppinScore,
+        currentcapacity: parseInt(currentcapacity),
+        maxcapacity: parseInt(maxcapacity),
+      });
       await business.save();
-      res.status(200).json({ id: req.params.id });
+      res.status(200).json({ business });
     } catch (err) {
       console.log(err, 'error in updateBusiness');
       return next(err);
@@ -159,6 +165,7 @@ const businessController = {
     try {
       const businesses = await Business.findAll({
         attributes: [
+          'id',
           'businessname',
           'poppinscore',
           'maxcapacity',
