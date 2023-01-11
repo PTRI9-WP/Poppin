@@ -16,13 +16,13 @@ const initialState = {
 };
 
 export const getAllBusinesses = createAsyncThunk(
-  'business/get',
-  async (_, thunk) => {
+  'business/getAll',
+  async (_, thunkAPI) => {
     try {
       return await businessService.getAllBusinesses();
     } catch (err) {
       const message = err.response?.data.message || err.toString();
-      return thunk.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -30,10 +30,11 @@ export const getAllBusinesses = createAsyncThunk(
 //put all reducers in here its the home base for all global funcs/states to be utilized by all the various businessess
 
 export const businessSlice = createSlice({
-  name: 'business',
+  name: 'businesses',
   initialState,
   reducers: {
     reset: (state) => {
+      state.businesses = [];
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
@@ -54,7 +55,7 @@ export const businessSlice = createSlice({
       .addCase(getAllBusinesses.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.businesses.push(action.payload);
+        state.businesses = action.payload;
       })
       .addCase(getAllBusinesses.rejected, (state, action) => {
         state.isLoading = false;

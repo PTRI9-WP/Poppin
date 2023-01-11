@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Card = () => {
-   
-  const [ checkin, setCheckin ] = useState(false);
+const Card = ({ card }) => {
+  const dispatch = useDispatch();
+  const [checkin, setCheckin] = useState(false);
 
-  const handleCheckin = (e) =>{
+  const handleCheckin = (e) => {
     e.preventDefault();
-    setCheckin(!checkin)
-  }
+    setCheckin(!checkin);
+  };
 
   return (
     <>
@@ -16,7 +17,7 @@ const Card = () => {
       <div className='dashCard'>
         <div className='info1'>
           <img src='#' alt='img' />
-          <div>place name here </div>
+          <div>{card?.businessname} </div>
         </div>
         <div className='info2'>
           <div>Adress here</div>
@@ -45,6 +46,6 @@ const Card = () => {
       </div>
     </>
   );
-}
+};
 
-export default Card
+export default Card;
