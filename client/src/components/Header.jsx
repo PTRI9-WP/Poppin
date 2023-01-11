@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import corkWhite from '../assets/images/corkWhite.png';
+import corkShotWhite from '../assets/images/corkShotWhite.png';
 import { Link } from 'react-router-dom';
+import {
+  FaTwitter,
+  FaFacebook,
+  FaInstagram
+} from 'react-icons/fa';
+
 
 const Header = ({ setShowLogin, setShowReg }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,21 +35,34 @@ const Header = ({ setShowLogin, setShowReg }) => {
     window.location.href = '/checkin';
   };
 
+    const handleHome = () => {
+      console.log('nav to the checkin page');
+      window.location.href = '/home';
+    };
+
   return (
     <nav className='nav'>
       <div className='logoName'>
-        <img src={corkWhite} alt='corks' className='navLogo' />
+        <img src={corkShotWhite} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
       </div>
       <ul className='menu'>
         {isLoggedIn ? (
           <>
             <li>
+              <button onClick={handleHome}>Home</button>
+            </li>
+            <li>
               <button onClick={handleCheckin}>Checkins</button>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
+            <div className='iconRow'>
+              <FaTwitter className='socIcon' />
+              <FaFacebook className='socIcon' />
+              <FaInstagram className='socIcon' />
+            </div>
           </>
         ) : (
           <>
@@ -53,6 +73,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleReg}>Register</button>
             </li>
+            <div className='iconRow'>
+              <FaTwitter className='socIcon' />
+              <FaFacebook className='socIcon' />
+              <FaInstagram className='socIcon' />
+            </div>
           </>
         )}
       </ul>

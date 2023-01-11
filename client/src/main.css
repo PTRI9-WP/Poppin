@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 body {
-  background-color: #b19b8c;
+  background-color: #f1c9ba;
 }
 
 @layer components {
+  /* .top{
+    @apply relative;
+  } */
+
   .nav {
-    @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
+    @apply fixed flex items-center justify-between pl-5 pr-5 pt-5 pb-4 bg-dark z-10 w-[100%] drop-shadow-md;
   }
 
   /* .navLanding {
@@ -23,6 +27,14 @@ body {
     @apply w-24 mr-8;
   }
 
+  .iconRow{
+    @apply flex w-20 pt-16 justify-center justify-between;
+  }
+
+  .socIcon {
+    @apply text-white
+  }
+
   .title {
     @apply text-white text-7xl font-serif italic;
   }
@@ -32,12 +44,17 @@ body {
   }
 
   .barPic {
-    @apply fixed w-screen mb-96;
+    @apply h-[50%] min-w-[100%];
   }
 
   .info {
-    @apply absolute bg-pink bottom-0 w-[100%];
+    @apply bg-peach w-[100%] p-10;
   }
+
+  .infoCards {
+    @apply flex flex-col items-center bg-[#ede3e0] rounded-lg p-10;
+  }
+
   .promo {
     @apply flex flex-row text-dark justify-around;
   }
@@ -46,7 +63,7 @@ body {
     @apply w-[30%];
   }
   .promo h2 {
-    @apply mt-4 font-bold text-4xl text-center text-dark;
+    @apply mt-4 font-bold text-2xl text-center text-dark;
   }
 
   .promo p {
@@ -74,31 +91,55 @@ body {
   }
 
   .stdButton {
-    @apply bg-green p-3 w-fit rounded-lg text-white;
+    @apply bg-green p-3 w-fit rounded-lg text-white font-bold drop-shadow-md;
   }
 
-   .checkinButton {
-    @apply bg-green p-3 w-[15%] rounded-lg text-white;
+  .checkinButton {
+    @apply bg-green p-3 w-[15%] rounded-lg text-white font-bold drop-shadow-md;
   }
 
-   .attButton {
-    @apply bg-red-600 p-3 w-[15%] rounded-lg text-white;
+  .attButton {
+    @apply bg-[#c27154] p-3 w-[15%] rounded-lg text-white font-bold drop-shadow-md;
   }
 
   .inputBox {
-    @apply form-input px-4 py-3 rounded-full;
+    @apply form-input px-4 py-3 rounded-full drop-shadow-md;
   }
 
-  .close-icon{
-    @apply float-right
+  .close-icon {
+    @apply float-right;
   }
 
   .dashboardMain {
     @apply flex flex-col max-w-[60%] mx-auto pt-44;
   }
 
-  .map{
-    @apply w-[100%] border-solid border-2;
+  .map {
+    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg;
+  }
+
+  .checkinDetail {
+    @apply flex flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%] bg-[#ede3e0] rounded-lg drop-shadow-lg;
+  }
+
+  /* .dashCard {
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#e7bbae];
+  } */
+
+  .dashCard {
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg;
+  }
+
+  .corkScore{
+    @apply flex;
+  }
+
+  .ppl{
+    @apply flex text-center
+  }
+
+  .overlay {
+    @apply blur-sm;
   }
 
 }
