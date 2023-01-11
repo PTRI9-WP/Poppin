@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
@@ -26,8 +27,8 @@ function RegisterModal({ setShowReg }) {
   return (
     <>
       <div className='registerModal'>
-        <div onClick={handleClick} className='close-icon'>
-          X
+        <div onClick={handleClick} className='float-right'>
+          <AiOutlineCloseCircle size={25} />
         </div>
         <h2 className='modalTitle'>Register</h2>
         <form onSubmit={handleSubmit} className='regForm'>
