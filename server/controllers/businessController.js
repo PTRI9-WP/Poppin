@@ -1,5 +1,6 @@
 //*** BCRYPT AND JWT CONSTANTS: AUTHENTICATION
 
+const { current } = require('@reduxjs/toolkit');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
@@ -12,22 +13,12 @@ const businessController = {
       businessname,
       password,
       email,
-      poppinscore,
-      maxcapacity,
-      currentcapacity,
       location,
+      latitude,
+      longitude,
     } = req.body;
     try {
-      if (
-        !username ||
-        !businessname ||
-        !password ||
-        !email ||
-        !poppinscore ||
-        !maxcapacity ||
-        !currentcapacity ||
-        !location
-      ) {
+      if (!username || !businessname || !password || !email || !location) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -45,27 +36,33 @@ const businessController = {
         username,
         businessname,
         password: hashedPassword,
-        poppinscore,
-        maxcapacity,
-        currentcapacity,
+        poppinscore: 20,
+        maxcapacity: 100,
+        currentcapacity: 0,
         email,
         location,
+        latitude,
+        longitude,
       });
 
+      const tokens = {
+        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: '20m',
+        }),
+      };
+
       res.status(200).json({
-        _id: newBusiness.id,
+        id: newBusiness.id,
         username,
         email,
         location,
-        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '60d',
-        }),
+        tokens,
+        latitude,
+        longitude,
       });
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+      console.log(err);
+      return next(err);
     }
   },
 
@@ -78,14 +75,17 @@ const businessController = {
         throw new Error('please enter all required fields');
       }
 
-      const businessExists = await business.findOne({ where: { email } });
+      const businessExists = await Business.findOne({ where: { email } });
 
       if (!businessExists) {
         res.status(500);
-        throw new Error('business does not exist');
+        throw new Error('Email and Password combination is invalid');
       }
 
+      console.log('EMAIL WAS FOUND!');
+
       if (await bcrypt.compare(password, businessExists.password)) {
+        console.log('password worked!');
         const tokens = {
           token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '20m',
@@ -93,7 +93,7 @@ const businessController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-        Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
         // 2. write a function to store the email and the token <-- Completed
 
         //added tokens to cookies so it will remain on the user
@@ -114,22 +114,86 @@ const businessController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
+      console.log(err);
+      return next(err);
     }
   },
 
-  getAllBusinessess: async (_, res) => {
+  updateBusiness: async (req, res, next) => {
+    const { currentcapacity, maxcapacity } = req.body;
+
+    const poppinPercentage = (currentcapacity / maxcapacity) * 100;
+    function testPoppinScore(poppinPercentage) {
+      let updatedPoppinScore;
+      switch (true) {
+        case poppinPercentage <= 20:
+          updatedPoppinScore = 20;
+          break;
+
+        case poppinPercentage <= 40:
+          updatedPoppinScore = 40;
+          break;
+
+        case poppinPercentage <= 60:
+          updatedPoppinScore = 60;
+          break;
+
+        case poppinPercentage <= 80:
+          updatedPoppinScore = 80;
+          break;
+
+        case poppinPercentage <= 100:
+          updatedPoppinScore = 100;
+          break;
+      }
+      return updatedPoppinScore;
+    }
+    let newPoppinScore = testPoppinScore(poppinPercentage);
     try {
-      const businesses = await Business.findAll();
-      res.status(200).json(businesses);
-    } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
+      const business = await Business.findOne({ id: req.params.id });
+      if (!business) {
+        res.status(400);
+        throw new Error('business not found');
+      }
+
+      if (currentcapacity > maxcapacity) {
+        throw new Error(' Business is fully booked');
+      }
+
+      await business.set({
+        poppinscore: newPoppinScore,
+        currentcapacity: parseInt(currentcapacity),
+        maxcapacity: parseInt(maxcapacity),
       });
+      await business.save();
+      res.status(200).json({ business });
+    } catch (err) {
+      console.log(err, 'error in updateBusiness');
+      return next(err);
+    }
+  },
+
+  getAllBusinesses: async (_, res, next) => {
+    try {
+      const businesses = await Business.findAll({
+        attributes: [
+          'id',
+          'businessname',
+          'poppinscore',
+          'maxcapacity',
+          'currentcapacity',
+          'location',
+          'latitude',
+          'longitude',
+        ],
+      });
+
+      res.status(200).json({
+        businesses,
+      });
+    } catch (err) {
+      console.log(err, 'error in getAllBusinessess');
+      return next(err);
     }
   },
 

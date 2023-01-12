@@ -4,6 +4,6 @@ import businessReducer from '../features/businesses/businessSlice'
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    business: businessReducer,
+    businesses: businessReducer,
   },
 });
