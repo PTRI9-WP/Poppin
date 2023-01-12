@@ -1,37 +1,35 @@
 //*** BCRYPT AND JWT CONSTANTS: AUTHENTICATION
 
-const { current } = require('@reduxjs/toolkit');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 
- 
-    function getPoppinScore(poppinPercentage) {
-      let updatedPoppinScore;
-      switch (true) {
-        case poppinPercentage <= 20:
-          updatedPoppinScore = 20;
-          break;
+function getPoppinScore(poppinPercentage) {
+  let updatedPoppinScore;
+  switch (true) {
+    case poppinPercentage <= 20:
+      updatedPoppinScore = 20;
+      break;
 
-        case poppinPercentage <= 40:
-          updatedPoppinScore = 40;
-          break;
+    case poppinPercentage <= 40:
+      updatedPoppinScore = 40;
+      break;
 
-        case poppinPercentage <= 60:
-          updatedPoppinScore = 60;
-          break;
+    case poppinPercentage <= 60:
+      updatedPoppinScore = 60;
+      break;
 
-        case poppinPercentage <= 80:
-          updatedPoppinScore = 80;
-          break;
+    case poppinPercentage <= 80:
+      updatedPoppinScore = 80;
+      break;
 
-        case poppinPercentage <= 100:
-          updatedPoppinScore = 100;
-          break;
-      }
-      return updatedPoppinScore;
-    };
+    case poppinPercentage <= 100:
+      updatedPoppinScore = 100;
+      break;
+  }
+  return updatedPoppinScore;
+}
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
@@ -63,16 +61,16 @@ const businessController = {
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
       const newBusiness = await Business.create({
-          username,
-          businessname,
-          password,
-          email,
-          location,
-          latitude,
-          longitude,
-          image,
-          phonenumber,
-          incentive,
+        username,
+        businessname,
+        password,
+        email,
+        location,
+        latitude,
+        longitude,
+        image,
+        phonenumber,
+        incentive,
       });
 
       const tokens = {
@@ -153,29 +151,36 @@ const businessController = {
   },
 
   updateBusiness: async (req, res, next) => {
-    const { currentcapacity, maxcapacity } = req.body;
-
-    const poppinPercentage = (currentcapacity / maxcapacity) * 100;
-    let newPoppinScore = getPoppinScore(poppinPercentage);
+    const { currentcapacity } = req.body;
 
     try {
-      const business = await Business.findOne({ id: req.params.id });
+      const business = await Business.findOne({ where: { id: req.params.id } });
       if (!business) {
         res.status(400);
         throw new Error('business not found');
       }
 
-      if (currentcapacity > maxcapacity) {
+      if (!currentcapacity) {
+        res.status(400);
+        throw new Error('current capacity not available');
+      }
+
+      const poppinPercentage = (currentcapacity / business.maxcapacity) * 100;
+
+      let newPoppinScore = getPoppinScore(poppinPercentage);
+
+      if (currentcapacity > business.maxcapacity) {
         throw new Error(' Business is fully booked');
       }
 
       await business.set({
         poppinscore: newPoppinScore,
         currentcapacity: parseInt(currentcapacity),
-        maxcapacity: parseInt(maxcapacity),
+        maxcapacity: parseInt(business.maxcapacity),
       });
       await business.save();
-      res.status(200).json({ business });
+      res.status(200).json({ id: req.params.id, score: business.poppinscore });
+      // res.json(business);
     } catch (err) {
       console.log(err, 'error in updateBusiness');
       return next(err);
@@ -196,11 +201,11 @@ const businessController = {
           'longitude',
           'image',
           'phonenumber',
-          'incentive'
+          'incentive',
         ],
       });
 
-      console.log(businesses, 'businesses in get all businesses')
+      console.log(businesses, 'businesses in get all businesses');
       res.status(200).json({
         businesses,
       });

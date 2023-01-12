@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import {
@@ -9,6 +9,7 @@ import {
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
   //intialize state for map and searchbox
@@ -16,8 +17,11 @@ const Dashboard = () => {
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
+
+  const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
+  const navigate = useNavigate();
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {
@@ -28,6 +32,12 @@ const Dashboard = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
 
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
@@ -72,7 +82,7 @@ const Dashboard = () => {
   //   e.preventDefault();
   //   console.log('current location requested');
   // };
-  
+
   return isLoaded ? (
     <>
       <div className={showCheckinModal ? 'overlay' : null}>
