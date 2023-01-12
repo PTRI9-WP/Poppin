@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Card = () => {
-   
-  const [ checkin, setCheckin ] = useState(false);
+const BusinessCard = ({ businessCard }) => {
+  const dispatch = useDispatch();
+  const [checkin, setCheckin] = useState(false);
 
-  const handleCheckin = (e) =>{
+  const handleCheckin = (e) => {
     e.preventDefault();
-    setCheckin(!checkin)
-  }
+    setCheckin(!checkin);
+  };
 
   return (
     <>
@@ -16,7 +17,8 @@ const Card = () => {
       <div className='dashCard'>
         <div className='info1'>
           <img src='#' alt='img' />
-          <div>place name here </div>
+          {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
+          <div>{businessCard?.businessname}</div>
         </div>
         <div className='info2'>
           <div>Adress here</div>
@@ -45,6 +47,6 @@ const Card = () => {
       </div>
     </>
   );
-}
+};
 
-export default Card
+export default BusinessCard;
