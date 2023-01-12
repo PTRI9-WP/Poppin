@@ -1,15 +1,15 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Link } from 'react-router-dom'
-// import Card from '../components/Card';
-import CardContainer from '../components/CardContainer';
-import { MarkerF, GoogleMap, useJsApiLoader, StandaloneSearchBox } from '@react-google-maps/api';
-import axios from 'axios';
-
+import { Link } from 'react-router-dom';
+import CardContainer from '../components/BusinessCardContainer';
+import {
+  MarkerF,
+  GoogleMap,
+  useJsApiLoader,
+  StandaloneSearchBox,
+} from '@react-google-maps/api';
 
 const Dashboard = () => {
-
   //intialize state for map and searchbox
   //state is mainly to reference map and searchbox components so we can use methods under the hood
   const [map, setMap] = useState(null);
@@ -17,22 +17,22 @@ const Dashboard = () => {
   const [location, setLocation] = useState(null);
 
   //Upon rendering, ensure that the map loads with the client's location
-  useEffect (() => {
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
     });
-  }, [])
+  }, []);
 
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU",
-    libraries: ['places']
-  })
+    googleMapsApiKey: 'AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU',
+    libraries: ['places'],
+  });
 
   //This is required otheriwse, map won't render
   const containerStyle = {
@@ -50,12 +50,12 @@ const Dashboard = () => {
   };
 
   //set the reference object to the searchbox state upon the searchbox component rendering
-  const onSBLoad = ref => {
+  const onSBLoad = (ref) => {
     setSearchBox(ref);
   };
 
   //set the reference object to the map state upon the GoogleMap component rendering
-  const onMapLoad = ref => {
+  const onMapLoad = (ref) => {
     setMap(ref);
   };
 
@@ -69,10 +69,10 @@ const Dashboard = () => {
   //   e.preventDefault();
   //   console.log('current location requested');
   // };
-
   return isLoaded ? (
     <>
       <Header />
+
       <main className='dashboardMain'>
         {' '}
         {/*  max width 1100px margin 0 auto */}
@@ -107,10 +107,7 @@ const Dashboard = () => {
             zoom={10}
             onLoad={onMapLoad}
           >
-            <MarkerF 
-            position={location}
-             />
-
+            <MarkerF position={location} />
           </GoogleMap>
         </div>
         {/* End Map section */}
@@ -118,7 +115,9 @@ const Dashboard = () => {
         <CardContainer />
       </main>
     </>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };
 
 export default React.memo(Dashboard);

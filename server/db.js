@@ -1,6 +1,4 @@
 //CONNECT  SERVER
-require('dotenv').config()
-
 const { Sequelize } = require('sequelize');
 // console.log(process.env.URI, 'URI STRING');
 
