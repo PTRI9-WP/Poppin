@@ -14,10 +14,11 @@ const businessController = {
       businessname,
       password,
       email,
-      location,
-      latitude,
-      longitude,
+      location
     } = req.body;
+
+    let {latitude, longitude} = req.body;
+
     try {
       if (!username || !businessname || !password || !email || !location) {
         res.status(400);
@@ -35,8 +36,13 @@ const businessController = {
 
       const geocodingClient = new Client({});
       let params = {address: location, key: "AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU"};
-      console.log('location', location)
-      await geocodingClient.geocode({params}).then((response) => console.log(response.data.results[0].geometry)).catch((error) => console.log(error));
+  
+      await geocodingClient.geocode({params}).then((response) => { 
+
+        let { lat, lng } = response.data.results[0].geometry.location;
+        latitude = lat;
+        longitude = lng;
+      }).catch((error) => console.log(error));
 
       const newBusiness = await Business.create({
         username,

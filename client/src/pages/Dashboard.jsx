@@ -8,6 +8,7 @@ import {
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
+import axios from 'axios';
 
 const Dashboard = () => {
   //intialize state for map and searchbox
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
+  const [markers, setMarkers] = useState(null);
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {
@@ -40,13 +42,35 @@ const Dashboard = () => {
     height: '400px',
   };
 
+
+  const getAllCoordinates = async () => {
+    try {
+      const allBusinesses = await axios.get('http://localhost:8080/businesses');
+      const latLongArr =  allBusinesses.data.businesses.map( element => {
+        return {lat: parseFloat(element.latitude), lng: parseFloat(element.longitude), id: element.id} 
+      });
+      return latLongArr;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createMarkers = async () => {
+    const coordinatesArr = await getAllCoordinates();
+    const markersArr = coordinatesArr.map(element => {
+      return <MarkerF position={{lat: element.lat, lng: element.lng}} animation={2} key={element.id}/>
+    });
+    return markersArr;
+  };
+
   //Move the map to the query location provided in the searchbox
-  const onPlacesChanged = () => {
-    const places = searchBox.getPlaces();
+  const onPlacesChanged = async () => {
+    const places = await searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
 
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
+    setMarkers(await createMarkers());
   };
 
   //set the reference object to the searchbox state upon the searchbox component rendering
@@ -63,6 +87,8 @@ const Dashboard = () => {
     e.preventDefault();
     console.log('zip code submitted');
   };
+
+
 
   // removed current location button since it's not imperative for an MVP
   // const handleCurrentLoc = (e) => {
@@ -107,7 +133,7 @@ const Dashboard = () => {
             zoom={10}
             onLoad={onMapLoad}
           >
-            <MarkerF position={location} />
+            {markers}
           </GoogleMap>
         </div>
         {/* End Map section */}
