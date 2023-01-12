@@ -58,7 +58,7 @@ const businessController = {
       };
 
       res.status(200).json({
-        _id: newBusiness.id,
+        id: newBusiness.id,
         username,
         email,
         location,

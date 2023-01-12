@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import axios from 'axios';
 import authService from './authService';
+
 const user = JSON.parse(localStorage.getItem('user'));
 
+const authURL = '/users/';
 
 const initialState = {
   //set user to either user or null here
@@ -13,16 +15,22 @@ const initialState = {
   message: '',
 };
 
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
-  try {
-    return await authService.login(user);
-  } catch (err) {
-  
-    //axios response || backend response || error from this function
-    const message = err.response?.data.message ?? err.toString();
-    return thunkAPI.rejectWithValue(message);
+export const login = createAsyncThunk(
+  'auth/login',
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post(authURL + 'login', userData);
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        return response.data;
+      }
+    } catch (err) {
+      //axios response || backend response || error from this function
+      const message = err.response?.data.message ?? err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 //not sure if the cb has to be async
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -34,7 +42,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-
       state.isError = false;
       state.isLoading = false;
       state.isSuccess = false;
@@ -62,7 +69,6 @@ export const authSlice = createSlice({
         state.user = null;
       });
   },
-
 });
 
 export const { reset } = authSlice.actions;
