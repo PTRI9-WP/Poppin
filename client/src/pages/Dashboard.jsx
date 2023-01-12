@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
-
+import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import {
   MarkerF,
   GoogleMap,
@@ -16,6 +16,8 @@ const Dashboard = () => {
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
+  //show modal for entering checkin code
+  const [showCheckinModal, setShowCheckinModal] = useState(false);
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {
@@ -70,54 +72,64 @@ const Dashboard = () => {
   //   e.preventDefault();
   //   console.log('current location requested');
   // };
+  
   return isLoaded ? (
     <>
-      <Header />
+      <div className={showCheckinModal ? 'overlay' : null}>
+        <Header />
 
-      <main className='dashboardMain'>
-        {' '}
-        {/*  max width 1100px margin 0 auto */}
-        {/* User Location form section */}
-        <div className='locationForm'>
-          <h3 className='modalTitle'>Select a location:</h3>
-          {/* removed current location button since it's not imperative for an
+        <main className='dashboardMain'>
+          {' '}
+          {/*  max width 1100px margin 0 auto */}
+          {/* User Location form section */}
+          <div className='locationForm'>
+            <h3 className='modalTitle'>Select a location:</h3>
+            {/* removed current location button since it's not imperative for an
           MVP
           <form onSubmit={handleCurrentLoc}>
             <button className='stdButton' type='submit'>
             </button>
           </form>
           <h3>OR</h3> */}
-          <StandaloneSearchBox
-            onLoad={onSBLoad}
-            onPlacesChanged={onPlacesChanged}
-          >
-            <form onSubmit={handleSubmit}>
-              <input type='text' placeholder='Zip Code' className='ml-4 mr-4' />
-              <button className='stdButton' type='submit'>
-                Submit
-              </button>
-            </form>
-          </StandaloneSearchBox>
-        </div>
-        {/* End User Form Section */}
-        {/* Map section */}
-        <div className='map'>
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={location}
-            zoom={10}
-            onLoad={onMapLoad}
-          >
-            <MarkerF position={location} />
-          </GoogleMap>
-        </div>
-        {/* End Map section */}
-        {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-        <CardContainer />
-      </main>
+            <StandaloneSearchBox
+              onLoad={onSBLoad}
+              onPlacesChanged={onPlacesChanged}
+            >
+              <form onSubmit={handleSubmit}>
+                <input
+                  type='text'
+                  placeholder='Zip Code'
+                  className='ml-4 mr-4'
+                />
+                <button className='stdButton' type='submit'>
+                  Submit
+                </button>
+              </form>
+            </StandaloneSearchBox>
+          </div>
+          {/* End User Form Section */}
+          {/* Map section */}
+          <div className='map'>
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={location}
+              zoom={10}
+              onLoad={onMapLoad}
+            >
+              <MarkerF position={location} />
+            </GoogleMap>
+          </div>
+          {/* End Map section */}
+          {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
+          <CardContainer />
+        </main>
+      </div>
+      {showCheckinModal ? (
+        <CheckIn_OutModal setShowCheckinModal={setShowCheckinModal} />
+      ) : null}
     </>
   ) : (
-    <></>
+    ''
   );
 };
 

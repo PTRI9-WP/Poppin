@@ -14,10 +14,13 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LandingPage />} />
+{/* 
+          Route protected...
+          {user && <Route path='/home' element={<Dashboard />} />}
+          {user && <Route path='/checkin' element={<Checkin />} />} */}
 
-         {user && <Route path='/home' element={<Dashboard />} /> }
-         {user && <Route path='/checkin' element={<Checkin />} /> } 
-
+          <Route path='/home' element={<Dashboard />} />
+       <Route path='/checkin' element={<Checkin />} />
         </Routes>
       </BrowserRouter>
     </>

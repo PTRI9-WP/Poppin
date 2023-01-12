@@ -6,6 +6,33 @@ const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 
+ 
+    function getPoppinScore(poppinPercentage) {
+      let updatedPoppinScore;
+      switch (true) {
+        case poppinPercentage <= 20:
+          updatedPoppinScore = 20;
+          break;
+
+        case poppinPercentage <= 40:
+          updatedPoppinScore = 40;
+          break;
+
+        case poppinPercentage <= 60:
+          updatedPoppinScore = 60;
+          break;
+
+        case poppinPercentage <= 80:
+          updatedPoppinScore = 80;
+          break;
+
+        case poppinPercentage <= 100:
+          updatedPoppinScore = 100;
+          break;
+      }
+      return updatedPoppinScore;
+    };
+
 const businessController = {
   registerBusiness: async (req, res, next) => {
     const {
@@ -129,32 +156,8 @@ const businessController = {
     const { currentcapacity, maxcapacity } = req.body;
 
     const poppinPercentage = (currentcapacity / maxcapacity) * 100;
-    function testPoppinScore(poppinPercentage) {
-      let updatedPoppinScore;
-      switch (true) {
-        case poppinPercentage <= 20:
-          updatedPoppinScore = 20;
-          break;
+    let newPoppinScore = getPoppinScore(poppinPercentage);
 
-        case poppinPercentage <= 40:
-          updatedPoppinScore = 40;
-          break;
-
-        case poppinPercentage <= 60:
-          updatedPoppinScore = 60;
-          break;
-
-        case poppinPercentage <= 80:
-          updatedPoppinScore = 80;
-          break;
-
-        case poppinPercentage <= 100:
-          updatedPoppinScore = 100;
-          break;
-      }
-      return updatedPoppinScore;
-    }
-    let newPoppinScore = testPoppinScore(poppinPercentage);
     try {
       const business = await Business.findOne({ id: req.params.id });
       if (!business) {
@@ -197,6 +200,7 @@ const businessController = {
         ],
       });
 
+      console.log(businesses, 'businesses in get all businesses')
       res.status(200).json({
         businesses,
       });

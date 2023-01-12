@@ -46,7 +46,7 @@ export const businessSlice = createSlice({
     resetSelectedBusiness: (state) => {
       state.selectedBusiness = null;
     },
-    setSelectedBusiness: (state) => {
+    setSelectedBusiness: (state, action) => {
       state.selectedBusiness = action.payload;
     },
   },
