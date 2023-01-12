@@ -6,7 +6,7 @@ import { setSelectedBusiness } from '../features/businesses/businessSlice';
 
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
-  const [checkin, setCheckin] = useState(false);
+  const [checkin, setCheckin] = useState(true);
 
   const { selectedBusiness } = useSelector((state) => state.businesses);
 

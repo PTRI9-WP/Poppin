@@ -862,13 +862,21 @@ select {
 }
 
 .regForm,
-  .logForm,
-  .codeForm {
+  .logForm {
   display: flex;
   height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.codeForm {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2.75rem;
+  vertical-align: top;
 }
 
 .modalTitle {
@@ -984,10 +992,6 @@ select {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.close-icon {
-  float: right;
-}
-
 .dashboardMain {
   margin-left: auto;
   margin-right: auto;
@@ -1067,6 +1071,10 @@ select {
   float: right;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .mt-72 {
   margin-top: 18rem;
 }
@@ -1079,12 +1087,20 @@ select {
   margin-right: 1rem;
 }
 
+.mb-11 {
+  margin-bottom: 2.75rem;
+}
+
 .h-96 {
   height: 24rem;
 }
 
 .w-\[100\%\] {
   width: 100%;
+}
+
+.pb-11 {
+  padding-bottom: 2.75rem;
 }
 
 body {

@@ -101,9 +101,10 @@ const Dashboard = () => {
                   placeholder='Zip Code'
                   className='ml-4 mr-4'
                 />
-                <button className='stdButton' type='submit'>
+                {/* Deactivated since selecting on map is submitting */}
+                {/* <button className='stdButton' type='submit'>
                   Submit
-                </button>
+                </button> */}
               </form>
             </StandaloneSearchBox>
           </div>
@@ -121,7 +122,7 @@ const Dashboard = () => {
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          <CardContainer />
+          <CardContainer setShowCheckinModal={setShowCheckinModal} />
         </main>
       </div>
       {showCheckinModal ? (

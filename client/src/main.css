@@ -80,10 +80,15 @@ body {
     @apply absolute left-0 right-0 top-14 mx-auto h-96 max-w-sm bg-white p-10 mt-44 rounded-lg;
   }
 
+
   .regForm,
-  .logForm,
-  .codeForm {
+  .logForm{
     @apply flex flex-col justify-evenly items-center h-[100%];
+  }
+
+ 
+  .codeForm {
+    @apply flex flex-col align-top items-center h-[100%] pt-11;
   }
 
   .modalTitle {
