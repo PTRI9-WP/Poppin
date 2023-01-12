@@ -35,7 +35,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/home');
+      navigate('/');
     }
   }, [user, navigate]);
 
