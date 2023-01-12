@@ -32,9 +32,16 @@ export const getAllBusinesses = createAsyncThunk(
 
 export const updateBusiness = createAsyncThunk(
   'business/update',
-  async (data, { rejectWithValue }) => {
+  async (businessData, { rejectWithValue }) => {
     try {
-      const response = await axios.put(businessURL + data[0], data[1]);
+      const response = await axios.put(businessURL + businessData.id, {
+        currentcapacity: businessData.currentcapacity,
+        poppinscore: businessData.poppinscore,
+      });
+      if (response.data) {
+        console.log('RESPONSE DATA', response.data);
+        return response.data;
+      }
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return rejectWithValue(message);
@@ -76,7 +83,31 @@ export const businessSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
+      })
+      .addCase(updateBusiness.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateBusiness.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        const updatedBusiness = action.payload;
+        state.businesses = state.businesses.map((el) => {
+          if (el.id === updatedBusiness.id) {
+            el.currentcapacity = updatedBusiness.currentcapacity;
+            el.poppinscore = updatedBusiness.poppinscore;
+            return el;
+          } else {
+            return el;
+          }
+        });
+      })
+      .addCase(
+        updateBusiness.rejected((state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+      );
   },
 });
 

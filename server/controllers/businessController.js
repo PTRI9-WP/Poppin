@@ -151,7 +151,7 @@ const businessController = {
   },
 
   updateBusiness: async (req, res, next) => {
-    const { currentcapacity } = req.body;
+    // const { currentcapacity } = req.body;
 
     try {
       const business = await Business.findOne({ where: { id: req.params.id } });
@@ -160,27 +160,26 @@ const businessController = {
         throw new Error('business not found');
       }
 
-      if (!currentcapacity) {
+      if (business.currentcapacity > business.maxcapacity) {
         res.status(400);
-        throw new Error('current capacity not available');
+        throw new Error('Business is fully booked');
       }
 
-      const poppinPercentage = (currentcapacity / business.maxcapacity) * 100;
+      const poppinPercentage =
+        (business.currentcapacity / business.maxcapacity) * 100;
 
       let newPoppinScore = getPoppinScore(poppinPercentage);
-
-      if (currentcapacity > business.maxcapacity) {
-        throw new Error(' Business is fully booked');
-      }
-
       await business.set({
-        poppinscore: newPoppinScore,
-        currentcapacity: parseInt(currentcapacity),
+        poppinscore: parseInt(newPoppinScore),
+        currentcapacity: parseInt(business.currentcapacity) + 1,
         maxcapacity: parseInt(business.maxcapacity),
       });
       await business.save();
-      res.status(200).json({ id: req.params.id, score: business.poppinscore });
-      // res.json(business);
+      res.status(200).json({
+        id: req.params.id,
+        poppinscore: business.poppinscore,
+        currentcapacity: business.currentcapacity,
+      });
     } catch (err) {
       console.log(err, 'error in updateBusiness');
       return next(err);

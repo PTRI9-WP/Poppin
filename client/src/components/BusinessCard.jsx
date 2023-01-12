@@ -12,19 +12,21 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 
   const { selectedBusiness } = useSelector((state) => state.businesses);
 
-  const handleDivClick = (e) => {
-    e.preventDefault();
-    dispatch(setSelectedBusiness(businessCard));
-    console.log('SELECTED BUSINESS ==> ', selectedBusiness);
-  };
+  // const handleDivClick = (e) => {
+  //   e.preventDefault();
+  //   dispatch(setSelectedBusiness(businessCard));
+  //   console.log('SELECTED BUSINESS ==> ', selectedBusiness);
+  // };
   const handleCheckin = (e) => {
     dispatch(setSelectedBusiness(businessCard));
     dispatch(
       updateBusiness({
         id: selectedBusiness.id,
-        currentcapacity: selectedBusiness.poppinscore + 1,
+        currentcapacity: selectedBusiness.currentcapacity,
+        poppinscore: selectedBusiness.poppinscore,
       })
     );
+    console.log('CURRENT BUSINESS =>', selectedBusiness);
     console.log('SCORE =>', selectedBusiness?.poppinscore);
     setCheckin(!checkin);
     // setShowCheckinModal(true);
@@ -33,7 +35,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   return (
     <>
       {/* <div className = 'cardContainer'></div> */}
-      <div className='dashCard' onClick={handleDivClick}>
+      <div className='dashCard'>
         <div className='info1'>
           <img src={businessCard?.image} alt='img' />
           {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
