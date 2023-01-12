@@ -16,6 +16,9 @@ const businessController = {
       location,
       latitude,
       longitude,
+      image,
+      phonenumber,
+      incentive,
     } = req.body;
     try {
       if (!username || !businessname || !password || !email || !location) {
@@ -33,16 +36,16 @@ const businessController = {
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
       const newBusiness = await Business.create({
-        username,
-        businessname,
-        password: hashedPassword,
-        poppinscore: 20,
-        maxcapacity: 100,
-        currentcapacity: 0,
-        email,
-        location,
-        latitude,
-        longitude,
+          username,
+          businessname,
+          password,
+          email,
+          location,
+          latitude,
+          longitude,
+          image,
+          phonenumber,
+          incentive,
       });
 
       const tokens = {
@@ -59,6 +62,9 @@ const businessController = {
         tokens,
         latitude,
         longitude,
+        image,
+        phonenumber,
+        incentive,
       });
     } catch (err) {
       console.log(err);
@@ -185,6 +191,9 @@ const businessController = {
           'location',
           'latitude',
           'longitude',
+          'image',
+          'phonenumber',
+          'incentive'
         ],
       });
 

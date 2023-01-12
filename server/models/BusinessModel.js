@@ -34,6 +34,15 @@ const Business = db.define('business', {
   longitude: {
     type: Sequelize.FLOAT,
   },
+  image: {
+    type: Sequelize.STRING,
+  },
+  phonenumber: {
+    type: Sequelize.INTEGER,
+  },
+  incentive: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Business;
