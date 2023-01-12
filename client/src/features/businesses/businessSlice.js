@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import businessService from './businessService';
+// import { useDispatch } from 'react-redux';
 import axios from 'axios';
 const businessURL = '/businesses/';
 
+// const dispatch = useDispatch();
 const initialState = {
   //store array of visible businesses here ??  like businesses: []  ??
   businesses: [],
@@ -100,6 +101,9 @@ export const businessSlice = createSlice({
             return el;
           }
         });
+        // update the selectedBusiness with the updated data
+        state.selectedBusiness = updatedBusiness;
+        // dispatch(getAllBusinesses());
       })
       .addCase(
         updateBusiness.rejected((state, action) => {

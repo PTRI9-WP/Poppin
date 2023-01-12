@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setSelectedBusiness,
   updateBusiness,
+  getAllBusinesses,
 } from '../features/businesses/businessSlice';
 
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
@@ -26,6 +27,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
         poppinscore: selectedBusiness.poppinscore,
       })
     );
+    dispatch(getAllBusinesses());
     console.log('CURRENT BUSINESS =>', selectedBusiness);
     console.log('SCORE =>', selectedBusiness?.poppinscore);
     setCheckin(!checkin);
