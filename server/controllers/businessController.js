@@ -187,6 +187,11 @@ const businessController = {
         id: req.params.id,
         poppinscore: business.poppinscore,
         currentcapacity: business.currentcapacity,
+        location: business.location,
+        image: business.image,
+        businessname: business.businessname,
+        phonenumber: business.phonenumber,
+        incentive: business.incentive,
       });
     } catch (err) {
       console.log(err, 'error in updateBusiness');

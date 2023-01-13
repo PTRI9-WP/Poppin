@@ -109,6 +109,11 @@ export const businessSlice = createSlice({
           if (el.id === updatedBusiness.id) {
             el.currentcapacity = updatedBusiness.currentcapacity;
             el.poppinscore = updatedBusiness.poppinscore;
+            el.location = updatedBusiness.location;
+            el.image = updatedBusiness.image;
+            el.businessname = updatedBusiness.businessname;
+            el.phonenumber = updatedBusiness.phonenumber;
+            el.incentive = updateBusiness.incentive;
             return el;
           } else {
             return el;
