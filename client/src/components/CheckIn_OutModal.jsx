@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  checkCode,
+  updateBusiness,
+  getAllBusinesses,
+} from '../features/businesses/businessSlice';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
-  const { selectedBusiness } = useSelector((state) => state.businesses);
+  const { selectedBusiness, message, isSuccess, isError } = useSelector(
+    (state) => state.businesses
+  );
   const [checkin, setCheckin] = useState(false);
 
   const [code, setCode] = useState('');
-
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('CheckIn_OutModal Button');
+    console.log('button clicked');
+    try {
+      const response = await dispatch(
+        checkCode({ id: selectedBusiness.id, code: code })
+      );
+      console.log('RESPONSE ==>', response);
+      if (response.payload.message === 'Code matched, new code generated') {
+        dispatch(
+          updateBusiness({
+            id: selectedBusiness.id,
+            currentcapacity: selectedBusiness.currentcapacity,
+            poppinscore: selectedBusiness.poppinscore,
+          })
+        );
+        dispatch(getAllBusinesses());
+        console.log('CURRENT BUSINESS =>', selectedBusiness);
+        console.log('SCORE =>', selectedBusiness?.poppinscore);
+        setCheckin(!checkin);
+        setShowCheckinModal(false);
+      } else {
+        console.log('message', message);
+        window.alert('code does not match');
+      }
+    } catch (error) {
+      console.log(error);
+      window.alert(error);
+    }
   };
 
   const handleClick = () => {
@@ -35,14 +68,15 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
           name='code'
           placeholder='code'
           required={true}
+          value={code}
           onChange={(e) => setCode(e.target.value)}
         />
         {checkin ? (
-          <button className='checkinButton' onClick={handleCheckin}>
+          <button type='submit' className='checkinButton'>
             Check In
           </button>
         ) : (
-          <button className='attButton' onClick={handleCheckin}>
+          <button type='submit' className='attButton'>
             Check Out
           </button>
         )}

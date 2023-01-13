@@ -49,15 +49,21 @@ export const updateBusiness = createAsyncThunk(
   }
 );
 
-export const checkinBusiness = createAsyncThunk(
-  'business/checkin',
+export const checkCode = createAsyncThunk(
+  'business/checkCode',
   async (businessData, { rejectWithValue }) => {
+    console.log(
+      'BUSINESS URL ===>',
+      businessURL + 'checkin/' + businessData.id
+    );
     try {
-      const response = await axios.put(
-        businessURL + 'checkin' + businessData.id,
+      const response = await axios.post(
+        businessURL + 'checkin/' + businessData.id,
         { code: businessData.code }
       );
-      return response.data;
+      if (response.data) {
+        return response.data;
+      }
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return rejectWithValue(message);
@@ -118,7 +124,6 @@ export const businessSlice = createSlice({
         });
         // update the selectedBusiness with the updated data
         state.selectedBusiness = updatedBusiness;
-        // dispatch(getAllBusinesses());
       })
       .addCase(
         updateBusiness.rejected((state, action) => {
@@ -126,7 +131,20 @@ export const businessSlice = createSlice({
           state.isError = true;
           state.message = action.payload;
         })
-      );
+      )
+      .addCase(checkCode.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(checkCode.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(checkCode.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.message = action.payload;
+      });
   },
 });
 

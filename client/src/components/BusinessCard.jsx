@@ -22,17 +22,17 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const handleCheckin = (e) => {
     dispatch(setSelectedBusiness(businessCard));
     setShowCheckinModal(true);
-    dispatch(
-      updateBusiness({
-        id: selectedBusiness.id,
-        currentcapacity: selectedBusiness.currentcapacity,
-        poppinscore: selectedBusiness.poppinscore,
-      })
-    );
-    dispatch(getAllBusinesses());
-    console.log('CURRENT BUSINESS =>', selectedBusiness);
-    console.log('SCORE =>', selectedBusiness?.poppinscore);
-    setCheckin(!checkin);
+    // dispatch(
+    //   updateBusiness({
+    //     id: selectedBusiness.id,
+    //     currentcapacity: selectedBusiness.currentcapacity,
+    //     poppinscore: selectedBusiness.poppinscore,
+    //   })
+    // );
+    // dispatch(getAllBusinesses());
+    // console.log('CURRENT BUSINESS =>', selectedBusiness);
+    // console.log('SCORE =>', selectedBusiness?.poppinscore);
+    // setCheckin(!checkin);
   };
 
   return (

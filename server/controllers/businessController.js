@@ -281,8 +281,6 @@ const businessController = {
         ],
       });
 
-      console.log(businesses, 'businesses in get all businesses');
-
       res.status(200).json({
         businesses,
       });
