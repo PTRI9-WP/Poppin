@@ -9,9 +9,9 @@ const Refreshkey = require('../models/RefreshkeyModel');
 
 const userController = {
   registerUser: async (req, res, next) => {
-    const { username, password, email } = req.body;
+    const { email, password } = req.body;
     try {
-      if (!username || !password || !email) {
+      if (!password || !email) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -26,10 +26,10 @@ const userController = {
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
       const newUser = await User.create({
-        username,
+        username: 'Jakejasontimandrewfelix',
         password: hashedPassword,
         email,
-        location: 'New York',
+        location: 'New york',
       });
 
       //TESTING ALL THAT COMES FROM USER
@@ -37,9 +37,9 @@ const userController = {
 
       res.status(200).json({
         id: newUser.id,
-        username,
+        username: 'Jakejasontimandrewfelix',
         email,
-        location,
+        location: newUser.location,
         token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: '20m',
         }),
@@ -83,9 +83,8 @@ const userController = {
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
           id: userExists.id,
-
           email,
-          username: userExists.username,
+          username: 'jake',
           location: userExists.location,
           tokens,
         });
