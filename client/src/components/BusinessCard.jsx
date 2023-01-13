@@ -14,24 +14,22 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 
   const { selectedBusiness } = useSelector((state) => state.businesses);
 
-  const handleDivClick = (e) => {
-    e.preventDefault();
-    dispatch(setSelectedBusiness(businessCard));
-    console.log('SELECTED BUSINESS ==> ', selectedBusiness);
-  };
+  // const handleDivClick = (e) => {
+  //   e.preventDefault();
+  //   dispatch(setSelectedBusiness(businessCard));
+  //   console.log('SELECTED BUSINESS ==> ', selectedBusiness);
+  // };
 
   //code solution
-  //a code should exist on the database of the business << when /where is this code made 
-  //when checkin button is pressed, retrieve code from business, console log code 
+  //a code should exist on the database of the business << when /where is this code made
+  //when checkin button is pressed, retrieve code from business, console log code
   //user takes consolelogged code and enters it into the input
-  //upon successful input, move code stored in code column into storedcodes column array 
-  //upon succesfful checkout , access array from business table and acccess code column and delete the given user code from the array 
-  
+  //upon successful input, move code stored in code column into storedcodes column array
+  //upon succesfful checkout , access array from business table and acccess code column and delete the given user code from the array
 
-  //code solution felix 
+  //code solution felix
   //all the codes are already stored in tobeusedcode column
-  //when a code is used by a user, move currentcode into storedcodes and pop a tobeusedcode and make it the currentcode 
-  
+  //when a code is used by a user, move currentcode into storedcodes and pop a tobeusedcode and make it the currentcode
 
   //Jake Solution
   //create a state that tracks if a checkin button was pressed and a correct code was entered into the modal
@@ -61,7 +59,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   return (
     <>
       {/* <div className = 'cardContainer'></div> */}
-      <div className="dashCard" onClick={handleDivClick}>
+      <div className="dashCard">
         <div className="info1">
           <img src={businessCard?.image} alt="img" />
           {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
@@ -96,7 +94,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 
         {/* This need to change only when check in or out is confirmed */}
 
-        {checkin ? (
+        {!selectedBusiness ? (
           <button className="checkinButton" onClick={handleCheckin}>
             Check In
           </button>

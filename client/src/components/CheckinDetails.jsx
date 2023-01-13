@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 const CheckinDetails = () => {
-  const [checkin, setCheckin] = useState(false);
 
-  const { selectedBusiness } = useSelector((state) => state.businesses);
+  const { setSelectedBusiness, selectedBusiness } = useSelector(
+    (state) => state.businesses
+  );
 
+  const dispatch = useDispatch();
   const handleCheckOut = (e) => {
     e.preventDefault();
+    dispatch(setSelectedBusiness(null));
     consosole.log('checked out!');
   };
 

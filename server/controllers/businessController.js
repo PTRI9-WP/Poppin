@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
-const {Client} = require("@googlemaps/google-maps-services-js");
+const { Client } = require('@googlemaps/google-maps-services-js');
+const { current } = require('@reduxjs/toolkit');
 
 function getPoppinScore(poppinPercentage) {
   let updatedPoppinScore;
@@ -58,32 +59,31 @@ function getPoppinScore(poppinPercentage) {
   return updatedPoppinScore;
 }
 
- 
-    function getPoppinScore(poppinPercentage) {
-      let updatedPoppinScore;
-      switch (true) {
-        case poppinPercentage <= 20:
-          updatedPoppinScore = 20;
-          break;
+function getPoppinScore(poppinPercentage) {
+  let updatedPoppinScore;
+  switch (true) {
+    case poppinPercentage <= 20:
+      updatedPoppinScore = 20;
+      break;
 
-        case poppinPercentage <= 40:
-          updatedPoppinScore = 40;
-          break;
+    case poppinPercentage <= 40:
+      updatedPoppinScore = 40;
+      break;
 
-        case poppinPercentage <= 60:
-          updatedPoppinScore = 60;
-          break;
+    case poppinPercentage <= 60:
+      updatedPoppinScore = 60;
+      break;
 
-        case poppinPercentage <= 80:
-          updatedPoppinScore = 80;
-          break;
+    case poppinPercentage <= 80:
+      updatedPoppinScore = 80;
+      break;
 
-        case poppinPercentage <= 100:
-          updatedPoppinScore = 100;
-          break;
-      }
-      return updatedPoppinScore;
-    };
+    case poppinPercentage <= 100:
+      updatedPoppinScore = 100;
+      break;
+  }
+  return updatedPoppinScore;
+}
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
@@ -101,7 +101,7 @@ const businessController = {
       incentive,
     } = req.body;
 
-    let {latitude, longitude} = req.body;
+    let { latitude, longitude } = req.body;
 
     try {
       if (!username || !businessname || !password || !email || !location) {
@@ -119,14 +119,19 @@ const businessController = {
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
       const geocodingClient = new Client({});
-      let params = {address: location, key: "AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU"};
-  
-      await geocodingClient.geocode({params}).then((response) => { 
+      let params = {
+        address: location,
+        key: 'AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU',
+      };
 
-        let { lat, lng } = response.data.results[0].geometry.location;
-        latitude = lat;
-        longitude = lng;
-      }).catch((error) => console.log(error));
+      await geocodingClient
+        .geocode({ params })
+        .then((response) => {
+          let { lat, lng } = response.data.results[0].geometry.location;
+          latitude = lat;
+          longitude = lng;
+        })
+        .catch((error) => console.log(error));
 
       const newBusiness = await Business.create({
         username,
@@ -142,6 +147,9 @@ const businessController = {
         image,
         phonenumber,
         incentive,
+        currentcode: 'felix',
+        codestouse: ['jake', 'tim', 'andrew', 'jason'],
+        storedcodes: [],
       });
 
       const tokens = {
@@ -161,6 +169,9 @@ const businessController = {
         image,
         phonenumber,
         incentive,
+        currentcode: newBusiness.currentcode,
+        codestouse: newBusiness.codestouse,
+        storedcodes: newBusiness.storedcodes,
       });
     } catch (err) {
       console.log(err);
@@ -227,7 +238,6 @@ const businessController = {
     const poppinPercentage = (currentcapacity / maxcapacity) * 100;
     let newPoppinScore = getPoppinScore(poppinPercentage);
 
-
     try {
       const business = await Business.findOne({ where: { id: req.params.id } });
       if (!business) {
@@ -261,6 +271,59 @@ const businessController = {
     }
   },
 
+  getDealCode: async (req, res, next) => {
+    try {
+      const business = await Business.findAll({ where: { id: req.params.id } });
+      console.log(business.currentcode);
+      const currentcode = business.currentcode;
+      //push current code into database in column storedcodes
+      business.set({
+        storedcodes: [...business.storedcodes, currentcode],
+      });
+      const codestouse = business.codetouse;
+      const newCode = codestouse.pop();
+      //set currentcode to new code in db
+      business.set({
+        currentcode: newCode,
+        codestouse: codestouse,
+      });
+      res.status(200).json({
+        currentcode,
+      });
+      //set codestouse in db = variable codes to use
+    } catch (err) {
+      console.log(err, 'error in getDealCode');
+      return next(err);
+    }
+  },
+
+  // useDealCode: async (req, res, next) => {
+  //      try {
+  //        const business = await Business.findAll({
+  //          where: { id: req.params.id },
+  //        });
+  //        const currentcode = business.currentcode;
+  //        //push current code into database in column storedcodes
+  //        business.set({
+  //          storedcodes: [...business.storedcodes, currentcode],
+  //        });
+  //        const codestouse = business.codetouse;
+  //        const newCode = codestouse.pop();
+  //        //set currentcode to new code in db
+  //        business.set({
+  //          currentcode: newCode,
+  //          codestouse: codestouse,
+  //        });
+  //        res.status(200).json({
+  //          currentcode,
+  //        });
+  //        //set codestouse in db = variable codes to use
+  //      } catch (err) {
+  //        console.log(err, 'error in getDealCode');
+  //        return next(err);
+  //      }
+  // },
+
   getAllBusinesses: async (_, res, next) => {
     try {
       const businesses = await Business.findAll({
@@ -275,11 +338,14 @@ const businessController = {
           'longitude',
           'image',
           'phonenumber',
-          'incentive'
+          'incentive',
+          'currentcode',
+          'storedcodes',
+          'codestouse',
         ],
       });
 
-      console.log(businesses, 'businesses in get all businesses')
+      console.log(businesses, 'businesses in get all businesses');
 
       res.status(200).json({
         businesses,
