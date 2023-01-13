@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 import { logout, reset } from '../features/auth/authSlice';
 
 const Header = ({ setShowLogin, setShowReg }) => {
-  //use selector reads data from the store. these link to the reducer functions
-  const { user, isSuccess } = useSelector((state) => state.auth);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use selector reads data from the store. store is modified by the reducer functions in the slice
+  const { user } = useSelector((state) => state.auth);
   //use dispatch dispatch's actions and allows them to be used
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (isSuccess || user) navigate('/home');
-
-  //   dispatch(reset());
-  // }, [isSuccess, user]);
 
   const handleLogin = () => {
     console.log('login clicked');
