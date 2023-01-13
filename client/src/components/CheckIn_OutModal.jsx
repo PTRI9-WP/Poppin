@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
-  //NEED CHECKIN/OUT STATE
+  const { selectedBusiness } = useSelector((state) => state.businesses);
   const [checkin, setCheckin] = useState(true);
 
   const [code, setCode] = useState('');
@@ -16,9 +17,9 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
     setShowCheckinModal(false);
   };
 
-    const handleCheckin = (e) => {
-      e.preventDefault();
-    };
+  const handleCheckin = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className='checkIn_OutModal'>

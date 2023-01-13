@@ -21,6 +21,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   // };
   const handleCheckin = (e) => {
     dispatch(setSelectedBusiness(businessCard));
+    setShowCheckinModal(true);
     dispatch(
       updateBusiness({
         id: selectedBusiness.id,
@@ -32,7 +33,6 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     console.log('CURRENT BUSINESS =>', selectedBusiness);
     console.log('SCORE =>', selectedBusiness?.poppinscore);
     // setCheckin(!checkin);
-    setShowCheckinModal(true);
   };
 
   return (

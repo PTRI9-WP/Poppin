@@ -6,6 +6,7 @@ const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const { current } = require('@reduxjs/toolkit');
+const generatedCodes = require('../utils/generatedCodes.js/utils/generatedCodes');
 
 function getPoppinScore(poppinPercentage) {
   let updatedPoppinScore;
@@ -148,7 +149,7 @@ const businessController = {
         phonenumber,
         incentive,
         currentcode: 'felix',
-        codestouse: ['jake', 'tim', 'andrew', 'jason'],
+        codestouse: generatedCodes,
         storedcodes: [],
       });
 
@@ -271,26 +272,40 @@ const businessController = {
     }
   },
 
-  getDealCode: async (req, res, next) => {
+  checkDealCode: async (req, res, next) => {
+    const { code } = req.body;
     try {
-      const business = await Business.findAll({ where: { id: req.params.id } });
-      console.log(business.currentcode);
+      const business = await Business.findByPk(req.params.id);
       const currentcode = business.currentcode;
-      //push current code into database in column storedcodes
-      business.set({
-        storedcodes: [...business.storedcodes, currentcode],
-      });
-      const codestouse = business.codetouse;
-      const newCode = codestouse.pop();
-      //set currentcode to new code in db
-      business.set({
-        currentcode: newCode,
-        codestouse: codestouse,
-      });
-      res.status(200).json({
-        currentcode,
-      });
-      //set codestouse in db = variable codes to use
+      console.log('code from db ==>', currentcode);
+      console.log('req.bodycode ==>', code);
+      if (code === currentcode) {
+        //push current code into database in column storedcodes
+        business.storedcodes.push(currentcode);
+        const codestouse = business.codestouse;
+        const newCode = codestouse.pop();
+        //set currentcode to new code in db
+        await Business.update(
+          {
+            currentcode: newCode,
+            codestouse: codestouse,
+            storedcodes: business.storedcodes,
+          },
+          {
+            where: { id: req.params.id },
+          }
+        );
+        res.status(200).json({
+          message: 'Code matched, new code generated',
+          code: newCode,
+          codestouse: codestouse,
+          storedcodes: business.storedcodes,
+        });
+      } else {
+        res.status(400).json({
+          message: 'Code did not match, please try again',
+        });
+      }
     } catch (err) {
       console.log(err, 'error in getDealCode');
       return next(err);
