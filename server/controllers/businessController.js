@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
+const {Client} = require("@googlemaps/google-maps-services-js");
 
 function getPoppinScore(poppinPercentage) {
   let updatedPoppinScore;
@@ -39,12 +40,14 @@ const businessController = {
       password,
       email,
       location,
-      latitude,
-      longitude,
       image,
       phonenumber,
       incentive,
+
     } = req.body;
+
+    let {latitude, longitude} = req.body;
+
     try {
       if (!username || !businessname || !password || !email || !location) {
         res.status(400);
@@ -59,6 +62,16 @@ const businessController = {
       }
 
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
+
+      const geocodingClient = new Client({});
+      let params = {address: location, key: "AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU"};
+  
+      await geocodingClient.geocode({params}).then((response) => { 
+
+        let { lat, lng } = response.data.results[0].geometry.location;
+        latitude = lat;
+        longitude = lng;
+      }).catch((error) => console.log(error));
 
       const newBusiness = await Business.create({
         username,
