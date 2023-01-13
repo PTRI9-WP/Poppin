@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
-const generatedCodes = require('../utils//generatedCodes');
+const generatedCodes = require('../seeders/generatedCodes');
 const getPoppinScore = require('../utils/getPoppinScore');
 
 const businessController = {
