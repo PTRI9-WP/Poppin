@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import corkShotWhite from '../assets/images/corkShotWhite.png';
+import logo from '../assets/images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 

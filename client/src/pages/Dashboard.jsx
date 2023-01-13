@@ -11,7 +11,6 @@ import {
 } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
 
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const Dashboard = () => {
