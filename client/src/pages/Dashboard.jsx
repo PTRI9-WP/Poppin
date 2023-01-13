@@ -4,19 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
+
 import {
   MarkerF,
   GoogleMap,
   useJsApiLoader,
-  StandaloneSearchBox
-
+  StandaloneSearchBox,
 } from '@react-google-maps/api';
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import CardContainer from '../components/BusinessCardContainer';
-import CheckIn_OutModal from '../components/CheckIn_OutModal';
-import Header from '../components/Header';
 
 import axios from 'axios';
 
