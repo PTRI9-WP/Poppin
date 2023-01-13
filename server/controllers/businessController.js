@@ -41,6 +41,9 @@ const businessController = {
       location,
       latitude,
       longitude,
+      poppinscore,
+      maxcapacity,
+      currentcapacity,
       image,
       phonenumber,
       incentive,
@@ -66,6 +69,9 @@ const businessController = {
         password,
         email,
         location,
+        poppinscore,
+        maxcapacity,
+        currentcapacity,
         latitude,
         longitude,
         image,
@@ -260,6 +266,17 @@ const businessController = {
           ? err.message
           : 'Error in the checkAccessToken Function in businessController',
       });
+    }
+  },
+
+  deleteBusiness: async (req, res, next) => {
+    try {
+      const business = await Business.destroy({ where: { id: req.params.id } });
+      console.log('business removed');
+      res.status(200).json({ message: 'business removed' });
+    } catch (err) {
+      console.log(err, 'error in deleteBusiness');
+      return next(err);
     }
   },
 };
