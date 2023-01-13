@@ -8,10 +8,6 @@ import {
   getAllBusinesses,
 } from '../features/businesses/businessSlice';
 
-//create a state that tracks if a checkin button was pressed and a correct code was entered into the modal
-//remove all checkin buttons
-//the only way to checkout is to go to the checkin page and click checkout...you can still search for places, but no checkin button will be present
-
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
   const [checkin, setCheckin] = useState(true);
@@ -23,6 +19,28 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     dispatch(setSelectedBusiness(businessCard));
     console.log('SELECTED BUSINESS ==> ', selectedBusiness);
   };
+
+  //code solution
+  //a code should exist on the database of the business << when /where is this code made 
+  //when checkin button is pressed, retrieve code from business, console log code 
+  //user takes consolelogged code and enters it into the input
+  //upon successful input, move code stored in code column into storedcodes column array 
+  //upon succesfful checkout , access array from business table and acccess code column and delete the given user code from the array 
+  
+
+  //code solution felix 
+  //all the codes are already stored in tobeusedcode column
+  //when a code is used by a user, move currentcode into storedcodes and pop a tobeusedcode and make it the currentcode 
+  
+
+  //Jake Solution
+  //create a state that tracks if a checkin button was pressed and a correct code was entered into the modal
+  //remove all checkin buttons
+  //the only way to checkout is to go to the checkin page and click checkout...you can still search for places, but no checkin button will be present
+
+  //Jason Solution
+  //CANNOT CLICK BUTTON IF THERE IS ALREADY A SELECTED BUSINESS
+  //
 
   const handleCheckin = (e) => {
     dispatch(setSelectedBusiness(businessCard));
