@@ -6,7 +6,8 @@ import {
   resetSelectedBusiness,
 } from '../features/businesses/businessSlice';
 import { useDispatch, useSelector } from 'react-redux';
-const BusinessCardContainer = () => {
+
+const BusinessCardContainer = ({ setShowCheckinModal }) => {
   const dispatch = useDispatch();
   const { businesses } = useSelector((state) => state.businesses);
 
@@ -29,7 +30,11 @@ const BusinessCardContainer = () => {
       <ul>
         {/* mapping through array of businesses and passing it through prop to be used in BusinessCard*/}
         {businesses.map((businessCard) => (
-          <BusinessCard key={businessCard.id} businessCard={businessCard} />
+          <BusinessCard
+            key={businessCard.id}
+            businessCard={businessCard}
+            setShowCheckinModal={setShowCheckinModal}
+          />
         ))}
       </ul>
     </>

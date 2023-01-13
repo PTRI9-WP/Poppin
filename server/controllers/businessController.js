@@ -58,6 +58,33 @@ function getPoppinScore(poppinPercentage) {
   return updatedPoppinScore;
 }
 
+ 
+    function getPoppinScore(poppinPercentage) {
+      let updatedPoppinScore;
+      switch (true) {
+        case poppinPercentage <= 20:
+          updatedPoppinScore = 20;
+          break;
+
+        case poppinPercentage <= 40:
+          updatedPoppinScore = 40;
+          break;
+
+        case poppinPercentage <= 60:
+          updatedPoppinScore = 60;
+          break;
+
+        case poppinPercentage <= 80:
+          updatedPoppinScore = 80;
+          break;
+
+        case poppinPercentage <= 100:
+          updatedPoppinScore = 100;
+          break;
+      }
+      return updatedPoppinScore;
+    };
+
 const businessController = {
   registerBusiness: async (req, res, next) => {
     const {
@@ -195,7 +222,11 @@ const businessController = {
   },
 
   updateBusiness: async (req, res, next) => {
-    // const { currentcapacity } = req.body;
+    const { currentcapacity, maxcapacity } = req.body;
+
+    const poppinPercentage = (currentcapacity / maxcapacity) * 100;
+    let newPoppinScore = getPoppinScore(poppinPercentage);
+
 
     try {
       const business = await Business.findOne({ where: { id: req.params.id } });
@@ -244,11 +275,12 @@ const businessController = {
           'longitude',
           'image',
           'phonenumber',
-          'incentive',
+          'incentive'
         ],
       });
 
-      console.log(businesses, 'businesses in get all businesses');
+      console.log(businesses, 'businesses in get all businesses')
+
       res.status(200).json({
         businesses,
       });

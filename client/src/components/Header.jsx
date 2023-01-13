@@ -20,6 +20,14 @@ const Header = ({ setShowLogin, setShowReg }) => {
     dispatch(reset());
   }, [isSuccess, user]);
 
+const Header = ({ setShowLogin, setShowReg }) => {
+  //use selector reads data from the store. these link to the reducer functions
+  const { user } =  useSelector((state)=> state.auth)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use dispatch dispatch's actions and allows them to be used 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const handleLogin = () => {
     console.log('login clicked');
     setShowReg(false);
@@ -40,18 +48,18 @@ const Header = ({ setShowLogin, setShowReg }) => {
 
   const handleCheckin = () => {
     console.log('nav to the checkin page');
-    navigate('/checkin');
+    navigate('/checkin')
   };
 
-  const handleHome = () => {
-    console.log('nav to dashboard');
-    navigate('/home');
-  };
+    const handleHome = () => {
+      console.log('nav to dashboard');
+      navigate('/home');
+    };
 
   return (
     <nav className='nav'>
       <div className='logoName'>
-        <img src={corkShotWhite} alt='corks' className='navLogo' />
+        <img src={logo} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
       </div>
       <ul className='menu'>

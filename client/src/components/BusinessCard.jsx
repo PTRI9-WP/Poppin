@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   setSelectedBusiness,
   updateBusiness,
@@ -9,15 +10,16 @@ import {
 
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
-  const [checkin, setCheckin] = useState(false);
+  const [checkin, setCheckin] = useState(true);
 
   const { selectedBusiness } = useSelector((state) => state.businesses);
 
-  // const handleDivClick = (e) => {
-  //   e.preventDefault();
-  //   dispatch(setSelectedBusiness(businessCard));
-  //   console.log('SELECTED BUSINESS ==> ', selectedBusiness);
-  // };
+  const handleDivClick = (e) => {
+    e.preventDefault();
+    dispatch(setSelectedBusiness(businessCard));
+    console.log('SELECTED BUSINESS ==> ', selectedBusiness);
+  };
+
   const handleCheckin = (e) => {
     dispatch(setSelectedBusiness(businessCard));
     dispatch(
@@ -31,13 +33,14 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     console.log('CURRENT BUSINESS =>', selectedBusiness);
     console.log('SCORE =>', selectedBusiness?.poppinscore);
     setCheckin(!checkin);
-    // setShowCheckinModal(true);
+    setShowCheckinModal(true);
+
   };
 
   return (
     <>
       {/* <div className = 'cardContainer'></div> */}
-      <div className='dashCard'>
+      <div className='dashCard' onClick={handleDivClick}>
         <div className='info1'>
           <img src={businessCard?.image} alt='img' />
           {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
@@ -69,6 +72,10 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
           </div>
           <div>incentive goes here {businessCard?.incentive}</div>
         </div>
+
+
+        {/* This need to change only when check in or out is confirmed */}
+
         {checkin ? (
           <button className='checkinButton' onClick={handleCheckin}>
             Check In
