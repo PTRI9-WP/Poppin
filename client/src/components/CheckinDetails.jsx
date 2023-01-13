@@ -1,50 +1,72 @@
 import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { setCheckedIn } from '../features/auth/authSlice';
 const CheckinDetails = () => {
-
   const { setSelectedBusiness, selectedBusiness } = useSelector(
     (state) => state.businesses
   );
+
+  const { checkedIn } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const handleCheckOut = (e) => {
     e.preventDefault();
     dispatch(setSelectedBusiness(null));
+    dispatch(setCheckedIn(false));
     consosole.log('checked out!');
   };
 
   //below, data needs to be mapped to multiple cards and rendered for each card checked in
   return (
     <>
-      {!selectedBusiness ? (
-        <h3 className="modalTitle mt-72">
+      {!checkedIn ? (
+        <h3 className='modalTitle mt-72'>
           You are not currently checked in anywhere...
         </h3>
       ) : (
-        <div className="checkinDetail">
-          <h3 className="modalTitle">Your Current Checkin Details</h3>
-          <div className="info1">
-            <img src={selectedBusiness?.image} alt="img" />
+        <div className='checkinDetail'>
+          <h3 className='modalTitle'>Your Current Checkin Details</h3>
+          <div className='info1'>
+            <img src={selectedBusiness?.image} alt='img' />
             <div>{selectedBusiness?.businessname} </div>
           </div>
-          <div className="info2">
+          <div className='info2'>
             <div>City: {selectedBusiness?.location} </div>
             <div>Phone Number: {selectedBusiness?.phonenumber}</div>
           </div>
-          <div className="info3">
+          <div className='info3'>
             <div>Poppin Score: {selectedBusiness?.poppinscore}</div>
-            <div className="corkScore">
-              <GiChampagneCork />
-              <GiChampagneCork />
-              <GiChampagneCork />
-              <GiChampagneCork />
-              <GiChampagneCork />
+            <div className='corkScore'>
+              <GiChampagneCork
+                color={
+                  selectedBusiness?.poppinscore >= 20 ? '#2d3b46' : '#f1c9ba'
+                }
+              />
+              <GiChampagneCork
+                color={
+                  selectedBusiness?.poppinscore >= 40 ? '#2d3b46' : '#f1c9ba'
+                }
+              />
+              <GiChampagneCork
+                color={
+                  selectedBusiness?.poppinscore >= 60 ? '#2d3b46' : '#f1c9ba'
+                }
+              />
+              <GiChampagneCork
+                color={
+                  selectedBusiness?.poppinscore >= 80 ? '#2d3b46' : '#f1c9ba'
+                }
+              />
+              <GiChampagneCork
+                color={
+                  selectedBusiness?.poppinscore >= 100 ? '#2d3b46' : '#f1c9ba'
+                }
+              />
             </div>
             <div>Deal: {selectedBusiness?.incentive}</div>
           </div>
-          <button className="attButton" onClick={handleCheckOut}>
+          <button className='attButton' onClick={handleCheckOut}>
             Check Out
           </button>
         </div>

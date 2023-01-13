@@ -11,9 +11,8 @@ import {
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
   // const [checkin, setCheckin] = useState(true);
-
+  const { checkedIn } = useSelector((state) => state.auth);
   const { selectedBusiness } = useSelector((state) => state.businesses);
-
   // const handleDivClick = (e) => {
   //   e.preventDefault();
   //   dispatch(setSelectedBusiness(businessCard));
@@ -72,15 +71,15 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
         </div>
 
         {/* This need to change only when check in or out is confirmed */}
-
-        {selectedBusiness?.id === businessCard.id ? (
-          <button className='checkinButton' onClick={handleCheckin}>
+        {!checkedIn ? (
+          <button className='attButton' onClick={handleCheckin}>
             Check In
           </button>
         ) : (
-          <button className='attButton' onClick={handleCheckin}>
-            Check Out
-          </button>
+          // <button className='checkinButton' onClick={handleCheckin}>
+          //   Check out
+          // </button>
+          ''
         )}
       </div>
     </>
@@ -88,6 +87,9 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 };
 
 export default BusinessCard;
+
+//if checkedIn is false, all buttons have a check in button
+//if we check in, : the selectedBusiness has a button of check out. The rest of the businesses no longer show a button.
 
 //code solution
 //a code should exist on the database of the business << when /where is this code made
