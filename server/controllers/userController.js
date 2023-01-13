@@ -157,6 +157,16 @@ const userController = {
     }
   },
 
+  deleteUser: async (req, res, next) => {
+    try {
+      const userToDelete = await User.destroy({ where: { id: req.params.id } });
+      console.log('user removed');
+      res.status(200).json({ message: 'user removed' });
+    } catch (err) {
+      console.log(err, 'error in deleteUser');
+      return next(err);
+    }
+  },
   // checkAccessToken: async (req, res, next) => {
   //   try {
   //     if (res.cookie) {

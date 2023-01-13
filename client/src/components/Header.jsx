@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import logo from '../assets/images/logo.png';
+import corkShotWhite from '../assets/images/corkShotWhite.png';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  FaTwitter,
-  FaFacebook,
-  FaInstagram
-} from 'react-icons/fa';
+import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 import { logout, reset } from '../features/auth/authSlice';
 
+const Header = ({ setShowLogin, setShowReg }) => {
+  //use selector reads data from the store. these link to the reducer functions
+  const { user, isSuccess } = useSelector((state) => state.auth);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use dispatch dispatch's actions and allows them to be used
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess || user) navigate('/home');
+
+    dispatch(reset());
+  }, [isSuccess, user]);
 
 const Header = ({ setShowLogin, setShowReg }) => {
   //use selector reads data from the store. these link to the reducer functions
@@ -34,8 +43,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    // setIsLoggedIn(false);
-    navigate('/')
+    navigate('/');
   };
 
   const handleCheckin = () => {
@@ -74,7 +82,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
           </>
         ) : (
           <>
-            <Link to='/home'> temp link to dashboard </Link>
+            {/* <Link to='/home'> temp link to dashboard </Link> */}
             <li>
               <button onClick={handleLogin}>Login</button>
             </li>

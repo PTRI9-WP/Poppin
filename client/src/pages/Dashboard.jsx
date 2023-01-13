@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import {
@@ -9,6 +9,11 @@ import {
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
+
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+
 
 const Dashboard = () => {
   //intialize state for map and searchbox
@@ -16,8 +21,17 @@ const Dashboard = () => {
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
+  const [markers, setMarkers] = useState(null);
+
+  const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  //show modal for entering checkin code
+  const [showCheckinModal, setShowCheckinModal] = useState(false);
+  const navigate = useNavigate();
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {
@@ -28,6 +42,12 @@ const Dashboard = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
@@ -43,13 +63,35 @@ const Dashboard = () => {
     height: '400px',
   };
 
+
+  const getAllCoordinates = async () => {
+    try {
+      const allBusinesses = await axios.get('http://localhost:8080/businesses');
+      const latLongArr =  allBusinesses.data.businesses.map( element => {
+        return {lat: parseFloat(element.latitude), lng: parseFloat(element.longitude), id: element.id} 
+      });
+      return latLongArr;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createMarkers = async () => {
+    const coordinatesArr = await getAllCoordinates();
+    const markersArr = coordinatesArr.map(element => {
+      return <MarkerF position={{lat: element.lat, lng: element.lng}} animation={2} key={element.id}/>
+    });
+    return markersArr;
+  };
+
   //Move the map to the query location provided in the searchbox
-  const onPlacesChanged = () => {
-    const places = searchBox.getPlaces();
+  const onPlacesChanged = async () => {
+    const places = await searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
 
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
+    setMarkers(await createMarkers());
   };
 
   //set the reference object to the searchbox state upon the searchbox component rendering
@@ -67,12 +109,14 @@ const Dashboard = () => {
     console.log('zip code submitted');
   };
 
+
+
   // removed current location button since it's not imperative for an MVP
   // const handleCurrentLoc = (e) => {
   //   e.preventDefault();
   //   console.log('current location requested');
   // };
-  
+
   return isLoaded ? (
     <>
       <div className={showCheckinModal ? 'overlay' : null}>
@@ -117,7 +161,7 @@ const Dashboard = () => {
               zoom={10}
               onLoad={onMapLoad}
             >
-              <MarkerF position={location} />
+              {markers}
             </GoogleMap>
           </div>
           {/* End Map section */}

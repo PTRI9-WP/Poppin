@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import businessService from './businessService';
+// import { useDispatch } from 'react-redux';
 import axios from 'axios';
 const businessURL = '/businesses/';
 
+// const dispatch = useDispatch();
 const initialState = {
   //store array of visible businesses here ??  like businesses: []  ??
   businesses: [],
@@ -26,6 +27,25 @@ export const getAllBusinesses = createAsyncThunk(
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateBusiness = createAsyncThunk(
+  'business/update',
+  async (businessData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(businessURL + businessData.id, {
+        currentcapacity: businessData.currentcapacity,
+        poppinscore: businessData.poppinscore,
+      });
+      if (response.data) {
+        console.log('RESPONSE DATA', response.data);
+        return response.data;
+      }
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
     }
   }
 );
@@ -64,7 +84,34 @@ export const businessSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
+      })
+      .addCase(updateBusiness.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateBusiness.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        const updatedBusiness = action.payload;
+        state.businesses = state.businesses.map((el) => {
+          if (el.id === updatedBusiness.id) {
+            el.currentcapacity = updatedBusiness.currentcapacity;
+            el.poppinscore = updatedBusiness.poppinscore;
+            return el;
+          } else {
+            return el;
+          }
+        });
+        // update the selectedBusiness with the updated data
+        state.selectedBusiness = updatedBusiness;
+        // dispatch(getAllBusinesses());
+      })
+      .addCase(
+        updateBusiness.rejected((state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+        })
+      );
   },
 });
 

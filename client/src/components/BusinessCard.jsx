@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedBusiness } from '../features/businesses/businessSlice';
 
+import {
+  setSelectedBusiness,
+  updateBusiness,
+  getAllBusinesses,
+} from '../features/businesses/businessSlice';
 
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
@@ -15,10 +19,22 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     dispatch(setSelectedBusiness(businessCard));
     console.log('SELECTED BUSINESS ==> ', selectedBusiness);
   };
+
   const handleCheckin = (e) => {
-    e.preventDefault();
+    dispatch(setSelectedBusiness(businessCard));
+    dispatch(
+      updateBusiness({
+        id: selectedBusiness.id,
+        currentcapacity: selectedBusiness.currentcapacity,
+        poppinscore: selectedBusiness.poppinscore,
+      })
+    );
+    dispatch(getAllBusinesses());
+    console.log('CURRENT BUSINESS =>', selectedBusiness);
+    console.log('SCORE =>', selectedBusiness?.poppinscore);
     setCheckin(!checkin);
     setShowCheckinModal(true);
+
   };
 
   return (
