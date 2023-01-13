@@ -56,6 +56,10 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
           </div>
           <div>incentive goes here {businessCard?.incentive}</div>
         </div>
+
+
+        {/* This need to change only when check in or out is confirmed */}
+
         {checkin ? (
           <button className='checkinButton' onClick={handleCheckin}>
             Check In

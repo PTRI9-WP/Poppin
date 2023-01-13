@@ -4,6 +4,7 @@
 
 body {
   background-color: #f1c9ba;
+  min-width: 1000px;
 }
 
 @layer components {
@@ -40,7 +41,7 @@ body {
   }
 
   .menu {
-    @apply flex gap-x-9 items-center text-white font-bold;
+    @apply flex gap-x-9 items-center text-white font-bold md:flex hidden;
   }
 
   .barPic {
@@ -48,15 +49,15 @@ body {
   }
 
   .info {
-    @apply bg-peach w-[100%] p-10;
+    @apply bg-peach w-[100%] p-10 md:grid-cols-3 gap-8 md:h-fit;
   }
 
   .infoCards {
-    @apply flex flex-col items-center bg-[#ede3e0] rounded-lg p-10;
+    @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10;
   }
 
   .promo {
-    @apply flex flex-row text-dark justify-around;
+    @apply flex flex-col text-dark sm:justify-around sm:flex-row;
   }
 
   .promo li {

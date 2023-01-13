@@ -772,12 +772,19 @@ select {
 
 .menu {
   display: flex;
+  display: none;
   align-items: center;
   -moz-column-gap: 2.25rem;
        column-gap: 2.25rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex;
+  }
 }
 
 .barPic {
@@ -787,9 +794,18 @@ select {
 
 .info {
   width: 100%;
+  gap: 2rem;
   --tw-bg-opacity: 1;
   background-color: rgb(241 201 186 / var(--tw-bg-opacity));
   padding: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .info {
+    height: -moz-fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .infoCards {
@@ -804,10 +820,16 @@ select {
 
 .promo {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
   --tw-text-opacity: 1;
   color: rgb(45 59 70 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px) {
+  .promo {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }
 
 .promo li {
@@ -1075,6 +1097,10 @@ select {
   margin-top: 1.25rem;
 }
 
+.mb-11 {
+  margin-bottom: 2.75rem;
+}
+
 .mt-72 {
   margin-top: 18rem;
 }
@@ -1087,10 +1113,6 @@ select {
   margin-right: 1rem;
 }
 
-.mb-11 {
-  margin-bottom: 2.75rem;
-}
-
 .h-96 {
   height: 24rem;
 }
@@ -1099,10 +1121,7 @@ select {
   width: 100%;
 }
 
-.pb-11 {
-  padding-bottom: 2.75rem;
-}
-
 body {
   background-color: #f1c9ba;
+  min-width: 1000px;
 }

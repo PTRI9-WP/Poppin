@@ -3,6 +3,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   //NEED CHECKIN/OUT STATE
+  const [checkin, setCheckin] = useState(true);
 
   const [code, setCode] = useState('');
 
@@ -14,6 +15,10 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const handleClick = () => {
     setShowCheckinModal(false);
   };
+
+    const handleCheckin = (e) => {
+      e.preventDefault();
+    };
 
   return (
     <div className='checkIn_OutModal'>
@@ -31,9 +36,15 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
           required={true}
           onChange={(e) => setCode(e.target.value)}
         />
-        <button className='stdButton' type='submit'>
-          CHECK...
-        </button>
+        {checkin ? (
+          <button className='checkinButton' onClick={handleCheckin}>
+            Check In
+          </button>
+        ) : (
+          <button className='attButton' onClick={handleCheckin}>
+            Check Out
+          </button>
+        )}
       </form>
     </div>
   );

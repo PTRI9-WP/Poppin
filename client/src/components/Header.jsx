@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import corkShotWhite from '../assets/images/corkShotWhite.png';
+import logo from '../assets/images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FaTwitter,
@@ -51,7 +51,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
   return (
     <nav className='nav'>
       <div className='logoName'>
-        <img src={corkShotWhite} alt='corks' className='navLogo' />
+        <img src={logo} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
       </div>
       <ul className='menu'>
