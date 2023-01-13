@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   checkCode,
-  updateBusiness,
   getAllBusinesses,
+  updateBusiness,
 } from '../features/businesses/businessSlice';
 
 import { setCheckedIn } from '../features/auth/authSlice';
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
-  const { selectedBusiness, message, isSuccess, isError } = useSelector(
+  const { selectedBusiness, message } = useSelector(
     (state) => state.businesses
   );
   const { checkedIn } = useSelector((state) => state.auth);
-  // const [checkin, setCheckin] = useState(false);
 
   const [code, setCode] = useState('');
   const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('button clicked');

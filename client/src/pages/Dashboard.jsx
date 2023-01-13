@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  GoogleMap, MarkerF, StandaloneSearchBox, useJsApiLoader
+} from '@react-google-maps/api';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
-import {
-  MarkerF,
-  GoogleMap,
-  useJsApiLoader,
-  StandaloneSearchBox,
-} from '@react-google-maps/api';
-import { useSelector } from 'react-redux';
+import Header from '../components/Header';
 
 import axios from 'axios';
 

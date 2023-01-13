@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setCheckedIn } from '../features/auth/authSlice';
 import { setSelectedBusiness } from '../features/businesses/businessSlice';
-import { useNavigate } from 'react-router-dom';
 const CheckinDetails = () => {
   const navigate = useNavigate();
   const { selectedBusiness } = useSelector((state) => state.businesses);

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useSelector, useDispatch } from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {register, reset} from '../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../features/auth/authSlice';
 
 
 function RegisterModal({ setShowReg }) {
