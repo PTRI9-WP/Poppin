@@ -100,5 +100,5 @@ const Header = ({ setShowLogin, setShowReg }) => {
     </nav>
   );
 };
-
+}
 export default Header;
