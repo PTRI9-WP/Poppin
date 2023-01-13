@@ -772,12 +772,19 @@ select {
 
 .menu {
   display: flex;
+  display: none;
   align-items: center;
   -moz-column-gap: 2.25rem;
        column-gap: 2.25rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+@media (min-width: 768px) {
+  .menu {
+    display: flex;
+  }
 }
 
 .barPic {
@@ -787,9 +794,18 @@ select {
 
 .info {
   width: 100%;
+  gap: 2rem;
   --tw-bg-opacity: 1;
   background-color: rgb(241 201 186 / var(--tw-bg-opacity));
   padding: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .info {
+    height: -moz-fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .infoCards {
@@ -804,10 +820,16 @@ select {
 
 .promo {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
   --tw-text-opacity: 1;
   color: rgb(45 59 70 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px) {
+  .promo {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }
 
 .promo li {
@@ -862,13 +884,21 @@ select {
 }
 
 .regForm,
-  .logForm,
-  .codeForm {
+  .logForm {
   display: flex;
   height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.codeForm {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2.75rem;
+  vertical-align: top;
 }
 
 .modalTitle {
@@ -984,10 +1014,6 @@ select {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.close-icon {
-  float: right;
-}
-
 .dashboardMain {
   margin-left: auto;
   margin-right: auto;
@@ -1067,6 +1093,14 @@ select {
   float: right;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mb-11 {
+  margin-bottom: 2.75rem;
+}
+
 .mt-72 {
   margin-top: 18rem;
 }
@@ -1089,4 +1123,5 @@ select {
 
 body {
   background-color: #f1c9ba;
+  min-width: 1000px;
 }
