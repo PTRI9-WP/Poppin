@@ -5,86 +5,8 @@ const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
-const { current } = require('@reduxjs/toolkit');
-const generatedCodes = require('../utils/generatedCodes.js/utils/generatedCodes');
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
+const generatedCodes = require('../utils//generatedCodes');
+const getPoppinScore = require('../utils/getPoppinScore');
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
@@ -297,14 +219,13 @@ const businessController = {
         );
         res.status(200).json({
           message: 'Code matched, new code generated',
-          code: newCode,
+          nextCode: newCode,
           codestouse: codestouse,
           storedcodes: business.storedcodes,
         });
       } else {
-        res.status(400).json({
-          message: 'Code did not match, please try again',
-        });
+        res.status(400);
+        throw new Error('code does not match');
       }
     } catch (err) {
       console.log(err, 'error in getDealCode');
