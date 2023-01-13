@@ -11,7 +11,6 @@ const initialState = {
   isError: false,
   isSuccess: false,
   message: '',
-
   //select business here ?? --> Dispatch action when user clicks on business to set this
   selectedBusiness: null,
 };

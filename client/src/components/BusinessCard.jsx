@@ -8,6 +8,10 @@ import {
   getAllBusinesses,
 } from '../features/businesses/businessSlice';
 
+//create a state that tracks if a checkin button was pressed and a correct code was entered into the modal
+//remove all checkin buttons
+//the only way to checkout is to go to the checkin page and click checkout...you can still search for places, but no checkin button will be present
+
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
   const [checkin, setCheckin] = useState(true);
