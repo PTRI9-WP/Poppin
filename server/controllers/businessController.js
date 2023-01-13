@@ -5,85 +5,8 @@ const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
-const { current } = require('@reduxjs/toolkit');
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
-
-function getPoppinScore(poppinPercentage) {
-  let updatedPoppinScore;
-  switch (true) {
-    case poppinPercentage <= 20:
-      updatedPoppinScore = 20;
-      break;
-
-    case poppinPercentage <= 40:
-      updatedPoppinScore = 40;
-      break;
-
-    case poppinPercentage <= 60:
-      updatedPoppinScore = 60;
-      break;
-
-    case poppinPercentage <= 80:
-      updatedPoppinScore = 80;
-      break;
-
-    case poppinPercentage <= 100:
-      updatedPoppinScore = 100;
-      break;
-  }
-  return updatedPoppinScore;
-}
+const generatedCodes = require('../seeders/generatedCodes');
+const getPoppinScore = require('../utils/getPoppinScore');
 
 const businessController = {
   registerBusiness: async (req, res, next) => {
@@ -148,7 +71,7 @@ const businessController = {
         phonenumber,
         incentive,
         currentcode: 'felix',
-        codestouse: ['jake', 'tim', 'andrew', 'jason'],
+        codestouse: generatedCodes,
         storedcodes: [],
       });
 
@@ -271,26 +194,39 @@ const businessController = {
     }
   },
 
-  getDealCode: async (req, res, next) => {
+  checkDealCode: async (req, res, next) => {
+    const { code } = req.body;
     try {
-      const business = await Business.findAll({ where: { id: req.params.id } });
-      console.log(business.currentcode);
+      const business = await Business.findByPk(req.params.id);
       const currentcode = business.currentcode;
-      //push current code into database in column storedcodes
-      business.set({
-        storedcodes: [...business.storedcodes, currentcode],
-      });
-      const codestouse = business.codetouse;
-      const newCode = codestouse.pop();
-      //set currentcode to new code in db
-      business.set({
-        currentcode: newCode,
-        codestouse: codestouse,
-      });
-      res.status(200).json({
-        currentcode,
-      });
-      //set codestouse in db = variable codes to use
+      console.log('code from db ==>', currentcode);
+      console.log('req.bodycode ==>', code);
+      if (code === currentcode) {
+        //push current code into database in column storedcodes
+        business.storedcodes.push(currentcode);
+        const codestouse = business.codestouse;
+        const newCode = codestouse.pop();
+        //set currentcode to new code in db
+        await Business.update(
+          {
+            currentcode: newCode,
+            codestouse: codestouse,
+            storedcodes: business.storedcodes,
+          },
+          {
+            where: { id: req.params.id },
+          }
+        );
+        res.status(200).json({
+          message: 'Code matched, new code generated',
+          nextCode: newCode,
+          codestouse: codestouse,
+          storedcodes: business.storedcodes,
+        });
+      } else {
+        res.status(400);
+        throw new Error('code does not match');
+      }
     } catch (err) {
       console.log(err, 'error in getDealCode');
       return next(err);
@@ -344,8 +280,6 @@ const businessController = {
           'codestouse',
         ],
       });
-
-      console.log(businesses, 'businesses in get all businesses');
 
       res.status(200).json({
         businesses,
