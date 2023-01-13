@@ -32,6 +32,32 @@ function getPoppinScore(poppinPercentage) {
   return updatedPoppinScore;
 }
 
+function getPoppinScore(poppinPercentage) {
+  let updatedPoppinScore;
+  switch (true) {
+    case poppinPercentage <= 20:
+      updatedPoppinScore = 20;
+      break;
+
+    case poppinPercentage <= 40:
+      updatedPoppinScore = 40;
+      break;
+
+    case poppinPercentage <= 60:
+      updatedPoppinScore = 60;
+      break;
+
+    case poppinPercentage <= 80:
+      updatedPoppinScore = 80;
+      break;
+
+    case poppinPercentage <= 100:
+      updatedPoppinScore = 100;
+      break;
+  }
+  return updatedPoppinScore;
+}
+
 const businessController = {
   registerBusiness: async (req, res, next) => {
     const {
@@ -40,10 +66,12 @@ const businessController = {
       password,
       email,
       location,
+      poppinscore,
+      maxcapacity,
+      currentcapacity,
       image,
       phonenumber,
       incentive,
-
     } = req.body;
 
     let {latitude, longitude} = req.body;
@@ -79,6 +107,9 @@ const businessController = {
         password,
         email,
         location,
+        poppinscore,
+        maxcapacity,
+        currentcapacity,
         latitude,
         longitude,
         image,
@@ -273,6 +304,17 @@ const businessController = {
           ? err.message
           : 'Error in the checkAccessToken Function in businessController',
       });
+    }
+  },
+
+  deleteBusiness: async (req, res, next) => {
+    try {
+      const business = await Business.destroy({ where: { id: req.params.id } });
+      console.log('business removed');
+      res.status(200).json({ message: 'business removed' });
+    } catch (err) {
+      console.log(err, 'error in deleteBusiness');
+      return next(err);
     }
   },
 };

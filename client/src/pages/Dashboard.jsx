@@ -9,6 +9,7 @@ import {
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
 
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -21,6 +22,11 @@ const Dashboard = () => {
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
+
+  const { user } = useSelector((state) => state.auth);
+  //show modal for entering checkin code
+  const [showCheckinModal, setShowCheckinModal] = useState(false);
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
@@ -165,7 +171,6 @@ const Dashboard = () => {
       {showCheckinModal ? (
         <CheckIn_OutModal setShowCheckinModal={setShowCheckinModal} />
       ) : null}
-
     </>
   ) : (
     ''
