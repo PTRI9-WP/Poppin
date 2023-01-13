@@ -1,17 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { useDispatch } from 'react-redux';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 const businessURL = '/businesses/';
 
-// const dispatch = useDispatch();
 const initialState = {
-  //store array of visible businesses here ??  like businesses: []  ??
   businesses: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
   message: '',
-  //select business here ?? --> Dispatch action when user clicks on business to set this
   selectedBusiness: null,
 };
 
@@ -52,10 +48,6 @@ export const updateBusiness = createAsyncThunk(
 export const checkCode = createAsyncThunk(
   'business/checkCode',
   async (businessData, { rejectWithValue }) => {
-    console.log(
-      'BUSINESS URL ===>',
-      businessURL + 'checkin/' + businessData.id
-    );
     try {
       const response = await axios.post(
         businessURL + 'checkin/' + businessData.id,

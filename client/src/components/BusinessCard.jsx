@@ -7,7 +7,7 @@ import { setSelectedBusiness } from '../features/businesses/businessSlice';
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const dispatch = useDispatch();
   const { checkedIn } = useSelector((state) => state.auth);
-  const handleCheckin = (e) => {
+  const handleBusinessClick = (e) => {
     dispatch(setSelectedBusiness(businessCard));
     setShowCheckinModal(true);
   };
@@ -50,12 +50,12 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 
         {/* This need to change only when check in or out is confirmed */}
         {!checkedIn ? (
-          <button className='attButton' onClick={handleCheckin}>
+          <button className='attButton' onClick={handleBusinessClick}>
             Check In
           </button>
         ) : (
           // FIX LATER TO : checked in card has checkout button but the rest have no button when checked out
-          // <button className='checkinButton' onClick={handleCheckin}>
+          // <button className='checkinButton' onClick={handleBusinessClick}>
           //   Check out
           // </button>
           ''

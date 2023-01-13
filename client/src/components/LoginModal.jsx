@@ -23,6 +23,7 @@ const LoginModal = ({ setShowLogin }) => {
 
   useEffect(() => {
     if (isError) {
+      console.log(message);
       window.alert(message);
     }
     if (isSuccess || user) {

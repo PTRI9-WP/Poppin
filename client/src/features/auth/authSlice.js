@@ -7,7 +7,6 @@ const user = JSON.parse(localStorage.getItem('user'));
 const authURL = '/users/';
 
 const initialState = {
-  //set user to either user or null here
   user: user ? user : null,
   isError: false,
   isSuccess: false,
@@ -27,6 +26,7 @@ export const login = createAsyncThunk(
       }
     } catch (err) {
       //axios response || backend response || error from this function
+      //in backend, we send back {message: 'error message'} <-- we access this through err.response.data<.message>
       const message = err.response?.data.message ?? err.toString();
       return thunkAPI.rejectWithValue(message);
     }
