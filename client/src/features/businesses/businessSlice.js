@@ -49,6 +49,22 @@ export const updateBusiness = createAsyncThunk(
   }
 );
 
+export const checkinBusiness = createAsyncThunk(
+  'business/checkin',
+  async (businessData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        businessURL + 'checkin' + businessData.id,
+        { code: businessData.code }
+      );
+      return response.data;
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 //put all reducers in here its the home base for all global funcs/states to be utilized by all the various businessess
 
 export const businessSlice = createSlice({

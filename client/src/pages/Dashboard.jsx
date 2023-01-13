@@ -122,12 +122,12 @@ const Dashboard = () => {
       <div className={showCheckinModal ? 'overlay' : null}>
         <Header />
 
-        <main className="dashboardMain">
+        <main className='dashboardMain'>
           {' '}
           {/*  max width 1100px margin 0 auto */}
           {/* User Location form section */}
-          <div className="locationForm">
-            <h3 className="modalTitle">Select a location:</h3>
+          <div className='locationForm'>
+            <h3 className='modalTitle'>Select a location:</h3>
             {/* removed current location button since it's not imperative for an
           MVP
           <form onSubmit={handleCurrentLoc}>
@@ -141,9 +141,9 @@ const Dashboard = () => {
             >
               <form onSubmit={handleSubmit}>
                 <input
-                  type="text"
-                  placeholder="Zip Code"
-                  className="ml-4 mr-4"
+                  type='text'
+                  placeholder='Zip Code'
+                  className='ml-4 mr-4'
                 />
                 {/* Deactivated since selecting on map is submitting */}
                 {/* <button className='stdButton' type='submit'>
@@ -154,7 +154,7 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className="map">
+          <div className='map'>
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={location}
@@ -166,7 +166,10 @@ const Dashboard = () => {
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          <CardContainer setShowCheckinModal={setShowCheckinModal} />
+          <CardContainer
+            setShowCheckinModal={setShowCheckinModal}
+            showCheckinModal={showCheckinModal}
+          />
         </main>
       </div>
       {showCheckinModal ? (

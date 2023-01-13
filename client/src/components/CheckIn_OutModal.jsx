@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const { selectedBusiness } = useSelector((state) => state.businesses);
-  const [checkin, setCheckin] = useState(true);
+  const [checkin, setCheckin] = useState(false);
 
   const [code, setCode] = useState('');
 

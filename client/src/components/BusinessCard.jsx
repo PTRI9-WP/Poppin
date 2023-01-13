@@ -32,7 +32,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     dispatch(getAllBusinesses());
     console.log('CURRENT BUSINESS =>', selectedBusiness);
     console.log('SCORE =>', selectedBusiness?.poppinscore);
-    // setCheckin(!checkin);
+    setCheckin(!checkin);
   };
 
   return (
