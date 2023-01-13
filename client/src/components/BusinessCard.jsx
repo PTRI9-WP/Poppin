@@ -34,26 +34,25 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
     console.log('SCORE =>', selectedBusiness?.poppinscore);
     setCheckin(!checkin);
     setShowCheckinModal(true);
-
   };
 
   return (
     <>
       {/* <div className = 'cardContainer'></div> */}
-      <div className='dashCard' onClick={handleDivClick}>
-        <div className='info1'>
-          <img src={businessCard?.image} alt='img' />
+      <div className="dashCard" onClick={handleDivClick}>
+        <div className="info1">
+          <img src={businessCard?.image} alt="img" />
           {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
           <div>{businessCard?.businessname}</div>
         </div>
-        <div className='info2'>
-          <div>Adress here {businessCard?.location}</div>
-          <div>Phone number here {businessCard?.phonenumber}</div>
+        <div className="info2">
+          <div>City: {businessCard?.location}</div>
+          <div>Phone Number: {businessCard?.phonenumber}</div>
         </div>
-        <div className='info3'>
+        <div className="info3">
           {/* the question mark is needed as it AWAITS for the data to populate */}
           <div>Poppin Score {businessCard?.poppinscore}</div>
-          <div className='corkScore'>
+          <div className="corkScore">
             <GiChampagneCork
               color={businessCard?.poppinscore >= 20 ? '#2d3b46' : '#f1c9ba'}
             />
@@ -70,18 +69,17 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
               color={businessCard?.poppinscore >= 100 ? '#2d3b46' : '#f1c9ba'}
             />
           </div>
-          <div>incentive goes here {businessCard?.incentive}</div>
+          <div>Deal: {businessCard?.incentive}</div>
         </div>
-
 
         {/* This need to change only when check in or out is confirmed */}
 
         {checkin ? (
-          <button className='checkinButton' onClick={handleCheckin}>
+          <button className="checkinButton" onClick={handleCheckin}>
             Check In
           </button>
         ) : (
-          <button className='attButton' onClick={handleCheckin}>
+          <button className="attButton" onClick={handleCheckin}>
             Check Out
           </button>
         )}
