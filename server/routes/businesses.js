@@ -7,7 +7,7 @@ router.get('/', businessController.getAllBusinesses);
 router.post('/login', businessController.loginBusiness);
 router.post('/', businessController.registerBusiness);
 router.put('/:id', businessController.updateBusiness);
-router.put('/checkin/:id', businessController.getDealCode);
+router.post('/checkin/:id', businessController.checkDealCode);
 router.delete('/:id', businessController.deleteBusiness);
 
 // router.route('/').get(getAllUsers).post(registerUser);
