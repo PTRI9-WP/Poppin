@@ -7,12 +7,12 @@ const user = JSON.parse(localStorage.getItem('user'));
 const authURL = '/users/';
 
 const initialState = {
-  //set user to either user or null here
   user: user ? user : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
+  checkedIn: false,
 };
 
 export const login = createAsyncThunk(
@@ -26,6 +26,7 @@ export const login = createAsyncThunk(
       }
     } catch (err) {
       //axios response || backend response || error from this function
+      //in backend, we send back {message: 'error message'} <-- we access this through err.response.data<.message>
       const message = err.response?.data.message ?? err.toString();
       return thunkAPI.rejectWithValue(message);
     }
@@ -34,19 +35,19 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   'auth/register',
-  async(userData, {rejectWithValue}) => {
-    try{
+  async (userData, { rejectWithValue }) => {
+    try {
       const response = await axios.post(authURL, userData);
-      if(response.data){
-        localStorage.setItem('user', JSON.stringify(response.data))
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
         return response.data;
       }
-    }catch(err){
+    } catch (err) {
       const message = err.response?.data.message ?? err.toString();
-      return rejectWithValue(message)
+      return rejectWithValue(message);
     }
   }
-)
+);
 
 //not sure if the cb has to be async
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -63,23 +64,26 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.message = '';
     },
+    setCheckedIn: (state, action) => {
+      state.checkedIn = action.payload;
+    },
   },
   //handle lifecycle of our promise functions
   extraReducers: (builder) => {
     builder
-    .addCase(register.pending, (state)=> {
-      state.isLoading = true;
-    })
-    .addCase(register.fulfilled, (state, action)=> {
-      state.isLoading = false;
-      state.isSuccess = true;
-      state.user = action.payload;
-    })
-    .addCase(register.rejected, (state, action)=> {
-      state.isLoading = false;
-      state.isError = true;
-      state.message = action.payload;
-    })
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(login.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -100,5 +104,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, setCheckedIn } = authSlice.actions;
 export default authSlice.reducer;
