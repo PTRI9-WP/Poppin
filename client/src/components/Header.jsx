@@ -14,11 +14,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isSuccess || user) navigate('/home');
+  // useEffect(() => {
+  //   if (isSuccess || user) navigate('/home');
 
-    dispatch(reset());
-  }, [isSuccess, user]);
+  //   dispatch(reset());
+  // }, [isSuccess, user]);
 
   const handleLogin = () => {
     console.log('login clicked');

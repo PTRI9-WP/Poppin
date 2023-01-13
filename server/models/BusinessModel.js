@@ -43,6 +43,15 @@ const Business = db.define('business', {
   incentive: {
     type: Sequelize.STRING,
   },
+  currentcode: {
+    type: Sequelize.STRING,
+  },
+  codestouse: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+  },
+  storedcodes: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+  },
 });
 
 module.exports = Business;

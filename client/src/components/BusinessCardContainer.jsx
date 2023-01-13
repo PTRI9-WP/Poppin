@@ -21,9 +21,9 @@ const BusinessCardContainer = ({ setShowCheckinModal }) => {
   }, [dispatch]); //If you remove the dispatch from the dependency array, the useEffect hook will run on every render of BusinessCardContainer, bad for performance
 
   //unselects the selected business when component mounts. So after we go to another page and come back to the dashboard, the business is no longer selected
-  useEffect(() => {
-    dispatch(resetSelectedBusiness());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(resetSelectedBusiness());
+  // }, []);
 
   return (
     <>
