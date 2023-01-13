@@ -11,9 +11,7 @@ import {
 } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
 
-import { useSelector } from 'react-redux';
 import axios from 'axios';
-
 
 const Dashboard = () => {
   //intialize state for map and searchbox
@@ -22,11 +20,6 @@ const Dashboard = () => {
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
-
-  const { user } = useSelector((state) => state.auth);
-  //show modal for entering checkin code
-  const [showCheckinModal, setShowCheckinModal] = useState(false);
-  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
@@ -63,12 +56,15 @@ const Dashboard = () => {
     height: '400px',
   };
 
-
   const getAllCoordinates = async () => {
     try {
       const allBusinesses = await axios.get('http://localhost:8080/businesses');
-      const latLongArr =  allBusinesses.data.businesses.map( element => {
-        return {lat: parseFloat(element.latitude), lng: parseFloat(element.longitude), id: element.id} 
+      const latLongArr = allBusinesses.data.businesses.map((element) => {
+        return {
+          lat: parseFloat(element.latitude),
+          lng: parseFloat(element.longitude),
+          id: element.id,
+        };
       });
       return latLongArr;
     } catch (error) {
@@ -78,8 +74,14 @@ const Dashboard = () => {
 
   const createMarkers = async () => {
     const coordinatesArr = await getAllCoordinates();
-    const markersArr = coordinatesArr.map(element => {
-      return <MarkerF position={{lat: element.lat, lng: element.lng}} animation={2} key={element.id}/>
+    const markersArr = coordinatesArr.map((element) => {
+      return (
+        <MarkerF
+          position={{ lat: element.lat, lng: element.lng }}
+          animation={2}
+          key={element.id}
+        />
+      );
     });
     return markersArr;
   };
@@ -109,8 +111,6 @@ const Dashboard = () => {
     console.log('zip code submitted');
   };
 
-
-
   // removed current location button since it's not imperative for an MVP
   // const handleCurrentLoc = (e) => {
   //   e.preventDefault();
@@ -122,12 +122,12 @@ const Dashboard = () => {
       <div className={showCheckinModal ? 'overlay' : null}>
         <Header />
 
-        <main className='dashboardMain'>
+        <main className="dashboardMain">
           {' '}
           {/*  max width 1100px margin 0 auto */}
           {/* User Location form section */}
-          <div className='locationForm'>
-            <h3 className='modalTitle'>Select a location:</h3>
+          <div className="locationForm">
+            <h3 className="modalTitle">Select a location:</h3>
             {/* removed current location button since it's not imperative for an
           MVP
           <form onSubmit={handleCurrentLoc}>
@@ -141,9 +141,9 @@ const Dashboard = () => {
             >
               <form onSubmit={handleSubmit}>
                 <input
-                  type='text'
-                  placeholder='Zip Code'
-                  className='ml-4 mr-4'
+                  type="text"
+                  placeholder="Zip Code"
+                  className="ml-4 mr-4"
                 />
                 {/* Deactivated since selecting on map is submitting */}
                 {/* <button className='stdButton' type='submit'>
@@ -154,7 +154,7 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className='map'>
+          <div className="map">
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={location}
