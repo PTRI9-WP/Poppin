@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCheckedIn } from '../features/auth/authSlice';
+import { setSelectedBusiness } from '../features/businesses/businessSlice';
+import { useNavigate } from 'react-router-dom';
 const CheckinDetails = () => {
-  const { setSelectedBusiness, selectedBusiness } = useSelector(
-    (state) => state.businesses
-  );
+  const navigate = useNavigate();
+  const { selectedBusiness } = useSelector((state) => state.businesses);
 
   const { checkedIn } = useSelector((state) => state.auth);
 
@@ -14,7 +15,8 @@ const CheckinDetails = () => {
     e.preventDefault();
     dispatch(setSelectedBusiness(null));
     dispatch(setCheckedIn(false));
-    consosole.log('checked out!');
+    console.log('checked out!');
+    navigate('/home');
   };
 
   //below, data needs to be mapped to multiple cards and rendered for each card checked in
