@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
-import corkWhite from '../assets/images/corkWhite.png';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import corkShotWhite from '../assets/images/corkShotWhite.png';
-import { Link } from 'react-router-dom';
-import {
-  FaTwitter,
-  FaFacebook,
-  FaInstagram
-} from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
+import { logout, reset } from '../features/auth/authSlice';
 
 const Header = ({ setShowLogin, setShowReg }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use selector reads data from the store. these link to the reducer functions
+  const { user, isSuccess } = useSelector((state) => state.auth);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use dispatch dispatch's actions and allows them to be used
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isSuccess || user) navigate('/home');
+
+    dispatch(reset());
+  }, [isSuccess, user]);
+
+const Header = ({ setShowLogin, setShowReg }) => {
+  //use selector reads data from the store. these link to the reducer functions
+  const { user } =  useSelector((state)=> state.auth)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //use dispatch dispatch's actions and allows them to be used 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const handleLogin = () => {
     console.log('login clicked');
     setShowReg(false);
@@ -25,29 +41,29 @@ const Header = ({ setShowLogin, setShowReg }) => {
   };
 
   const handleLogout = () => {
-    console.log('logged out');
-    setIsLoggedIn(false);
-    window.location.href = '/';
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
   };
 
   const handleCheckin = () => {
     console.log('nav to the checkin page');
-    window.location.href = '/checkin';
+    navigate('/checkin')
   };
 
     const handleHome = () => {
-      console.log('nav to the checkin page');
-      window.location.href = '/home';
+      console.log('nav to dashboard');
+      navigate('/home');
     };
 
   return (
     <nav className='nav'>
       <div className='logoName'>
-        <img src={corkShotWhite} alt='corks' className='navLogo' />
+        <img src={logo} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
       </div>
       <ul className='menu'>
-        {isLoggedIn ? (
+        {user ? (
           <>
             <li>
               <button onClick={handleHome}>Home</button>
@@ -66,7 +82,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
           </>
         ) : (
           <>
-            <Link to='/home'> temp link to dashboard </Link>
+            {/* <Link to='/home'> temp link to dashboard </Link> */}
             <li>
               <button onClick={handleLogin}>Login</button>
             </li>
