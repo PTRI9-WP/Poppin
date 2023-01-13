@@ -16,6 +16,9 @@ const businessController = {
       location,
       latitude,
       longitude,
+      image,
+      phonenumber,
+      incentive,
     } = req.body;
     try {
       if (!username || !businessname || !password || !email || !location) {
@@ -43,6 +46,9 @@ const businessController = {
         location,
         latitude,
         longitude,
+        image,
+        phonenumber,
+        incentive,
       });
 
       const tokens = {
@@ -59,6 +65,9 @@ const businessController = {
         tokens,
         latitude,
         longitude,
+        image,
+        phonenumber,
+        incentive,
       });
     } catch (err) {
       console.log(err);
@@ -185,6 +194,9 @@ const businessController = {
           'location',
           'latitude',
           'longitude',
+          'image',
+          'phonenumber',
+          'incentive',
         ],
       });
 
