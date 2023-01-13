@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import { Link } from 'react-router-dom';
+import { IoAccessibility } from 'react-icons/io5';
 import bar from '../assets/images/bar.jpg';
+import Header from '../components/Header';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
-import { IoAccessibility } from 'react-icons/io5';
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);

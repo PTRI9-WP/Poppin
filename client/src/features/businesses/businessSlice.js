@@ -1,17 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { useDispatch } from 'react-redux';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 const businessURL = '/businesses/';
 
-// const dispatch = useDispatch();
 const initialState = {
-  //store array of visible businesses here ??  like businesses: []  ??
   businesses: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
   message: '',
-  //select business here ?? --> Dispatch action when user clicks on business to set this
   selectedBusiness: null,
 };
 
@@ -40,6 +36,24 @@ export const updateBusiness = createAsyncThunk(
       });
       if (response.data) {
         console.log('RESPONSE DATA', response.data);
+        return response.data;
+      }
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const checkCode = createAsyncThunk(
+  'business/checkCode',
+  async (businessData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        businessURL + 'checkin/' + businessData.id,
+        { code: businessData.code }
+      );
+      if (response.data) {
         return response.data;
       }
     } catch (err) {
@@ -102,7 +116,6 @@ export const businessSlice = createSlice({
         });
         // update the selectedBusiness with the updated data
         state.selectedBusiness = updatedBusiness;
-        // dispatch(getAllBusinesses());
       })
       .addCase(
         updateBusiness.rejected((state, action) => {
@@ -110,7 +123,20 @@ export const businessSlice = createSlice({
           state.isError = true;
           state.message = action.payload;
         })
-      );
+      )
+      .addCase(checkCode.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(checkCode.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(checkCode.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.message = action.payload;
+      });
   },
 });
 
