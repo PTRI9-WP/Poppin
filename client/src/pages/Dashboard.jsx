@@ -1,5 +1,15 @@
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header';
+import { Link, useNavigate } from 'react-router-dom';
+import CardContainer from '../components/BusinessCardContainer';
+import CheckIn_OutModal from '../components/CheckIn_OutModal';
+import corkMarker from '../assets/images/corkMarker';
 import {
-  GoogleMap, MarkerF, StandaloneSearchBox, useJsApiLoader
+  MarkerF,
+  GoogleMap,
+  useJsApiLoader,
+  StandaloneSearchBox
+
 } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -33,11 +43,13 @@ const Dashboard = () => {
     });
   }, []);
 
+  //when user is falsey and routes aren't protected, temp link to dashboard will redirect to landing page
   useEffect(() => {
     if (!user) {
+      console.log('user', user);
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user]);
 
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
@@ -77,6 +89,10 @@ const Dashboard = () => {
           position={{ lat: element.lat, lng: element.lng }}
           animation={2}
           key={element.id}
+          icon={{
+            url: corkMarker,
+            scaledSize: new google.maps.Size(40,40)
+          }}
         />
       );
     });
@@ -151,15 +167,15 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className='map'>
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={location}
-              zoom={10}
-              onLoad={onMapLoad}
-            >
-              {markers}
-            </GoogleMap>
+          <div className="map">
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={location}
+                zoom={10}
+                onLoad={onMapLoad}
+              >
+                {markers}
+              </GoogleMap>
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
