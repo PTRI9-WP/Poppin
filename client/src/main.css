@@ -19,6 +19,7 @@ body {
 
 .dashCard {
   flex-basis: 1;
+  min-width: 700px;
 }
 
 .codeForm {
@@ -54,9 +55,11 @@ body {
 .c-checkinDetail {
   display: flex;
   flex-direction: column;
-  margin-top: 180px;
+  /* margin-top: 180px; */
   justify-content: center;
   align-items: center;
+  width: 100%;
+  min-width: 700px;
   padding: 50px;
   gap: 10px;
 }
@@ -112,6 +115,9 @@ body {
   .title {
     @apply text-white text-7xl font-serif italic;
   }
+  .hamburger {
+    @apply md:hidden;
+  }
 
   .menu {
     @apply flex gap-x-9 items-center text-white font-bold md:flex hidden;
@@ -128,7 +134,7 @@ body {
   .promo {
     @apply flex flex-col w-[100%] mx-auto text-dark sm:justify-around sm:flex-row;
   }
-  
+
   .infoCards {
     @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10 font-serif italic;
   }
@@ -196,7 +202,7 @@ body {
   }
 
   .map {
-    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg;
+    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg min-w-[700px];
   }
 
   .checkinDetail {
@@ -208,7 +214,7 @@ body {
   } */
 
   .dashCard {
-    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-full font-serif italic;
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-[100%] font-serif italic;
   }
 
   .corkScore {
