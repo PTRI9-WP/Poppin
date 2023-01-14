@@ -6,8 +6,9 @@ import {
   getAllBusinesses,
   updateBusiness,
 } from '../features/businesses/businessSlice';
-
+import Alert from './Alert';
 import { setCheckedIn } from '../features/auth/authSlice';
+
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const { selectedBusiness, message } = useSelector(
     (state) => state.businesses
@@ -16,6 +17,8 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
 
   const [code, setCode] = useState('');
   const dispatch = useDispatch();
+
+  const [showAlert, setShowAlert ] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +40,11 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
         setShowCheckinModal(false);
       } else {
         console.log('message', message);
-        window.alert('code does not match');
+        // window.alert('code does not match');
+         setShowAlert(true);
+         setInterval(() => {
+           setShowAlert(false);
+         }, 2000);
       }
     } catch (error) {
       console.log(error);
@@ -54,33 +61,36 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   };
 
   return (
-    <div className='checkIn_OutModal'>
-      <div onClick={handleClick} className='float-right'>
-        <AiOutlineCloseCircle size={25} />
+    <>
+      <div className='checkIn_OutModal'>
+        <div onClick={handleClick} className='float-right'>
+          <AiOutlineCloseCircle size={25} />
+        </div>
+        <h2 className='modalTitle mt-5'>Ask Your Server For A Code:</h2>
+        <form onSubmit={handleSubmit} className='codeForm'>
+          <input
+            className='inputBox mb-11'
+            type='text'
+            id='code'
+            name='code'
+            placeholder='code'
+            required={true}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          {showAlert ? <Alert /> : null}
+          {!checkedIn ? (
+            <button type='submit' className='modalcheckinButton'>
+              Check In
+            </button>
+          ) : (
+            <button type='submit' className='attButton'>
+              Check Out
+            </button>
+          )}
+        </form>
       </div>
-      <h2 className='modalTitle mt-5'>Ask Your Server For A Code:</h2>
-      <form onSubmit={handleSubmit} className='codeForm'>
-        <input
-          className='inputBox mb-11'
-          type='text'
-          id='code'
-          name='code'
-          placeholder='code'
-          required={true}
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-        {!checkedIn ? (
-          <button type='submit' className='modalcheckinButton'>
-            Check In
-          </button>
-        ) : (
-          <button type='submit' className='attButton'>
-            Check Out
-          </button>
-        )}
-      </form>
-    </div>
+    </>
   );
 };
 
