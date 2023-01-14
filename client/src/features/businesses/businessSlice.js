@@ -107,15 +107,12 @@ export const businessSlice = createSlice({
         const updatedBusiness = action.payload;
         state.businesses = state.businesses.map((el) => {
           if (el.id === updatedBusiness.id) {
-            el.currentcapacity = updatedBusiness.currentcapacity;
-            el.poppinscore = updatedBusiness.poppinscore;
+            el = updatedBusiness;
             return el;
           } else {
             return el;
           }
         });
-        // update the selectedBusiness with the updated data
-        state.selectedBusiness = updatedBusiness;
       })
       .addCase(
         updateBusiness.rejected((state, action) => {
