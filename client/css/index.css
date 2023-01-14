@@ -1097,6 +1097,22 @@ select {
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.right-0 {
+  right: 0px;
+}
+
 .float-right {
   float: right;
 }
@@ -1126,6 +1142,10 @@ select {
   margin-right: 1rem;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -1137,6 +1157,10 @@ select {
 
 .h-96 {
   height: 24rem;
+}
+
+.h-6 {
+  height: 1.5rem;
 }
 
 .w-\[60\%\] {
@@ -1160,6 +1184,10 @@ select {
   width: 60;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
 .content-center {
   align-content: center;
 }
@@ -1172,9 +1200,55 @@ select {
   border-radius: 0.5rem;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-red-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(248 113 113 / var(--tw-border-opacity));
+}
+
 .bg-\[\#ede3e0\] {
   --tw-bg-opacity: 1;
   background-color: rgb(237 227 224 / var(--tw-bg-opacity));
+}
+
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+}
+
+.fill-current {
+  fill: currentColor;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 body {
@@ -1259,4 +1333,10 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+@media (min-width: 640px) {
+  .sm\:inline {
+    display: inline;
+  }
 }
