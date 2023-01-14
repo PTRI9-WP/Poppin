@@ -128,6 +128,8 @@ body {
 
   .promo {
     @apply flex flex-col w-[100%] mx-auto text-dark sm:justify-around sm:flex-row;
+  }
+  
   .infoCards {
     @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10 font-serif italic;
   }
