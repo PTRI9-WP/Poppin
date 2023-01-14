@@ -4,7 +4,7 @@
 
 body {
   background-color: #f1c9ba;
-  min-width: 1000px;
+  /* min-width: 1000px; */
 }
 
 .business-images {
@@ -123,19 +123,19 @@ body {
   }
 
   .info {
-    @apply bg-peach w-[100%] p-10 md:grid-cols-3 gap-8 md:h-fit;
+    @apply bg-peach w-[100%] p-10 place-content-center;
   }
 
+  .promo {
+    @apply flex flex-col w-[100%] mx-auto text-dark sm:justify-around sm:flex-row;
   .infoCards {
     @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10 font-serif italic;
   }
 
-  .promo {
-    @apply flex flex-col text-dark sm:justify-around sm:flex-row;
-  }
+
 
   .promo li {
-    @apply w-[30%];
+    @apply w-[75%] mb-6 mx-auto sm:w-[30%];
   }
   .promo h2 {
     @apply mt-4 font-bold text-2xl text-center text-dark;
