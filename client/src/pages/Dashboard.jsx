@@ -150,7 +150,7 @@ const Dashboard = () => {
               <form onSubmit={handleSubmit}>
                 <input
                   type='text'
-                  placeholder='Zip Code'
+                  placeholder='Address'
                   className='ml-4 mr-4'
                 />
                 {/* Deactivated since selecting on map is submitting */}

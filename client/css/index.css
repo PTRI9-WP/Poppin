@@ -1050,6 +1050,7 @@ select {
 
 .map {
   width: 100%;
+  min-width: 700px;
   border-width: 1px;
   border-style: solid;
   --tw-border-opacity: 1;
@@ -1146,6 +1147,7 @@ body {
 
 .dashCard {
   flex-basis: 1;
+  min-width: 700px;
 }
 
 .codeForm {

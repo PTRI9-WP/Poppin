@@ -19,6 +19,7 @@ body {
 
 .dashCard {
   flex-basis: 1;
+  min-width: 700px;
 }
 
 .codeForm {
@@ -198,7 +199,7 @@ body {
   }
 
   .map {
-    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg;
+    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg min-w-[700px];
   }
 
   .checkinDetail {
@@ -210,7 +211,7 @@ body {
   } */
 
   .dashCard {
-    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-full font-serif italic;
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-[100%] font-serif italic;
   }
 
   .corkScore {
