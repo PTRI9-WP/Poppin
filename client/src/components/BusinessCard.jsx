@@ -67,8 +67,8 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
           // <button className='checkinButton' onClick={handleBusinessClick}>
           //   Check out
           // </button>
-          <button className='stdButton disabled:bg-[#405b56]'>
-            Already <br/> Checked In
+          <button className='p-3 w-[15%] rounded-lg text-white font-bold drop-shadow-md bg-[#875543]'>
+            Already <br /> Checked In
           </button>
         )}
       </div>
