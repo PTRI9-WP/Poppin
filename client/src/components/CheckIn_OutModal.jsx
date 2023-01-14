@@ -24,7 +24,6 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
       const response = await dispatch(
         checkCode({ id: selectedBusiness.id, code: code })
       );
-      console.log('RESPONSE ==>', response);
       if (response.payload.message === 'Code matched, new code generated') {
         dispatch(setCheckedIn(true));
         dispatch(
@@ -35,8 +34,6 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
           })
         );
         dispatch(getAllBusinesses());
-        console.log('CURRENT BUSINESS =>', selectedBusiness);
-        console.log('SCORE =>', selectedBusiness?.poppinscore);
         setShowCheckinModal(false);
       } else {
         console.log('message', message);
@@ -74,7 +71,7 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
           onChange={(e) => setCode(e.target.value)}
         />
         {!checkedIn ? (
-          <button type='submit' className='checkinButton'>
+          <button type='submit' className='modalcheckinButton'>
             Check In
           </button>
         ) : (

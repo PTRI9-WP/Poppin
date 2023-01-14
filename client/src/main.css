@@ -4,9 +4,83 @@
 
 body {
   background-color: #f1c9ba;
-  min-width: 1000px;
+  /* min-width: 1000px; */
 }
 
+.business-images {
+  /* width: 155px;
+  height: 155px; */
+  object-fit: cover;
+
+}
+
+.bold-business-data {
+  font-weight: bold;
+}
+
+.dashCard {
+  flex-basis: 1;
+}
+
+.codeForm {
+  display: flex;
+  flex-direction: column;
+}
+.info1 {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 155px;
+}
+
+.info2 {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 20px 50px;
+  max-width: 255px;
+}
+
+.info3 {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 70px;
+}
+
+.c-checkinDetail {
+  display: flex;
+  flex-direction: column;
+  margin-top: 180px;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  gap:10px;
+}
+
+.c-image {
+  width: 500px;
+  height: 500px;
+  border-radius: 15px;
+}
+
+.c-info1 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+
+}
+.c-corkScore {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 @layer components {
   /* .top{
     @apply relative;
@@ -28,12 +102,12 @@ body {
     @apply w-24 mr-8;
   }
 
-  .iconRow{
+  .iconRow {
     @apply flex w-20 pt-16 justify-center justify-between;
   }
 
   .socIcon {
-    @apply text-white
+    @apply text-white;
   }
 
   .title {
@@ -49,19 +123,19 @@ body {
   }
 
   .info {
-    @apply bg-peach w-[100%] p-10 md:grid-cols-3 gap-8 md:h-fit;
-  }
-
-  .infoCards {
-    @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10;
+    @apply bg-peach w-[100%] p-10 place-content-center;
   }
 
   .promo {
-    @apply flex flex-col text-dark sm:justify-around sm:flex-row;
+    @apply flex flex-col w-[100%] mx-auto text-dark sm:justify-around sm:flex-row;
+  .infoCards {
+    @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10 font-serif italic;
   }
 
+
+
   .promo li {
-    @apply w-[30%];
+    @apply w-[75%] mb-6 mx-auto sm:w-[30%];
   }
   .promo h2 {
     @apply mt-4 font-bold text-2xl text-center text-dark;
@@ -81,13 +155,11 @@ body {
     @apply absolute left-0 right-0 top-14 mx-auto h-96 max-w-sm bg-white p-10 mt-44 rounded-lg;
   }
 
-
   .regForm,
-  .logForm{
+  .logForm {
     @apply flex flex-col justify-evenly items-center h-[100%];
   }
 
- 
   .codeForm {
     @apply flex flex-col align-top items-center h-[100%] pt-11;
   }
@@ -102,6 +174,10 @@ body {
 
   .checkinButton {
     @apply bg-green p-3 w-[15%] rounded-lg text-white font-bold drop-shadow-md;
+  }
+
+  .modalcheckinButton {
+    @apply bg-green p-3 w-[45%] rounded-lg text-white font-bold drop-shadow-md;
   }
 
   .attButton {
@@ -133,19 +209,18 @@ body {
   } */
 
   .dashCard {
-    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg;
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-full font-serif italic;
   }
 
-  .corkScore{
+  .corkScore {
     @apply flex;
   }
 
-  .ppl{
-    @apply flex text-center
+  .ppl {
+    @apply flex text-center;
   }
 
   .overlay {
     @apply blur-sm;
   }
-
 }
