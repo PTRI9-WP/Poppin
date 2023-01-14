@@ -1220,6 +1220,32 @@ select {
   width: 100;
 }
 
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
 .content-center {
   align-content: center;
 }
@@ -1286,6 +1312,14 @@ select {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.delay-75 {
+  transition-delay: 75ms;
+}
+
+.ease-linear {
+  transition-timing-function: linear;
 }
 
 body {
@@ -1370,6 +1404,35 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.disabled\:bg-\[\#c27154\]:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(194 113 84 / var(--tw-bg-opacity));
+}
+
+.disabled\:bg-\[\#875644\]:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(135 86 68 / var(--tw-bg-opacity));
+}
+
+.disabled\:bg-green:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(89 140 131 / var(--tw-bg-opacity));
+}
+
+.disabled\:bg-\[\]:disabled {
+  background-color: ;
+}
+
+.disabled\:bg-\[\#598c83\]:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(89 140 131 / var(--tw-bg-opacity));
+}
+
+.disabled\:bg-\[\#405b56\]:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 91 86 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {

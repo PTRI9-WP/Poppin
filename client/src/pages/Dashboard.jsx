@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
-
+  const [showCards, setShowCards ] = useState(false);
   const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
@@ -91,6 +91,7 @@ const Dashboard = () => {
         />
       );
     });
+    
     return markersArr;
   };
 
@@ -102,6 +103,7 @@ const Dashboard = () => {
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
     setMarkers(await createMarkers());
+    setShowCards(true);
   };
 
   //set the reference object to the searchbox state upon the searchbox component rendering
@@ -162,22 +164,24 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className="map">
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={location}
-                zoom={10}
-                onLoad={onMapLoad}
-              >
-                {markers}
-              </GoogleMap>
+          <div className='map'>
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={location}
+              zoom={10}
+              onLoad={onMapLoad}
+            >
+              {markers}
+            </GoogleMap>
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          <CardContainer
-            setShowCheckinModal={setShowCheckinModal}
-            showCheckinModal={showCheckinModal}
-          />
+          { showCards ?
+            <CardContainer
+              setShowCheckinModal={setShowCheckinModal}
+              showCheckinModal={showCheckinModal}
+            /> : null
+          }
         </main>
       </div>
       {showCheckinModal ? (
