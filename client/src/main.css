@@ -11,7 +11,6 @@ body {
   /* width: 155px;
   height: 155px; */
   object-fit: cover;
-
 }
 
 .bold-business-data {
@@ -59,7 +58,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 50px;
-  gap:10px;
+  gap: 10px;
 }
 
 .c-image {
@@ -73,7 +72,6 @@ body {
   flex-direction: column;
   text-align: center;
   gap: 10px;
-
 }
 .c-corkScore {
   display: flex;
@@ -113,6 +111,9 @@ body {
   .title {
     @apply text-white text-7xl font-serif italic;
   }
+  .hamburger {
+    @apply md:hidden;
+  }
 
   .menu {
     @apply flex gap-x-9 items-center text-white font-bold md:flex hidden;
@@ -129,12 +130,10 @@ body {
   .promo {
     @apply flex flex-col w-[100%] mx-auto text-dark sm:justify-around sm:flex-row;
   }
-  
+
   .infoCards {
     @apply flex flex-col  items-center bg-[#ede3e0] rounded-lg p-10 font-serif italic;
   }
-
-
 
   .promo li {
     @apply w-[75%] mb-6 mx-auto sm:w-[30%];

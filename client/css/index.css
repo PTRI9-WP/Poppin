@@ -770,6 +770,12 @@ select {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
 .menu {
   display: flex;
   display: none;
@@ -1180,7 +1186,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 50px;
-  gap:10px;
+  gap: 10px;
 }
 
 .c-image {

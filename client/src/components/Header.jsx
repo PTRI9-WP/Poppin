@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
-
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
 
 const Header = ({ setShowLogin, setShowReg }) => {
@@ -46,6 +46,9 @@ const Header = ({ setShowLogin, setShowReg }) => {
       <div className='logoName'>
         <img src={logo} alt='corks' className='navLogo' />
         <h1 className='title'>Poppin'</h1>
+      </div>
+      <div className='hamburger'>
+        <GiHamburgerMenu color='white' size={30} />
       </div>
       <ul className='menu'>
         {user ? (
