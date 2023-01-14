@@ -59,7 +59,7 @@ const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
 
         {/* This need to change only when check in or out is confirmed */}
         {!checkedIn ? (
-          <button className="attButton" onClick={handleBusinessClick}>
+          <button className="stdButton" onClick={handleBusinessClick}>
             Check In
           </button>
         ) : (

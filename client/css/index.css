@@ -1101,6 +1101,11 @@ select {
   float: right;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -1109,8 +1114,8 @@ select {
   margin-bottom: 2.75rem;
 }
 
-.mt-72 {
-  margin-top: 18rem;
+.mt-44 {
+  margin-top: 11rem;
 }
 
 .ml-4 {
@@ -1121,12 +1126,55 @@ select {
   margin-right: 1rem;
 }
 
+.flex {
+  display: flex;
+}
+
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .h-96 {
   height: 24rem;
 }
 
+.w-\[60\%\] {
+  width: 60%;
+}
+
 .w-\[100\%\] {
   width: 100%;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-\[\] {
+  width: ;
+}
+
+.w-\[60\] {
+  width: 60;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.bg-\[\#ede3e0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 227 224 / var(--tw-bg-opacity));
 }
 
 body {
@@ -1184,9 +1232,11 @@ body {
 .c-checkinDetail {
   display: flex;
   flex-direction: column;
-  margin-top: 180px;
+  /* margin-top: 180px; */
   justify-content: center;
   align-items: center;
+  width: 100%;
+  min-width: 700px;
   padding: 50px;
   gap: 10px;
 }
