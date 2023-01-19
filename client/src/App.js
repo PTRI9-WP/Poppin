@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Checkin from './pages/Checkin';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           {/* 
@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/home" element={<Dashboard />} />
           <Route path="/checkin" element={<Checkin />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
