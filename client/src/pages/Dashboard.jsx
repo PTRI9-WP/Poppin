@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
+import API_KEY from '../../key'
 
 import {
   MarkerF,
@@ -22,7 +23,7 @@ const Dashboard = () => {
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
-  const [showCards, setShowCards ] = useState(false);
+  const [showCards, setShowCards] = useState(false);
   const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
@@ -50,7 +51,7 @@ const Dashboard = () => {
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyDzT6YYS0tMZIKZCDuv5L566AY5rlZlzpU',
+    googleMapsApiKey: API_KEY,
     libraries: ['places'],
   });
 
@@ -86,12 +87,12 @@ const Dashboard = () => {
           key={element.id}
           icon={{
             url: corkMarker,
-            scaledSize: new google.maps.Size(40,40)
+            scaledSize: new google.maps.Size(40, 40),
           }}
         />
       );
     });
-    
+
     return markersArr;
   };
 
@@ -176,12 +177,12 @@ const Dashboard = () => {
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          { showCards ?
+          {showCards ? (
             <CardContainer
               setShowCheckinModal={setShowCheckinModal}
               showCheckinModal={showCheckinModal}
-            /> : null
-          }
+            />
+          ) : null}
         </main>
       </div>
       {showCheckinModal ? (
