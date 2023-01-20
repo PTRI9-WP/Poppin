@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
-import API_KEY from '../../key'
 
+import API_KEY from '../../key';
 import {
   MarkerF,
   GoogleMap,
@@ -23,7 +23,9 @@ const Dashboard = () => {
   const [searchBox, setSearchBox] = useState(null);
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState(null);
+  const [searched, setSearched] = useState(false);
   const [showCards, setShowCards] = useState(false);
+  const [bars, setBars] = useState([]);
   const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
@@ -31,21 +33,21 @@ const Dashboard = () => {
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition((pos) => {
       setLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
       });
     });
   }, []);
 
   //when user is falsey and routes aren't protected, temp link to dashboard will redirect to landing page
-  useEffect(() => {
-    if (!user) {
-      console.log('user', user);
-      navigate('/');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     console.log('user', user);
+  //     navigate('/');
+  //   }
+  // }, [user]);
 
   //determine if loaded or not
   //useJsApiLoader will leverage the api loader from google to make the request to the API
@@ -61,17 +63,43 @@ const Dashboard = () => {
     height: '400px',
   };
 
+  // const getAllCoordinates = async () => {
+  //   try {
+  //     const allBusinesses = await axios.get('http://localhost:8080/businesses');
+  //     const latLongArr = allBusinesses.data.businesses.map((element) => {
+  //       return {
+  //         lat: parseFloat(element.latitude),
+  //         lng: parseFloat(element.longitude),
+  //         id: element.id,
+  //       };
+  //     });
+  //     return latLongArr;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const getAllCoordinates = async () => {
     try {
-      const allBusinesses = await axios.get('http://localhost:8080/businesses');
-      const latLongArr = allBusinesses.data.businesses.map((element) => {
-        return {
-          lat: parseFloat(element.latitude),
-          lng: parseFloat(element.longitude),
-          id: element.id,
-        };
+      const allBars = bars;
+      const latLngArr = [];
+      console.log(allBars);
+
+      allBars.forEach((bar) => {
+        console.log(
+          'lat: ',
+          bar.geometry.location.lat(),
+          'lng: ',
+          bar.geometry.location.lng(),
+        );
+        latLngArr.push({
+          lat: parseFloat(bar.geometry.location.lat()),
+          lng: parseFloat(bar.geometry.location.lng()),
+          id: place_id,
+        });
       });
-      return latLongArr;
+      console.log(latLngArr);
+      return latLngArr;
     } catch (error) {
       console.log(error);
     }
@@ -98,8 +126,29 @@ const Dashboard = () => {
 
   //Move the map to the query location provided in the searchbox
   const onPlacesChanged = async () => {
+    setSearched(true);
+
     const places = await searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
+
+    const location = {
+      lat: places[0].geometry.location.lat(),
+      lng: places[0].geometry.location.lng(),
+    };
+
+    const request = {
+      location,
+      radius: '1500',
+      type: ['bar'],
+    };
+
+    const service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, (res, stat) => {
+      if (stat === google.maps.places.PlacesServiceStatus.OK) {
+        console.log(res);
+        setBars(res);
+      }
+    });
 
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
@@ -165,7 +214,7 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className='map'>
+          <div className={searched ? 'blur-none' : 'blur-sm'}>
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={location}
