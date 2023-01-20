@@ -59,25 +59,9 @@ const Dashboard = () => {
 
   //This is required otheriwse, map won't render
   const containerStyle = {
-    width: '100%',
-    height: '400px',
+    width: '65vw',
+    height: 'calc(100vh - 5em)',
   };
-
-  // const getAllCoordinates = async () => {
-  //   try {
-  //     const allBusinesses = await axios.get('http://localhost:8080/businesses');
-  //     const latLongArr = allBusinesses.data.businesses.map((element) => {
-  //       return {
-  //         lat: parseFloat(element.latitude),
-  //         lng: parseFloat(element.longitude),
-  //         id: element.id,
-  //       };
-  //     });
-  //     return latLongArr;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const getAllCoordinates = async () => {
     try {
@@ -179,15 +163,15 @@ const Dashboard = () => {
 
   return isLoaded ? (
     <>
-      <div className={showCheckinModal ? 'overlay' : null}>
-        <Header />
+      <div className='Dashboard'>
+        <Header className='header' />
 
-        <main className='dashboardMain'>
+        <main>
           {' '}
           {/*  max width 1100px margin 0 auto */}
           {/* User Location form section */}
-          <div className='locationForm'>
-            <h3 className='modalTitle'>Select a location:</h3>
+          <div>
+            <h3>Select a location:</h3>
             {/* removed current location button since it's not imperative for an
           MVP
           <form onSubmit={handleCurrentLoc}>
@@ -200,11 +184,7 @@ const Dashboard = () => {
               onPlacesChanged={onPlacesChanged}
             >
               <form onSubmit={handleSubmit}>
-                <input
-                  type='text'
-                  placeholder='Address'
-                  className='ml-4 mr-4'
-                />
+                <input type='text' placeholder='Address' />
                 {/* Deactivated since selecting on map is submitting */}
                 {/* <button className='stdButton' type='submit'>
                   Submit
@@ -214,11 +194,14 @@ const Dashboard = () => {
           </div>
           {/* End User Form Section */}
           {/* Map section */}
-          <div className={searched ? 'blur-none' : 'blur-sm'}>
+          <div
+            className='MapContainer'
+            style={{ filter: searched ? 'blur(5px)' : 'none' }}
+          >
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={location}
-              zoom={10}
+              zoom={14}
               onLoad={onMapLoad}
             >
               {markers}
@@ -226,7 +209,7 @@ const Dashboard = () => {
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          {showCards ? (
+          {!showCards ? (
             <CardContainer
               setShowCheckinModal={setShowCheckinModal}
               showCheckinModal={showCheckinModal}

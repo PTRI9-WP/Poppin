@@ -1,0 +1,14 @@
+.Dashboard {
+  position: relative;
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+  .MapContainer {
+    z-index: 0;
+    position: fixed;
+    right: 0;
+    height: 100vh;
+  }
+}

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
 
-
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
     email: '',
@@ -12,23 +11,24 @@ function RegisterModal({ setShowReg }) {
     password2: '',
   });
 
-  const {email, password, password2} = formData;
+  const { email, password, password2 } = formData;
 
-  const {isError, isSuccess, message, user} = useSelector((state) => state.auth)
+  const { isError, isSuccess, message, user } = useSelector(
+    (state) => state.auth,
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=> {
+  useEffect(() => {
     if (isError) {
-      window.alert(message)
+      window.alert(message);
     }
-    if (isSuccess || user ) {
-       navigate('/home')
-      }
-      dispatch(reset());
-  },[isError, isSuccess, message, user, navigate, dispatch])
-
+    if (isSuccess || user) {
+      navigate('/home');
+    }
+    dispatch(reset());
+  }, [isError, isSuccess, message, user, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -39,28 +39,26 @@ function RegisterModal({ setShowReg }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(password !== password2) {
+    if (password !== password2) {
       window.alert('passwords do not match');
     }
-    const userInfo = {email,password};
+    const userInfo = { email, password };
     dispatch(register(userInfo));
   };
 
-    const handleClick = () => {
-      setShowReg(false);
-    };
+  const handleClick = () => {
+    setShowReg(false);
+  };
 
   return (
     <>
-      <div className='registerModal'>
-        <div onClick={handleClick} className='float-right'>
-          <AiOutlineCloseCircle size={25} />
+      <div className='authPrompt'>
+        <div onClick={handleClick}>
+          <AiOutlineCloseCircle />
         </div>
-        <h2 className='modalTitle'>Register</h2>
-        <form onSubmit={handleSubmit} className='regForm'>
-       
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
           <input
-            className='inputBox'
             type='email'
             id='email'
             name='email'
@@ -69,7 +67,6 @@ function RegisterModal({ setShowReg }) {
             onChange={onChange}
           />
           <input
-            className='inputBox'
             type='password'
             id='password'
             name='password'
@@ -78,7 +75,6 @@ function RegisterModal({ setShowReg }) {
             onChange={onChange}
           />
           <input
-            className='inputBox'
             type='password'
             id='password2'
             name='password2'
@@ -86,7 +82,7 @@ function RegisterModal({ setShowReg }) {
             required={true}
             onChange={onChange}
           />
-          <button className='stdButton' type='submit'>
+          <button type='submit' className='button'>
             Submit
           </button>
         </form>
