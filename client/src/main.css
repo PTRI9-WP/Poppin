@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #f1c9ba;
+  background-color: #140700;
   /* min-width: 1000px; */
 }
 
@@ -89,8 +89,10 @@ body {
   } */
 
   .nav {
-    @apply fixed flex items-center justify-between pl-5 pr-5 pt-5 pb-4 bg-dark z-10 w-[100%] drop-shadow-md;
+    @apply fixed flex w-[100%] justify-between pl-5 pr-5 pt-5 pb-4 bg-[#140700] drop-shadow-md;
   }
+  /*   
+   */
 
   /* .navLanding {
     @apply fixed flex items-center justify-between p-9 bg-black bg-opacity-50 z-10 w-[100%];
@@ -101,7 +103,7 @@ body {
   }
 
   .navLogo {
-    @apply w-24 mr-8;
+    @apply w-20 mr-4 ;
   }
 
   .iconRow {
@@ -198,15 +200,17 @@ body {
   }
 
   .dashboardMain {
-    @apply flex flex-col max-w-[60%] mx-auto pt-44;
+    @apply flex mx-auto pt-44 bg-[#f3e0c4];
   }
+ 
 
   .map {
-    @apply w-[100%] border-solid border border-[#ede3e0] drop-shadow-lg min-w-[700px];
+    @apply flex justify-end w-[80%] border-solid border border-[#ede3e0] drop-shadow-lg min-w-[700px];
+
   }
 
   .checkinDetail {
-    @apply flex flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%] bg-[#ede3e0] rounded-lg drop-shadow-lg;
+    @apply flex: grow 1 flex-col justify-evenly items-center w-[60%] mx-auto mt-60 h-[100%] bg-[#ede3e0] rounded-lg drop-shadow-lg;
   }
 
   /* .dashCard {
@@ -214,7 +218,7 @@ body {
   } */
 
   .dashCard {
-    @apply flex justify-between my-9 p-5 rounded-lg bg-[#ede3e0] drop-shadow-lg w-[100%] font-serif italic;
+    @apply flex justify-between my-9 p-5 rounded-lg bg-[#F3E0C4] drop-shadow-lg w-[100%] font-serif italic;
   }
 
   .corkScore {
