@@ -14,7 +14,7 @@ const BusinessCardContainer = ({ showCheckinModal, setShowCheckinModal }) => {
 
   return (
     <>
-      <ul>
+      <ul className='businessCardContainer'>
         {/* mapping through array of businesses and passing it through prop to be used in BusinessCard*/}
         {businesses.map((businessCard) => (
           <BusinessCard

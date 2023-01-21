@@ -42,16 +42,15 @@ const Header = ({ setShowLogin, setShowReg }) => {
   };
 
   return (
-    <nav className="nav flex justify-center ">
-      <div className="logoName border-2">
-        <img src={logo} alt="corks" className="navLogo" />
-        <h1 className="title">Poppin'</h1>
+    <nav className='header'>
+      <div className='logo'>
+        <img src={logo} alt='corks' />
       </div>
 
-      <div className="hamburger">
-        <GiHamburgerMenu color="white" size={30} />
-      </div>
-      <ul className="menu absolute right-10">
+      {/* <div>
+          <GiHamburgerMenu color='white' size={30} />
+        </div> */}
+      <ul>
         {user ? (
           <>
             <li>
@@ -73,11 +72,6 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleReg}>Register</button>
             </li>
-            <div className="iconRow">
-              <FaTwitter className="socIcon" />
-              <FaFacebook className="socIcon" />
-              <FaInstagram className="socIcon" />
-            </div>
           </>
         )}
       </ul>

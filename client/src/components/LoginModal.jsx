@@ -18,7 +18,7 @@ const LoginModal = ({ setShowLogin }) => {
 
   //grab state from redux
   const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+    (state) => state.auth,
   );
 
   useEffect(() => {
@@ -54,35 +54,33 @@ const LoginModal = ({ setShowLogin }) => {
   };
 
   return (
-    <div className='loginModal'>
-      <div onClick={handleClick} className='float-right'>
-        <AiOutlineCloseCircle size={25} />
+    <div className='authPrompt'>
+      <div onClick={handleClick}>
+        <AiOutlineCloseCircle />
       </div>
-      <h2 className='modalTitle'>Login</h2>
-      <form onSubmit={onSubmit} className='logForm'>
+      <h2>Login</h2>
+      <form onSubmit={onSubmit}>
         <input
-          className='inputBox'
+          autocomplete='off'
           type='email'
           id='email'
           name='email'
           value={email}
-          placeholder='email'
+          placeholder=' Type Your Email'
           required={true}
           onChange={onChange}
         />
         <input
-          className='inputBox'
+          autocomplete='off'
           type='password'
           id='password'
           name='password'
-          placeholder='password'
+          placeholder='Type Your Password'
           value={password}
           required={true}
           onChange={onChange}
         />
-        <button className='stdButton' type='submit'>
-          Login
-        </button>
+        <button type='submit' className='button'>Login</button>
       </form>
     </div>
   );
