@@ -6,10 +6,9 @@ import Header from '../components/Header';
 const Checkin = () => {
   return (
     <>
-      <div className="overlay_______">
+      <div>
         <Header />
-
-        <div className="absolute w-[100%] h-96">
+        <div>
           <CheckinDetails />
         </div>
       </div>

@@ -22,29 +22,28 @@ const CheckinDetails = () => {
   //below, data needs to be mapped to multiple cards and rendered for each card checked in
   return (
     <>
-      <div className='bg-[#ede3e0] rounded-lg mt-44 mx-auto flex h-fit justify-center content-center w-[60%]'>
+      <div>
         {!checkedIn ? (
-          <h3 className='modalTitle'>
+          <h3>
             You are not currently checked in anywhere...
           </h3>
         ) : (
-          <div className='c-checkinDetail'>
-            <h3 className='modalTitle'>Your Current Checkin Details</h3>
-            <div className='c-info1'>
+          <div>
+            <h3>Your Current Checkin Details</h3>
+            <div>
               <img
-                className='c-image'
                 src={selectedBusiness?.image}
                 alt='img'
               />
-              <div className='bold-business-data'>
+              <div>
                 {selectedBusiness?.businessname}{' '}
               </div>
-              <div className='bold-business-data'>City: </div>
+              <div>City: </div>
               <div>{selectedBusiness?.location} </div>
-              <div className='bold-business-data'>Phone Number:</div>
+              <div>Phone Number:</div>
               <div>{selectedBusiness?.phonenumber}</div>
-              <div className='bold-business-data'>Poppin Score</div>
-              <div className='c-corkScore'>
+              <div>Poppin Score</div>
+              <div>
                 <GiChampagneCork
                   color={
                     selectedBusiness?.poppinscore >= 20 ? '#2d3b46' : '#f1c9ba'
@@ -72,8 +71,8 @@ const CheckinDetails = () => {
                 />
               </div>
             </div>
-            <div className='c-info3'></div>
-            <button className='attButton' onClick={handleCheckOut}>
+            <div></div>
+            <button onClick={handleCheckOut}>
               Check Out
             </button>
           </div>

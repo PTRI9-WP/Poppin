@@ -1,0 +1,13 @@
+@import './_colors.scss';
+@import './LandingPage.scss';
+@import './Dashboard.scss';
+
+@import './components/Header.scss';
+@import './components/Auth.scss';
+@import './components/BusinessCardContainer.scss';
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: $primary;
+}

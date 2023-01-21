@@ -1,0 +1,71 @@
+.authPrompt {
+  z-index: 3;
+  border: 2px solid $accent;
+  background-color: $primary;
+  position: fixed;
+  width: 25vw;
+  height: 70vh;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: $text;
+  font-family: $mainFont;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  h2 {
+    position: absolute;
+    top: 2em;
+    font-size: 3vw;
+    opacity: 0.9
+  }
+  svg {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    scale: 2.3;
+    opacity: 0.25;
+    cursor: pointer;
+    transition: 200ms;
+  }
+  svg:hover {
+    scale: 2.5;
+    opacity: 0.85;
+  }
+  form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 5em;
+    height: 40%;
+  }
+
+  input {
+    color: $text;
+    background-color: $primary;
+    border: none;
+    border-bottom: 2px solid $secondary;
+    text-align: center;
+    width: 17vw;
+    height: 5vh;
+    font-size: 160%;
+  }
+  input:focus {
+    outline: none;
+  }
+  ::placeholder {
+    color: $text;
+    opacity: 0.4;
+  }
+  .button {
+    font-size: 160%;
+    width: 90%;
+    margin-top: 1em;
+    padding: 1.3vh 0;
+    border-radius: 5em;
+  }
+}
