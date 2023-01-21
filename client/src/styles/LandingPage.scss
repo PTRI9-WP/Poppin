@@ -1,0 +1,60 @@
+.landingPage {
+  position: relative;
+  z-index: 1;
+  .parallax {
+    min-height: 115vh;
+    z-index: 1;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  @keyframes pan {
+    0% {
+      transform: translate(1em, 3em);
+    }
+    50% {
+    }
+    100% {
+      transform: translate(3em, 1em);
+    }
+  }
+  .foot {
+    position: fixed;
+    z-index: -1;
+    bottom: 0em;
+    scale: 1.2;
+    animation: pan 5s infinite alternate ease-in-out;
+  }
+
+  .cards {
+    z-index: 1;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 5em 0;
+    .card {
+      z-index: 1;
+      font-family: $mainFont;
+      border: 2px solid $accent;
+      border-radius: 1em;
+      font-size: 1.25vw;
+      background-color: $secondary;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 20vw;
+      height: 40vh;
+      padding: 0 3em;
+
+      svg {
+        z-index: 1;
+        scale: 2.4;
+        width: 3em;
+      }
+    }
+  }
+}
