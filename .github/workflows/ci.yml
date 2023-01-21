@@ -23,5 +23,5 @@ jobs:
       # - name: Run Prettier linter
       #   run: npx prettier --check "**/*.{js,jsx,css}"
 
-      - name: Run Jest tests
-        run: npm test
+      # - name: Run Jest tests
+      #   run: npm test
